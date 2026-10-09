@@ -64,8 +64,8 @@ final class LandingFields {
 					F::sub( 'textarea', 'subtitle', 'Subtítulo', array( 'rows' => 3, 'new_lines' => '' ) ),
 					F::sub( 'text', 'cta_label', 'Texto del botón (CTA)', array( 'instructions' => 'Se usa en todos los botones "Hablemos" del sitio.' ) ),
 					F::sub( 'text', 'cta_url', 'Enlace del botón', array( 'default_value' => '#contacto' ) ),
-					F::sub( 'text', 'link_label', 'Enlace secundario (texto)', array( 'instructions' => 'Ej. "Ver los sistemas ↗".' ) ),
-					F::sub( 'text', 'link_url', 'Enlace secundario (URL)' ),
+					F::sub( 'url', 'embed_url', 'Visual interactivo (URL del iframe)', array( 'instructions' => 'URL que se carga dentro del círculo de la derecha (por ejemplo, el cubo 3D). Se carga después de que la página termina de cargar para no frenarla.' ) ),
+					F::sub( 'text', 'embed_title', 'Descripción del visual', array( 'instructions' => 'Texto para lectores de pantalla. Ej. "Cubo 3D interactivo".' ) ),
 				)
 			),
 			F::layout(

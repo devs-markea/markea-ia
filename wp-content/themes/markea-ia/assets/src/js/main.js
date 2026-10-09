@@ -6,6 +6,7 @@ import { initProjectFilters } from './filters.js';
 import { initVideo } from './video.js';
 import { initLeadForm } from './form.js';
 import { initCarousels } from './carousel.js';
+import { initHeroVisual } from './hero-visual.js';
 
 const ready = ( fn ) => {
 	if ( document.readyState !== 'loading' ) {
@@ -22,4 +23,5 @@ ready( () => {
 	initVideo();
 	initLeadForm();
 	initCarousels();
+	initHeroVisual();
 } );
