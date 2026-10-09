@@ -84,6 +84,16 @@ final class SiteSettings {
 			F::gallery( 'brand_partner_badges', 'Badges de partners', array( 'instructions' => 'Badges de partners que se muestran en el footer.' ) ),
 			F::wysiwyg( 'brand_legal_text', 'Texto legal del footer' ),
 
+			F::tab( 'set_colors', 'Colores' ),
+			F::field( 'message', 'colors_note', 'Paleta del sitio', array( 'message' => 'Estos colores se aplican a toda la landing sin necesidad de deploy. Cuida el contraste entre texto y fondo (mínimo 4.5:1) para mantener la accesibilidad.', 'new_lines' => 'wpautop', 'esc_html' => 0 ) ),
+			F::field( 'color_picker', 'color_ink', 'Fondo', array( 'default_value' => '#0b0d12', 'enable_opacity' => 0, 'return_format' => 'string' ) ),
+			F::field( 'color_picker', 'color_surface', 'Superficie (cards, campos)', array( 'default_value' => '#12151c', 'enable_opacity' => 0, 'return_format' => 'string' ) ),
+			F::field( 'color_picker', 'color_line', 'Bordes y líneas', array( 'default_value' => '#262b36', 'enable_opacity' => 0, 'return_format' => 'string' ) ),
+			F::field( 'color_picker', 'color_text', 'Texto', array( 'default_value' => '#e8eaf0', 'enable_opacity' => 0, 'return_format' => 'string' ) ),
+			F::field( 'color_picker', 'color_muted', 'Texto secundario', array( 'default_value' => '#9aa1b2', 'enable_opacity' => 0, 'return_format' => 'string' ) ),
+			F::field( 'color_picker', 'color_accent', 'Acento (botones)', array( 'default_value' => '#5b8cff', 'enable_opacity' => 0, 'return_format' => 'string' ) ),
+			F::field( 'color_picker', 'color_accent_strong', 'Acento resaltado (títulos y enlaces)', array( 'default_value' => '#8aa9ff', 'enable_opacity' => 0, 'return_format' => 'string' ) ),
+
 			F::tab( 'set_form', 'Formulario' ),
 			F::email( 'form_recipient', 'Correo destino', array( 'instructions' => 'Si queda vacío se usa el correo del administrador del sitio.' ) ),
 			F::text( 'form_success_message', 'Mensaje de éxito' ),
