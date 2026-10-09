@@ -1,0 +1,27 @@
+# Whitelist: ignore everything, then allow only project-owned paths.
+/*
+!/.gitignore
+!/.env.example
+!/README.md
+!/CLAUDE.md
+!/scripts/
+!/.github/
+!/wp-content/
+
+/wp-content/*
+!/wp-content/plugins/
+!/wp-content/themes/
+
+/wp-content/plugins/*
+!/wp-content/plugins/markea-core/
+
+/wp-content/themes/*
+!/wp-content/themes/markea-ia/
+
+# Never tracked, even inside allowed paths
+node_modules/
+vendor/
+.env
+.DS_Store
+.idea/
+*.log
