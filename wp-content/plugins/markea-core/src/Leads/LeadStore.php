@@ -40,7 +40,6 @@ final class LeadStore {
 		}
 
 		self::set_status( $id, 'email', 'pending' );
-		self::set_status( $id, 'hubspot', 'pending' );
 
 		return (int) $id;
 	}

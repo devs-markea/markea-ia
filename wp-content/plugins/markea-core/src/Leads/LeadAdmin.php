@@ -30,7 +30,7 @@ final class LeadAdmin {
 			'email'    => 'Correo',
 			'interest' => 'Me interesa',
 			'company'  => 'Empresa',
-			'channels' => 'Correo / HubSpot',
+			'channels' => 'Estado del correo',
 			'date'     => 'Fecha',
 		);
 	}
@@ -43,7 +43,7 @@ final class LeadAdmin {
 				echo esc_html( LeadStore::get( $post_id, $column ) );
 				break;
 			case 'channels':
-				echo esc_html( LeadStore::get( $post_id, 'email_status' ) . ' / ' . LeadStore::get( $post_id, 'hubspot_status' ) );
+				echo esc_html( LeadStore::get( $post_id, 'email_status' ) );
 				break;
 		}
 	}
@@ -68,7 +68,6 @@ final class LeadAdmin {
 			'utm_term'        => LeadStore::get( $post->ID, 'utm_term' ),
 			'utm_content'     => LeadStore::get( $post->ID, 'utm_content' ),
 			'Estado correo'   => LeadStore::get( $post->ID, 'email_status' ),
-			'Estado HubSpot'  => LeadStore::get( $post->ID, 'hubspot_status' ),
 		);
 
 		echo '<table class="widefat striped"><tbody>';

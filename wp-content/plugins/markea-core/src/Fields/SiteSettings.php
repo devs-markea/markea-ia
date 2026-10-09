@@ -66,7 +66,6 @@ final class SiteSettings {
 			$admin( F::text( 'gtm_id', 'ID de Google Tag Manager', array( 'placeholder' => 'GTM-XXXXXXX', 'instructions' => 'Si usas GTM, configura GA4 dentro de GTM y deja vacío el campo de GA4 para no contar doble.' ) ) ),
 			$admin( F::text( 'ga4_id', 'ID de Google Analytics 4', array( 'placeholder' => 'G-XXXXXXXXXX' ) ) ),
 			$admin( F::text( 'meta_pixel_id', 'ID de Meta Pixel', array( 'instructions' => 'Activar solo cuando el aviso de cookies esté definido.' ) ) ),
-			$admin( F::text( 'hubspot_portal_id', 'ID de portal de HubSpot', array( 'instructions' => 'Activar solo cuando el aviso de cookies esté definido.' ) ) ),
 			$admin( F::toggle( 'tracking_prod_only', 'Cargar solo en producción', array( 'default_value' => 1, 'message' => 'Evita contaminar la analítica desde local y staging.' ) ) ),
 
 			F::tab( 'set_contact', 'Contacto' ),
@@ -82,12 +81,11 @@ final class SiteSettings {
 			F::tab( 'set_brand', 'Marca' ),
 			F::image( 'brand_logo', 'Logo' ),
 			F::image( 'brand_favicon', 'Favicon', array( 'instructions' => 'Cuadrado, mínimo 512 px. También se puede usar el icono del sitio de WordPress.' ) ),
-			F::gallery( 'brand_partner_badges', 'Badges de partners', array( 'instructions' => 'Google Partner, HubSpot, Meta Partner.' ) ),
+			F::gallery( 'brand_partner_badges', 'Badges de partners', array( 'instructions' => 'Badges de partners que se muestran en el footer.' ) ),
 			F::wysiwyg( 'brand_legal_text', 'Texto legal del footer' ),
 
 			F::tab( 'set_form', 'Formulario' ),
 			F::email( 'form_recipient', 'Correo destino', array( 'instructions' => 'Si queda vacío se usa el correo del administrador del sitio.' ) ),
-			F::text( 'hubspot_form_guid', 'GUID del formulario de HubSpot', array( 'instructions' => 'Opcional. Requiere el ID de portal en Tracking y métricas.' ) ),
 			F::text( 'form_success_message', 'Mensaje de éxito' ),
 			F::wysiwyg( 'form_consent_text', 'Texto de consentimiento', array( 'instructions' => 'Si se llena, la casilla es obligatoria. Pendiente de definir con legal.' ) ),
 

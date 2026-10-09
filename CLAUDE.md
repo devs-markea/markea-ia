@@ -29,5 +29,7 @@ Landing "Markea IA" que reemplaza markeaagency.com. Administrable desde wp-admin
 - Entorno local: el WordPress de ServBay en esta misma carpeta (BD `markea_ia`); sin wp-env ni Docker. Deploy por CI/CD de Git (GitHub Actions); sin SSH confirmado en SiteGround.
 - Son 3 unidades de negocio.
 
+- No se usa HubSpot (ni script, ni API de formularios, ni campos en Site Settings).
+
 ## Pendiente
 Inventario del sitio actual, destino del formulario y texto de consentimiento, redirecciones 301, aviso de cookies, transporte exacto del deploy. Detalle en la memoria del proyecto (`project-markea-ia`).

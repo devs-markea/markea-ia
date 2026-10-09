@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
  * POST /wp-json/markea/v1/leads
  *
  * Public on purpose (anonymous visitors submit the form). Protected by honeypot, per-IP rate limit,
- * strict validation and sanitization. The lead is always stored first; email and HubSpot are best effort.
+ * strict validation and sanitization. The lead is always stored first; email is best effort.
  * Other plugins (e.g. a forms plugin) can react to the `markea_lead_created` action.
  */
 final class LeadEndpoint {
@@ -63,7 +63,6 @@ final class LeadEndpoint {
 		}
 
 		LeadStore::set_status( $lead_id, 'email', $this->send_email( $data ) );
-		LeadStore::set_status( $lead_id, 'hubspot', $this->send_hubspot( $data, $request ) );
 
 		/**
 		 * Fires after a lead is stored.
@@ -137,43 +136,6 @@ final class LeadEndpoint {
 		$subject = sprintf( 'Nuevo lead: %s', $data['name'] );
 
 		return wp_mail( $to, $subject, implode( "\n", $lines ), $headers ) ? 'sent' : 'failed';
-	}
-
-	/**
-	 * @param array<string,mixed> $data
-	 */
-	private function send_hubspot( array $data, \WP_REST_Request $request ): string {
-		$portal = (string) $this->option( 'hubspot_portal_id' );
-		$guid   = (string) $this->option( 'hubspot_form_guid' );
-
-		if ( 1 !== preg_match( '/^\d+$/', $portal ) || 1 !== preg_match( '/^[0-9a-f-]{36}$/i', $guid ) ) {
-			return 'skipped';
-		}
-
-		$fields = array(
-			array( 'name' => 'email', 'value' => $data['email'] ),
-			array( 'name' => 'firstname', 'value' => $data['name'] ),
-			array( 'name' => 'company', 'value' => $data['company'] ),
-			array( 'name' => 'phone', 'value' => $data['phone'] ),
-			array( 'name' => 'message', 'value' => trim( $data['interest'] . "\n" . $data['message'] ) ),
-		);
-
-		$context = array( 'pageUri' => $data['page_url'], 'pageName' => get_bloginfo( 'name' ) );
-		$cookie  = isset( $_COOKIE['hubspotutk'] ) ? sanitize_text_field( wp_unslash( $_COOKIE['hubspotutk'] ) ) : '';
-		if ( $cookie ) {
-			$context['hutk'] = $cookie;
-		}
-
-		$response = wp_remote_post(
-			sprintf( 'https://api.hsforms.com/submissions/v3/integration/submit/%s/%s', rawurlencode( $portal ), rawurlencode( $guid ) ),
-			array(
-				'timeout' => 8,
-				'headers' => array( 'Content-Type' => 'application/json' ),
-				'body'    => wp_json_encode( array( 'fields' => $fields, 'context' => $context ) ),
-			)
-		);
-
-		return ( ! is_wp_error( $response ) && 200 === wp_remote_retrieve_response_code( $response ) ) ? 'sent' : 'failed';
 	}
 
 	/**

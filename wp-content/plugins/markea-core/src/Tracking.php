@@ -6,7 +6,7 @@ namespace Markea\Core;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Prints GTM, GA4, Meta Pixel and HubSpot from Site Settings (no deploy needed to change IDs).
+ * Prints GTM, GA4 and Meta Pixel from Site Settings (no deploy needed to change IDs).
  * By default nothing loads outside production (wp_get_environment_type()).
  */
 final class Tracking {
@@ -43,9 +43,6 @@ final class Tracking {
 				);
 			}
 
-			if ( $portal = $this->id( 'hubspot_portal_id', '/^\d{4,12}$/' ) ) {
-				printf( "<script id=\"hs-script-loader\" async defer src=\"https://js.hs-scripts.com/%s.js\"></script>\n", esc_attr( $portal ) );
-			}
 		}
 	}
 
@@ -70,7 +67,7 @@ final class Tracking {
 	}
 
 	/**
-	 * Gate for Meta Pixel and HubSpot until the cookie notice is defined. Hook a consent plugin here.
+	 * Gate for Meta Pixel until the cookie notice is defined. Hook a consent plugin here.
 	 */
 	private function consent_granted(): bool {
 		return (bool) apply_filters( 'markea_tracking_consent_granted', true );
