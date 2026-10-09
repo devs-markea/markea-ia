@@ -1,7 +1,7 @@
 import '../css/grid.scss';
 import '../css/main.css';
 import { initTracking } from './tracking.js';
-import { initNav } from './nav.js';
+import { initMenu } from './menu.js';
 import { initProjectFilters } from './filters.js';
 import { initVideo } from './video.js';
 import { initLeadForm } from './form.js';
@@ -17,7 +17,7 @@ const ready = ( fn ) => {
 
 ready( () => {
 	initTracking();
-	initNav();
+	initMenu();
 	initProjectFilters();
 	initVideo();
 	initLeadForm();

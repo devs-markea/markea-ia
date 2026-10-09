@@ -36,6 +36,7 @@ final class Seeder {
 		$this->projects();
 		$this->settings();
 		$this->landing();
+		$this->menu();
 
 		return $this->log;
 	}
@@ -98,6 +99,47 @@ final class Seeder {
 			}
 
 			$this->field( $name, $value, 'option' );
+		}
+	}
+
+	/**
+	 * Create the "Navegación principal" menu once and assign it to the primary location.
+	 */
+	private function menu(): void {
+		$name = 'Navegación principal';
+		$menu = wp_get_nav_menu_object( $name );
+
+		if ( $menu ) {
+			$this->log[] = "skip menu: $name";
+		} else {
+			$menu_id = wp_create_nav_menu( $name );
+			if ( is_wp_error( $menu_id ) ) {
+				throw new \RuntimeException( $menu_id->get_error_message() );
+			}
+
+			foreach ( LandingContent::menu() as $position => [ $label, $url ] ) {
+				wp_update_nav_menu_item(
+					$menu_id,
+					0,
+					array(
+						'menu-item-title'    => $label,
+						'menu-item-url'      => $url,
+						'menu-item-type'     => 'custom',
+						'menu-item-status'   => 'publish',
+						'menu-item-position' => $position + 1,
+					)
+				);
+			}
+
+			$menu = wp_get_nav_menu_object( $menu_id );
+			$this->log[] = "menu: $name";
+		}
+
+		$locations = get_theme_mod( 'nav_menu_locations', array() );
+		if ( empty( $locations['primary'] ) ) {
+			$locations['primary'] = (int) $menu->term_id;
+			set_theme_mod( 'nav_menu_locations', $locations );
+			$this->log[] = 'menu location: primary';
 		}
 	}
 

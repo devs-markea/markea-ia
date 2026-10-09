@@ -89,7 +89,7 @@ $markea_news_url   = (string) markea_option( 'newsletter_action' );
 					</ul>
 					<?php if ( $markea_news_url && $markea_news_title ) : ?>
 						<p class="site-footer__label"><?php echo esc_html( $markea_news_title ); ?></p>
-						<a class="btn btn--primary btn--small" href="<?php echo esc_url( $markea_news_url ); ?>"><?php echo esc_html( $markea_news_btn ?: __( 'Registrarme', 'markea-ia' ) ); ?></a>
+						<a class="btn btn--primary" href="<?php echo esc_url( $markea_news_url ); ?>"><?php echo esc_html( $markea_news_btn ?: __( 'Registrarme', 'markea-ia' ) ); ?></a>
 					<?php endif; ?>
 				</div>
 			<?php endif; ?>

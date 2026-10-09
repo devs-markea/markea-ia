@@ -136,11 +136,12 @@ function markea_cta( string $location, string $class = 'btn btn--primary' ): str
 	$url = (string) ( $hero['cta_url'] ?? '' ) ?: '#contacto';
 
 	return sprintf(
-		'<a class="%1$s" href="%2$s" data-track="cta" data-track-label="%3$s" data-track-location="%4$s">%3$s</a>',
+		'<a class="%1$s" href="%2$s" data-track="cta" data-track-label="%3$s" data-track-location="%4$s"><span>%3$s</span>%5$s</a>',
 		esc_attr( $class ),
 		esc_url( $url ),
 		esc_html( $label ),
-		esc_attr( $location )
+		esc_attr( $location ),
+		markea_icon( 'arrow-up-right' ) // phpcs:ignore WordPress.Security.EscapeOutput -- static SVG.
 	);
 }
 

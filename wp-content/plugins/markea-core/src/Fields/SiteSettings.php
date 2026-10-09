@@ -99,6 +99,11 @@ final class SiteSettings {
 			F::text( 'form_success_message', 'Mensaje de éxito' ),
 			F::wysiwyg( 'form_consent_text', 'Texto de consentimiento', array( 'instructions' => 'Si se llena, la casilla es obligatoria. Pendiente de definir con legal.' ) ),
 
+			F::tab( 'set_menu', 'Menú' ),
+			F::text( 'menu_eyebrow', 'Etiqueta superior', array( 'instructions' => 'Ej. "Conéctate con nosotros". Los enlaces se administran en Apariencia > Menús.' ) ),
+			F::text( 'menu_title', 'Título' ),
+			F::text( 'menu_copyright', 'Derechos reservados' ),
+
 			F::tab( 'set_footer', 'Footer' ),
 			F::text( 'footer_cta_title', 'Pregunta principal', array( 'instructions' => 'Ej. "¿Tienes un proyecto fascinante en mente?".' ) ),
 			F::text( 'footer_tagline', 'Lema' ),

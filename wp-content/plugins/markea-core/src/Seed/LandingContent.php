@@ -164,6 +164,9 @@ final class LandingContent {
 		return array(
 			'contact_email'     => 'hola@markea.agency',
 			'contact_address'   => 'Av. Nader, Bancos #27l, 77500, Cancún, Quintana Roo',
+			'menu_eyebrow'      => 'Conéctate con nosotros',
+			'menu_title'        => 'Transforma tu Visión en una Experiencia que Perdura',
+			'menu_copyright'    => '© 2026 Markea IA. Todos los derechos reservados.',
 			'footer_cta_title'  => '¿Tienes un proyecto fascinante en mente?',
 			'footer_tagline'    => 'Impulsados por resultados',
 			'footer_text'       => 'Construimos sistemas de IA que transforman operaciones comerciales',
@@ -182,6 +185,20 @@ final class LandingContent {
 	public static function legacy_settings(): array {
 		return array(
 			'contact_address' => array( 'Av. Nader, Cancún, Quintana Roo' ),
+		);
+	}
+
+	/**
+	 * Main menu links (anchors on the landing). Relative URLs so they survive domain changes.
+	 *
+	 * @return array<int,array{0:string,1:string}> Label and URL.
+	 */
+	public static function menu(): array {
+		return array(
+			array( 'Inicio', '/#inicio' ),
+			array( 'Casos', '/#proyectos' ),
+			array( 'Servicios', '/#como-trabajamos' ),
+			array( 'Nosotros', '/#quienes-somos' ),
 		);
 	}
 }

@@ -26,42 +26,24 @@ defined( 'ABSPATH' ) || exit;
 			?>
 		</a>
 
-		<button class="site-header__toggle" type="button" aria-expanded="false" aria-controls="menu-principal" data-nav-toggle>
-			<span class="screen-reader-text"><?php esc_html_e( 'Menú', 'markea-ia' ); ?></span>
-			<span aria-hidden="true" class="site-header__burger">
-
-            </span>
-		</button>
-
 		<div class="site-header__actions">
-			<nav id="menu-principal" class="site-nav" aria-label="<?php esc_attr_e( 'Principal', 'markea-ia' ); ?>" data-nav>
-				<?php
-				wp_nav_menu(
-					array(
-						'theme_location' => 'primary',
-						'container'      => false,
-						'menu_class'     => 'site-nav__list',
-						'fallback_cb'    => false,
-						'depth'          => 1,
-					)
-				);
-				echo markea_cta( 'header', 'btn btn--primary btn--small' ); // phpcs:ignore WordPress.Security.EscapeOutput
-				?>
-			</nav>
-
-			<button class="site-header__menu" type="button" aria-label="<?php esc_attr_e( 'Menú', 'markea-ia' ); ?>">
-				<svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-					<g clip-path="url(#clip0_177_44)">
-						<line x1="-3" y1="13.5" x2="27" y2="13.5" stroke="currentColor"/>
-						<line x1="5" y1="23.5" x2="35" y2="23.5" stroke="currentColor"/>
-					</g>
-					<defs>
-						<clipPath id="clip0_177_44">
-							<rect width="34" height="34" fill="white"/>
-						</clipPath>
-					</defs>
-				</svg>
+			<?php echo markea_cta( 'header', 'btn btn--link' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+			<span class="site-header__divider" aria-hidden="true"></span>
+			<button
+				class="site-header__menu"
+				type="button"
+				aria-expanded="false"
+				aria-controls="site-menu"
+				data-menu-toggle
+				data-label-open="<?php esc_attr_e( 'Abrir menú', 'markea-ia' ); ?>"
+				data-label-close="<?php esc_attr_e( 'Cerrar menú', 'markea-ia' ); ?>"
+			>
+				<span class="screen-reader-text" data-menu-label><?php esc_html_e( 'Abrir menú', 'markea-ia' ); ?></span>
+				<?php echo markea_icon( 'menu', 34 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+				<?php echo markea_icon( 'close', 34 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 			</button>
 		</div>
 	</div>
 </header>
+
+<?php get_template_part( 'template-parts/menu' ); ?>
