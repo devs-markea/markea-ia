@@ -79,15 +79,10 @@ function markea_ia_favicon_url( string $url, int $size, int $blog_id ): string {
 add_action( 'wp_head', 'markea_ia_print_palette', 100 );
 
 function markea_ia_print_palette(): void {
-	$map = array(
-		'color_ink'           => array( '--c-ink', '--wp--preset--color--ink' ),
-		'color_surface'       => array( '--c-surface', '--wp--preset--color--surface' ),
-		'color_line'          => array( '--c-line', '--wp--preset--color--line' ),
-		'color_text'          => array( '--c-text', '--wp--preset--color--text' ),
-		'color_muted'         => array( '--c-muted', '--wp--preset--color--muted' ),
-		'color_accent'        => array( '--c-accent', '--wp--preset--color--accent' ),
-		'color_accent_strong' => array( '--c-accent-strong', '--wp--preset--color--accent-strong' ),
-	);
+	$map = array();
+	foreach ( array( 'navy', 'electric', 'white', 'cyan', 'purple', 'indigo', 'dark' ) as $slug ) {
+		$map[ 'color_' . $slug ] = array( '--' . $slug, '--wp--preset--color--' . $slug );
+	}
 
 	$css = '';
 	foreach ( $map as $option => $vars ) {

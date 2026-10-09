@@ -14,7 +14,7 @@ if ( '' === $title ) {
 	return;
 }
 ?>
-<section id="inicio" class="section hero">
+<section id="inicio" class="section hero<?php echo esc_attr( markea_tone( $row ) ); ?>">
 	<div class="container hero__inner">
 		<h1 class="hero__title"><?php echo markea_highlight( $title, (string) ( $row['highlight'] ?? '' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h1>
 		<?php if ( ( $row['subtitle'] ?? '' ) ) : ?>

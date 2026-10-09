@@ -17,7 +17,7 @@ if ( '' === $title && ! $steps ) {
 }
 $embed = $video ? wp_oembed_get( $video, array( 'width' => 960 ) ) : false;
 ?>
-<section id="proximos-pasos" class="section next">
+<section id="proximos-pasos" class="section next<?php echo esc_attr( markea_tone( $row ) ); ?>">
 	<div class="container next__grid">
 		<div>
 			<?php if ( $title ) : ?>

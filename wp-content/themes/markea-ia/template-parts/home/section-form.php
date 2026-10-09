@@ -18,7 +18,7 @@ $interests = markea_lines( (string) ( $row['interests'] ?? '' ) );
 $consent   = (string) markea_option( 'form_consent_text' );
 $success   = (string) markea_option( 'form_success_message' );
 ?>
-<section id="contacto" class="section contact">
+<section id="contacto" class="section contact<?php echo esc_attr( markea_tone( $row ) ); ?>">
 	<div class="container container--narrow">
 		<h2 class="section__title"><?php echo esc_html( $title ); ?></h2>
 		<?php if ( ( $row['text'] ?? '' ) ) : ?>

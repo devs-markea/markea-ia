@@ -15,7 +15,7 @@ if ( ! $projects->have_posts() ) {
 }
 $categories = markea_get_project_categories();
 ?>
-<section id="proyectos" class="section projects" data-projects>
+<section id="proyectos" class="section projects<?php echo esc_attr( markea_tone( $row ) ); ?>" data-projects>
 	<div class="container">
 		<?php if ( ( $row['title'] ?? '' ) ) : ?>
 			<h2 class="section__title"><?php echo esc_html( ( $row['title'] ?? '' ) ); ?></h2>

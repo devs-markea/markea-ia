@@ -15,7 +15,7 @@ if ( '' === $title && ! $points ) {
 	return;
 }
 ?>
-<section id="relevancia" class="section relevance">
+<section id="relevancia" class="section relevance<?php echo esc_attr( markea_tone( $row ) ); ?>">
 	<div class="container container--narrow">
 		<?php if ( $title ) : ?>
 			<h2 class="section__title"><?php echo esc_html( $title ); ?></h2>

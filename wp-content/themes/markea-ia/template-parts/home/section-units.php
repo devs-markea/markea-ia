@@ -15,7 +15,7 @@ if ( ! $items ) {
 	return;
 }
 ?>
-<section id="unidades" class="section units">
+<section id="unidades" class="section units<?php echo esc_attr( markea_tone( $row ) ); ?>">
 	<div class="container">
 		<?php if ( $title ) : ?>
 			<h2 class="section__title"><?php echo esc_html( $title ); ?></h2>

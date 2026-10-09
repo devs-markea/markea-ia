@@ -14,7 +14,7 @@ if ( ! $people->have_posts() ) {
 	return;
 }
 ?>
-<section id="estrategas" class="section strategists">
+<section id="estrategas" class="section strategists<?php echo esc_attr( markea_tone( $row ) ); ?>">
 	<div class="container">
 		<?php if ( ( $row['title'] ?? '' ) ) : ?>
 			<h2 class="section__title"><?php echo esc_html( ( $row['title'] ?? '' ) ); ?></h2>

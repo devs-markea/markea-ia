@@ -216,3 +216,12 @@ function markea_logo( string $size = 'markea-logo', array $attr = array() ): str
 
 	return $custom ? markea_image( $custom, $size, $attr ) : '';
 }
+
+/**
+ * CSS modifier for a section row: " section--dark" when the editor chose the dark tone.
+ *
+ * @param array<string,mixed> $row Flexible Content row.
+ */
+function markea_tone( array $row ): string {
+	return 'dark' === ( $row['tone'] ?? '' ) ? ' section--dark' : '';
+}

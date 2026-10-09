@@ -14,7 +14,7 @@ if ( '' === $title ) {
 	return;
 }
 ?>
-<section id="caso" class="section case">
+<section id="caso" class="section case<?php echo esc_attr( markea_tone( $row ) ); ?>">
 	<div class="container container--narrow">
 		<?php if ( ( $row['eyebrow'] ?? '' ) ) : ?>
 			<p class="eyebrow"><?php echo esc_html( ( $row['eyebrow'] ?? '' ) ); ?></p>

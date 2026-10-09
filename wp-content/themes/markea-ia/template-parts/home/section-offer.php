@@ -15,7 +15,7 @@ if ( '' === $title && ! $items ) {
 	return;
 }
 ?>
-<section id="oferta" class="section offer">
+<section id="oferta" class="section offer<?php echo esc_attr( markea_tone( $row ) ); ?>">
 	<div class="container">
 		<?php if ( $title ) : ?>
 			<h2 class="section__title"><?php echo esc_html( $title ); ?></h2>

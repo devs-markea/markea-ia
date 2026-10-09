@@ -128,6 +128,14 @@ final class F {
 	 * @return array<string,mixed>
 	 */
 	public static function layout( string $name, string $label, array $subs ): array {
+		// Every section can be shown on a light or a dark (navy) background.
+		$subs[] = self::sub(
+			'select',
+			'tone',
+			'Tono de la sección',
+			array( 'choices' => array( 'light' => 'Claro', 'dark' => 'Oscuro' ), 'default_value' => 'light', 'ui' => 0 )
+		);
+
 		return array(
 			'key'        => 'layout_markea_' . $name,
 			'name'       => $name,

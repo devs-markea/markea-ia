@@ -16,7 +16,7 @@ if ( '' === $title && ! $blocks ) {
 	return;
 }
 ?>
-<section id="quienes-somos" class="section about">
+<section id="quienes-somos" class="section about<?php echo esc_attr( markea_tone( $row ) ); ?>">
 	<div class="container about__grid">
 		<div>
 			<?php if ( $years ) : ?>

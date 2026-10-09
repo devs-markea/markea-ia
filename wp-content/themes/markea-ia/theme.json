@@ -9,13 +9,13 @@
 			"defaultPalette": false,
 			"defaultGradients": false,
 			"palette": [
-				{ "slug": "ink", "color": "#0b0d12", "name": "Ink" },
-				{ "slug": "surface", "color": "#12151c", "name": "Surface" },
-				{ "slug": "line", "color": "#262b36", "name": "Line" },
-				{ "slug": "text", "color": "#e8eaf0", "name": "Text" },
-				{ "slug": "muted", "color": "#9aa1b2", "name": "Muted" },
-				{ "slug": "accent", "color": "#5b8cff", "name": "Accent" },
-				{ "slug": "accent-strong", "color": "#8aa9ff", "name": "Accent strong" }
+				{ "slug": "navy", "color": "#001B71", "name": "Navy" },
+				{ "slug": "electric", "color": "#0049FF", "name": "Blue electric" },
+				{ "slug": "white", "color": "#FFFFFF", "name": "White" },
+				{ "slug": "cyan", "color": "#56E1E9", "name": "Cyan" },
+				{ "slug": "purple", "color": "#BB63FF", "name": "Purple" },
+				{ "slug": "indigo", "color": "#5B58EB", "name": "Indigo" },
+				{ "slug": "dark", "color": "#0D0D2B", "name": "Dark" }
 			]
 		},
 		"typography": {
@@ -43,7 +43,7 @@
 		"layout": { "contentSize": "720px", "wideSize": "1200px" }
 	},
 	"styles": {
-		"color": { "background": "var(--wp--preset--color--ink)", "text": "var(--wp--preset--color--text)" },
+		"color": { "background": "var(--wp--preset--color--white)", "text": "var(--wp--preset--color--navy)" },
 		"typography": { "fontFamily": "var(--wp--preset--font-family--sans)", "fontSize": "var(--wp--preset--font-size--base)", "lineHeight": "1.6" }
 	}
 }

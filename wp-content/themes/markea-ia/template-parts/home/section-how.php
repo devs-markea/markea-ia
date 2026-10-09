@@ -15,7 +15,7 @@ if ( '' === $title && ! $rows ) {
 	return;
 }
 ?>
-<section id="como-trabajamos" class="section how">
+<section id="como-trabajamos" class="section how<?php echo esc_attr( markea_tone( $row ) ); ?>">
 	<div class="container">
 		<?php if ( $title ) : ?>
 			<h2 class="section__title"><?php echo esc_html( $title ); ?></h2>
