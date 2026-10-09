@@ -62,7 +62,7 @@ $markea_icons     = array(
 					<?php foreach ( $markea_social as $markea_label => $markea_url ) : ?>
 						<li>
 							<a href="<?php echo esc_url( $markea_url ); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo esc_attr( $markea_label ); ?>" data-track="contact" data-track-type="social" data-track-network="<?php echo esc_attr( strtolower( $markea_label ) ); ?>">
-								<?php echo markea_icon( $markea_icons[ $markea_label ] ?? 'arrow-up-right', 16 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+								<?php echo markea_icon( $markea_icons[ $markea_label ] ?? 'arrow-up-right', 36 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 							</a>
 						</li>
 					<?php endforeach; ?>

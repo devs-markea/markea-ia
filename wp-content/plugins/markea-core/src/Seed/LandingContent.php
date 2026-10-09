@@ -35,9 +35,9 @@ final class LandingContent {
 				'eyebrow'       => 'El problema',
 				'title'         => 'La mayoría de las agencias venden estrategia que nunca han operado',
 				'items'         => array(
-					array( 'title' => 'Ciclos de venta largos', 'text' => 'Hospitalidad, turismo y real estate deciden en meses, no en clics — cada error de estrategia se paga caro.' ),
-					array( 'title' => 'Cliente de alto valor', 'text' => 'El comprador o huésped premium exige una narrativa consistente, no campañas genéricas de volumen.' ),
-					array( 'title' => 'Consultoría sin operación', 'text' => 'Muchas agencias recomiendan desde afuera, sin haber sostenido nunca una marca propia en el mercado.' ),
+					array( 'icon' => 'clock', 'title' => 'Ciclos de venta largos', 'text' => 'Hospitalidad, turismo y real estate deciden en meses, no en clics — cada error de estrategia se paga caro.' ),
+					array( 'icon' => 'user-check', 'title' => 'Cliente de alto valor', 'text' => 'El comprador o huésped premium exige una narrativa consistente, no campañas genéricas de volumen.' ),
+					array( 'icon' => 'activity', 'title' => 'Consultoría sin operación', 'text' => 'Muchas agencias recomiendan desde afuera, sin haber sostenido nunca una marca propia en el mercado.' ),
 				),
 			),
 			array(

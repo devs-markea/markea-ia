@@ -40,7 +40,7 @@ defined( 'ABSPATH' ) || exit;
 			>
 				<span class="screen-reader-text" data-menu-label><?php esc_html_e( 'Abrir menú', 'markea-ia' ); ?></span>
 				<?php echo markea_icon( 'menu', 34 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-				<?php echo markea_icon( 'close', 34 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+				<?php echo markea_icon( 'close', 38 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 			</button>
 		</div>
 	</div>

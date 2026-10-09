@@ -68,7 +68,23 @@ final class LandingFields {
 					F::sub( 'text', 'link_url', 'Enlace secundario (URL)' ),
 				)
 			),
-			F::layout( 'problem', 'El problema', array( $title, $cards( 'Cards' ) ) ),
+			F::layout(
+				'problem',
+				'El problema',
+				array(
+					$title,
+					F::items(
+						'items',
+						'Cards',
+						array(
+							F::sub( 'select', 'icon', 'Ícono', array( 'choices' => array( '' => 'Sin ícono', 'clock' => 'Reloj', 'user-check' => 'Usuario', 'activity' => 'Actividad' ), 'default_value' => '', 'allow_null' => 0 ) ),
+							F::sub( 'text', 'title', 'Título' ),
+							F::sub( 'textarea', 'text', 'Texto', array( 'rows' => 3, 'new_lines' => '' ) ),
+						),
+						array( 'max' => 6, 'button_label' => 'Añadir card' )
+					),
+				)
+			),
 			F::layout(
 				'about',
 				'Quiénes somos',

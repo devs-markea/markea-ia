@@ -467,6 +467,10 @@ html.is-menu-open {
 	font-weight: 500;
 }
 
+.site-menu__email .icon {
+	color: var(--navy); /* the exported mail icon already has 40% opacity */
+}
+
 .site-menu__cta {
 	margin: 1.75rem 0 0;
 }
@@ -542,18 +546,13 @@ html.is-menu-open {
 }
 
 .site-menu__social a {
-	display: grid;
-	place-items: center;
-	width: 36px;
-	height: 36px;
-	color: color-mix(in srgb, var(--navy) 50%, transparent);
-	border: 1px solid color-mix(in srgb, var(--navy) 15%, transparent);
-	border-radius: 50%;
+	display: block;
+	color: var(--navy); /* the exported icon carries its own opacity */
+	line-height: 0;
 }
 
 .site-menu__social a:hover {
 	color: var(--electric);
-	border-color: currentColor;
 }
 
 @media (min-width: 992px) {
@@ -644,6 +643,17 @@ html.is-menu-open {
 	margin-bottom: 0.75rem;
 	color: var(--text-accent);
 	font-variant-numeric: tabular-nums;
+}
+
+.card__icon {
+	display: grid;
+	place-items: center;
+	width: 48px;
+	height: 48px;
+	margin-bottom: 1.25rem;
+	background: var(--navy);
+	color: var(--white);
+	border-radius: 50%;
 }
 
 .card__title {

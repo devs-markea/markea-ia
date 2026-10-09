@@ -218,8 +218,15 @@ function markea_logo( string $size = 'markea-logo', array $attr = array() ): str
 	}
 
 	$custom = (int) get_theme_mod( 'custom_logo' );
+	if ( $custom ) {
+		return markea_image( $custom, $size, $attr );
+	}
 
-	return $custom ? markea_image( $custom, $size, $attr ) : '';
+	// Default: the Figma logo that ships with the theme.
+	return sprintf(
+		'<img src="%s" width="193" height="26" alt="" decoding="async">',
+		esc_url( MARKEA_IA_URI . '/assets/images/markea-logo.svg' )
+	);
 }
 
 /**

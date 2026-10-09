@@ -27,7 +27,9 @@ if ( '' === $title && ! $rows ) {
 				<ol class="row" role="list">
 				<?php foreach ( $rows as $i => $card ) : ?>
 					<li class="col-12 col-md-6 col-lg-4"><div class="card">
-						<span class="card__index" aria-hidden="true"><?php echo esc_html( str_pad( (string) ( $i + 1 ), 2, '0', STR_PAD_LEFT ) ); ?></span>
+						<?php if ( ! empty( $card['icon'] ) ) : ?>
+							<span class="card__icon"><?php echo markea_icon( (string) $card['icon'], 20 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+						<?php endif; ?>
 						<?php if ( ! empty( $card['title'] ) ) : ?>
 							<h3 class="card__title"><?php echo esc_html( $card['title'] ); ?></h3>
 						<?php endif; ?>
