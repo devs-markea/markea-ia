@@ -292,7 +292,24 @@ a {
 
 .site-header__brand img {
 	width: auto;
-	height: 32px;
+	height: 28px;
+}
+
+.site-header__actions {
+	display: flex;
+	align-items: center;
+	gap: 1.5rem;
+	margin-left: auto;
+}
+
+.site-header__menu {
+	display: grid;
+	place-items: center;
+	padding: 0;
+	background: none;
+	color: var(--text);
+	border: 0;
+	cursor: pointer;
 }
 
 .site-nav {
