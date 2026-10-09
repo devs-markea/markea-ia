@@ -3,8 +3,6 @@ declare( strict_types=1 );
 
 namespace Markea\Core;
 
-use Markea\Core\Admin\AdminCleanup;
-use Markea\Core\Admin\Roles;
 use Markea\Core\Cli\SeedCommand;
 use Markea\Core\Fields\ContentFields;
 use Markea\Core\Fields\LandingFields;
@@ -24,8 +22,6 @@ final class Plugin {
 		( new Tracking() )->register();
 		( new LeadEndpoint() )->register();
 		( new LeadAdmin() )->register();
-		( new Roles() )->register();
-		( new AdminCleanup() )->register();
 
 		// ACF-dependent modules.
 		add_action( 'acf/init', array( self::class, 'register_fields' ) );

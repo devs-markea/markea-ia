@@ -73,7 +73,7 @@ final class PostTypes {
 				'menu_icon'           => 'dashicons-email-alt',
 				'menu_position'       => 23,
 				'supports'            => array( 'title' ),
-				'capability_type'     => array( 'lead', 'leads' ),
+				'capability_type'     => 'post',
 				'map_meta_cap'        => true,
 				'capabilities'        => array( 'create_posts' => 'do_not_allow' ),
 				'rewrite'             => false,

@@ -38,6 +38,4 @@ if ( ! defined( 'DISALLOW_FILE_EDIT' ) && 'production' === wp_get_environment_ty
 	define( 'DISALLOW_FILE_EDIT', true );
 }
 
-register_activation_hook( __FILE__, array( \Markea\Core\Admin\Roles::class, 'activate' ) );
-
 \Markea\Core\Plugin::boot();
