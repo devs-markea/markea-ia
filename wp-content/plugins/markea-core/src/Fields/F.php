@@ -128,6 +128,9 @@ final class F {
 	 * @return array<string,mixed>
 	 */
 	public static function layout( string $name, string $label, array $subs ): array {
+		// Every section has an eyebrow label (first) and a light/dark tone (last).
+		array_unshift( $subs, self::sub( 'text', 'eyebrow', 'Etiqueta superior' ) );
+
 		// Every section can be shown on a light or a dark (navy) background.
 		$subs[] = self::sub(
 			'select',

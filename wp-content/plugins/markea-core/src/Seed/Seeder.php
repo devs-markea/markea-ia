@@ -53,7 +53,7 @@ final class Seeder {
 
 	private function strategists(): void {
 		$people = array(
-			array( 'Rodrigo Setién', 'AI Native CEO' ),
+			array( 'Rodrigo Setién', 'AI-Native CEO' ),
 			array( 'Dennis Yam', 'AI Tech Lead' ),
 			array( 'Beatriz Paulino', 'AI Project Lead' ),
 			array( 'Victoria Lozano', 'AI Specialist' ),
@@ -73,7 +73,7 @@ final class Seeder {
 			array( 'Hub Inbox Bot IA', array( 'IA' ) ),
 			array( 'Page Builder with Agent IA', array( 'IA' ) ),
 			array( 'Customer IA', array( 'IA' ) ),
-			array( 'Conector Personalizado (MCP) CRM Real Estate', array( 'IA', 'CRM' ) ),
+			array( 'Conector Personalizado (MCP) CRM Real Estate', array( 'CRM' ) ),
 			array( 'Tienda Super Foods', array( 'E-Commerce' ) ),
 			array( 'CRM Inmobiliario KEA', array( 'CRM' ) ),
 		);
@@ -87,13 +87,16 @@ final class Seeder {
 	}
 
 	private function settings(): void {
-		$values = array(
-			'contact_email'        => 'hola@markea.agency',
-			'contact_address'      => 'Av. Nader, Cancún, Quintana Roo',
-			'form_success_message' => 'Gracias, te contactaremos pronto.',
-		);
+		foreach ( LandingContent::settings() as $name => $value ) {
+			$current = (string) get_field( F::key( $name ), 'option', false );
+			$legacy  = LandingContent::legacy_settings()[ $name ] ?? array();
 
-		foreach ( $values as $name => $value ) {
+			if ( in_array( $current, $legacy, true ) ) {
+				update_field( F::key( $name ), $value, 'option' );
+				$this->log[] = "field (updated): $name";
+				continue;
+			}
+
 			$this->field( $name, $value, 'option' );
 		}
 	}
@@ -121,25 +124,11 @@ final class Seeder {
 			$this->log[] = "skip page: Inicio Markea IA (#$id)";
 		}
 
-		// Only what the brief states explicitly. Section copy comes from the design source and is loaded separately.
-		// Sections are Flexible Content layouts; the team can add and reorder them in wp-admin.
-		$this->field(
-			'sections',
-			array(
-				array( 'acf_fc_layout' => 'hero', 'cta_label' => 'Hablemos', 'cta_url' => '#contacto' ),
-				array(
-					'acf_fc_layout' => 'about',
-					'years'         => '8 años',
-					'items'         => array(
-						array( 'title' => 'Marcas propias', 'text' => '' ),
-						array( 'title' => 'Clientes externos', 'text' => '' ),
-					),
-				),
-				array( 'acf_fc_layout' => 'projects' ),
-				array( 'acf_fc_layout' => 'strategists' ),
-			),
-			$id
-		);
+		// Copy from the Figma design. Existing rows are merged: empty fields are filled, fields the team wrote are kept.
+		$current = get_field( F::key( 'sections' ), $id, false );
+		$merged  = $this->merge_sections( is_array( $current ) ? $current : array(), LandingContent::sections() );
+		update_field( F::key( 'sections' ), $merged, $id );
+		$this->log[] = 'sections: ' . implode( ', ', array_column( $merged, 'acf_fc_layout' ) );
 
 		update_option( 'show_on_front', 'page' );
 		update_option( 'page_on_front', $id );
@@ -175,6 +164,49 @@ final class Seeder {
 		$this->log[] = "$type: $title";
 
 		return (int) $id;
+	}
+
+	/**
+	 * Merge seed rows into the existing Flexible Content rows.
+	 * Seed order wins; rows of layouts that are not in the seed (added by the team) are kept at the end.
+	 *
+	 * @param array<int,array<string,mixed>> $existing Current rows.
+	 * @param array<int,array<string,mixed>> $seed     Seed rows.
+	 * @return array<int,array<string,mixed>>
+	 */
+	private function merge_sections( array $existing, array $seed ): array {
+		// Unformatted rows come keyed by field key (field_markea_<layout>_<name>); use plain names to compare with the seed.
+		$by_layout = array();
+		foreach ( $existing as $row ) {
+			$layout = (string) ( $row['acf_fc_layout'] ?? '' );
+			$prefix = F::key( $layout ) . '_';
+			$named  = array();
+			foreach ( $row as $key => $value ) {
+				$named[ str_starts_with( (string) $key, $prefix ) ? substr( (string) $key, strlen( $prefix ) ) : $key ] = $value;
+			}
+			$by_layout[ $layout ][] = $named;
+		}
+
+		$out = array();
+		foreach ( $seed as $seed_row ) {
+			$layout = $seed_row['acf_fc_layout'];
+			$row    = isset( $by_layout[ $layout ] ) ? array_shift( $by_layout[ $layout ] ) : array( 'acf_fc_layout' => $layout );
+
+			foreach ( $seed_row as $key => $value ) {
+				if ( $this->force || ! isset( $row[ $key ] ) || '' === $row[ $key ] || array() === $row[ $key ] || null === $row[ $key ] ) {
+					$row[ $key ] = $value;
+				}
+			}
+			$out[] = $row;
+		}
+
+		foreach ( $by_layout as $rows ) {
+			foreach ( $rows as $row ) {
+				$out[] = $row;
+			}
+		}
+
+		return $out;
 	}
 
 	private function find_seeded( string $key, string $type = 'page' ): int {

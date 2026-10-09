@@ -64,6 +64,8 @@ final class LandingFields {
 					F::sub( 'textarea', 'subtitle', 'Subtítulo', array( 'rows' => 3, 'new_lines' => '' ) ),
 					F::sub( 'text', 'cta_label', 'Texto del botón (CTA)', array( 'instructions' => 'Se usa en todos los botones "Hablemos" del sitio.' ) ),
 					F::sub( 'text', 'cta_url', 'Enlace del botón', array( 'default_value' => '#contacto' ) ),
+					F::sub( 'text', 'link_label', 'Enlace secundario (texto)', array( 'instructions' => 'Ej. "Ver los sistemas ↗".' ) ),
+					F::sub( 'text', 'link_url', 'Enlace secundario (URL)' ),
 				)
 			),
 			F::layout( 'problem', 'El problema', array( $title, $cards( 'Cards' ) ) ),
@@ -74,6 +76,7 @@ final class LandingFields {
 					F::sub( 'text', 'years', 'Dato destacado', array( 'instructions' => 'Ej. "8 años".' ) ),
 					$title,
 					F::sub( 'wysiwyg', 'text', 'Texto', array( 'media_upload' => 0, 'toolbar' => 'basic' ) ),
+					F::sub( 'textarea', 'panel_text', 'Texto del panel', array( 'rows' => 3, 'new_lines' => '', 'instructions' => 'Frase sobre los bloques (panel oscuro).' ) ),
 					$cards( 'Bloques' ),
 				)
 			),
@@ -82,6 +85,7 @@ final class LandingFields {
 				'Unidades de negocio',
 				array(
 					$title,
+					F::sub( 'textarea', 'text', 'Texto', array( 'rows' => 3, 'new_lines' => '' ) ),
 					F::items(
 						'items',
 						'Unidades',
@@ -98,17 +102,19 @@ final class LandingFields {
 				'case',
 				'Caso de operación propia',
 				array(
-					F::sub( 'text', 'eyebrow', 'Etiqueta superior' ),
+					F::sub( 'text', 'kicker', 'Etiqueta destacada', array( 'instructions' => 'Ej. "LA PRUEBA DE FUEGO".' ) ),
+					F::sub( 'text', 'subtitle', 'Subtítulo' ),
 					$title,
 					F::sub( 'wysiwyg', 'text', 'Texto', array( 'media_upload' => 0, 'toolbar' => 'basic' ) ),
 				)
 			),
-			F::layout( 'mos', 'Marketing Operating System', array( $title, $cards( 'Pasos' ) ) ),
+			F::layout( 'mos', 'Marketing Operating System', array( $title, F::sub( 'textarea', 'text', 'Texto', array( 'rows' => 3, 'new_lines' => '' ) ), $cards( 'Pilares' ) ) ),
 			F::layout(
 				'offer',
 				'Oferta diferenciada',
 				array(
 					$title,
+					F::sub( 'textarea', 'text', 'Texto', array( 'rows' => 3, 'new_lines' => '' ) ),
 					F::items(
 						'items',
 						'Cards',
@@ -134,7 +140,15 @@ final class LandingFields {
 				'Herramientas',
 				array(
 					$title,
-					F::sub( 'gallery', 'gallery', 'Logos de herramientas', array( 'return_format' => 'id', 'preview_size' => 'thumbnail' ) ),
+					F::items(
+						'items',
+						'Herramientas',
+						array(
+							F::sub( 'text', 'name', 'Nombre' ),
+							F::sub( 'image', 'logo', 'Logo', array( 'return_format' => 'id', 'preview_size' => 'thumbnail' ) ),
+						),
+						array( 'button_label' => 'Añadir herramienta' )
+					),
 				)
 			),
 			F::layout(
@@ -143,16 +157,18 @@ final class LandingFields {
 				array(
 					$title,
 					F::sub( 'textarea', 'text', 'Texto', array( 'rows' => 3, 'new_lines' => '' ) ),
-					F::items( 'items', 'Puntos', array( F::sub( 'text', 'text', 'Punto' ) ), array( 'layout' => 'table', 'button_label' => 'Añadir punto' ) ),
+					$cards( 'Puntos' ),
 				)
 			),
-			F::layout( 'how', 'Cómo trabajamos', array( $title, $cards( 'Líneas de servicio' ) ) ),
+			F::layout( 'how', 'Cómo trabajamos', array( $title, F::sub( 'textarea', 'text', 'Texto', array( 'rows' => 3, 'new_lines' => '' ) ), $cards( 'Líneas de servicio' ) ) ),
 			F::layout(
 				'next_steps',
 				'Próximos pasos',
 				array(
 					$title,
+					F::sub( 'textarea', 'text', 'Texto', array( 'rows' => 3, 'new_lines' => '' ) ),
 					$cards( 'Pasos' ),
+					F::sub( 'text', 'tagline', 'Frase de cierre', array( 'instructions' => 'Ej. "Start. Grow. Succeed".' ) ),
 					F::sub( 'url', 'video_url', 'URL del video', array( 'instructions' => 'YouTube o Vimeo. Se carga al hacer clic en reproducir.' ) ),
 				)
 			),

@@ -99,7 +99,16 @@ final class SiteSettings {
 			F::text( 'form_success_message', 'Mensaje de éxito' ),
 			F::wysiwyg( 'form_consent_text', 'Texto de consentimiento', array( 'instructions' => 'Si se llena, la casilla es obligatoria. Pendiente de definir con legal.' ) ),
 
+			F::tab( 'set_footer', 'Footer' ),
+			F::text( 'footer_cta_title', 'Pregunta principal', array( 'instructions' => 'Ej. "¿Tienes un proyecto fascinante en mente?".' ) ),
+			F::text( 'footer_tagline', 'Lema' ),
+			F::textarea( 'footer_text', 'Descripción', array( 'rows' => 3, 'new_lines' => '' ) ),
+			F::textarea( 'footer_services', 'Servicios', array( 'rows' => 6, 'new_lines' => '', 'instructions' => 'Un servicio por línea.' ) ),
+			F::text( 'footer_copyright', 'Derechos reservados' ),
+
 			F::tab( 'set_newsletter', 'Newsletter' ),
+			F::text( 'newsletter_title', 'Título' ),
+			F::text( 'newsletter_button', 'Texto del botón' ),
 			F::url( 'newsletter_action', 'Destino del formulario del footer', array( 'instructions' => 'A definir. Mientras esté vacío no se muestra el formulario.' ) ),
 		);
 	}
