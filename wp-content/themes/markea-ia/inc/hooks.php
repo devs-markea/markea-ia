@@ -98,3 +98,13 @@ function markea_ia_print_palette(): void {
 		echo '<style id="markea-palette">:root{' . $css . '}</style>' . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput -- values are validated hex colors.
 	}
 }
+
+/**
+ * Hide the admin bar on the front end for everyone, so the landing is seen as visitors see it.
+ * Re-enable with: add_filter( 'markea_show_admin_bar', '__return_true' );
+ */
+add_filter( 'show_admin_bar', 'markea_ia_show_admin_bar' );
+
+function markea_ia_show_admin_bar( bool $show ): bool {
+	return is_admin() ? $show : (bool) apply_filters( 'markea_show_admin_bar', false );
+}
