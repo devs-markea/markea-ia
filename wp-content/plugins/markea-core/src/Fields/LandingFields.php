@@ -60,7 +60,7 @@ final class LandingFields {
 				'Hero',
 				array(
 					F::sub( 'text', 'title', 'Título' ),
-					F::sub( 'text', 'highlight', 'Parte resaltada', array( 'instructions' => 'Fragmento exacto del título que se muestra resaltado.' ) ),
+					F::sub( 'text', 'highlight', 'Parte en negrita', array( 'instructions' => 'Texto que va en negrita después del título (o fragmento exacto del título).' ) ),
 					F::sub( 'textarea', 'subtitle', 'Subtítulo', array( 'rows' => 3, 'new_lines' => '' ) ),
 					F::sub( 'text', 'cta_label', 'Texto del botón (CTA)', array( 'instructions' => 'Se usa en todos los botones "Hablemos" del sitio.' ) ),
 					F::sub( 'text', 'cta_url', 'Enlace del botón', array( 'default_value' => '#contacto' ) ),

@@ -251,3 +251,22 @@ function markea_lead( array $row ): string {
 
 	return '' === $text ? '' : '<p class="section__lead">' . esc_html( $text ) . '</p>';
 }
+
+/**
+ * Section title with the "emphasis" fragment in bold (the rest uses the lighter weight).
+ *
+ * @param array<string,mixed> $row Flexible Content row.
+ */
+function markea_title( array $row, string $key = 'title' ): string {
+	$title    = (string) ( $row[ $key ] ?? '' );
+	$emphasis = trim( (string) ( $row['emphasis'] ?? '' ) );
+	$html     = esc_html( $title );
+
+	if ( '' === $emphasis ) {
+		return $html;
+	}
+
+	$needle = esc_html( $emphasis );
+
+	return str_contains( $html, $needle ) ? str_replace( $needle, '<strong class="u-strong">' . $needle . '</strong>', $html ) : $html;
+}

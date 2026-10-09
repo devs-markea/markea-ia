@@ -23,7 +23,7 @@ $embed = $video ? wp_oembed_get( $video, array( 'width' => 960 ) ) : false;
 		<div class="col-12 col-lg-6">
 			<?php echo markea_eyebrow( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 			<?php if ( $title ) : ?>
-				<h2 class="section__title"><?php echo esc_html( $title ); ?></h2>
+				<h2 class="section__title"><?php echo markea_title( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
 			<?php endif; ?>
 			<?php echo markea_lead( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 			<p class="section__cta"><?php echo markea_cta( 'next-steps' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></p>

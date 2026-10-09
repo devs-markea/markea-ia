@@ -23,7 +23,7 @@ if ( '' === $title ) {
 		<?php if ( ! empty( $row['kicker'] ) ) : ?>
 			<p class="eyebrow case__kicker"><?php echo esc_html( $row['kicker'] ); ?></p>
 		<?php endif; ?>
-		<h2 class="section__title"><?php echo esc_html( $title ); ?></h2>
+		<h2 class="section__title"><?php echo markea_title( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
 		<?php if ( ! empty( $row['text'] ) ) : ?>
 			<div class="prose"><?php echo wp_kses_post( $row['text'] ); ?></div>
 		<?php endif; ?>

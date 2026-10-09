@@ -129,6 +129,9 @@ final class F {
 	 */
 	public static function layout( string $name, string $label, array $subs ): array {
 		// Every section has an eyebrow label (first) and a light/dark tone (last).
+		if ( 'hero' !== $name ) {
+			array_unshift( $subs, self::sub( 'text', 'emphasis', 'Parte del título en negrita', array( 'instructions' => 'Fragmento exacto del título. Si se llena, el resto del título se muestra en peso normal.' ) ) );
+		}
 		array_unshift( $subs, self::sub( 'text', 'eyebrow', 'Etiqueta superior' ) );
 
 		// Every section can be shown on a light or a dark (navy) background.

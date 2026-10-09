@@ -19,7 +19,7 @@ $categories = markea_get_project_categories();
 	<div class="container">
 		<?php echo markea_eyebrow( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 		<?php if ( ( $row['title'] ?? '' ) ) : ?>
-			<h2 class="section__title"><?php echo esc_html( ( $row['title'] ?? '' ) ); ?></h2>
+			<h2 class="section__title"><?php echo markea_title( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
 		<?php endif; ?>
 		<?php if ( ( $row['text'] ?? '' ) ) : ?>
 			<p class="section__lead"><?php echo esc_html( ( $row['text'] ?? '' ) ); ?></p>

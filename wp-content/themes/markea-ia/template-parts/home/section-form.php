@@ -21,7 +21,7 @@ $success   = (string) markea_option( 'form_success_message' );
 <section id="contacto" class="section contact<?php echo esc_attr( markea_tone( $row ) ); ?>">
 	<div class="container container--narrow">
 		<?php echo markea_eyebrow( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-		<h2 class="section__title"><?php echo esc_html( $title ); ?></h2>
+		<h2 class="section__title"><?php echo markea_title( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
 		<?php if ( ( $row['text'] ?? '' ) ) : ?>
 			<p class="section__lead"><?php echo esc_html( ( $row['text'] ?? '' ) ); ?></p>
 		<?php endif; ?>

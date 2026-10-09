@@ -24,14 +24,11 @@ final class LandingContent {
 		return array(
 			array(
 				'acf_fc_layout' => 'hero',
-				'eyebrow'       => 'HUMAN TOUCH + MACHINE SCALE',
 				'title'         => 'Tu empresa no necesita hacer más.',
 				'highlight'     => 'Necesita operar mejor.',
 				'subtitle'      => 'Acompañamos la adopción de IA en tu empresa, identificando oportunidades y desarrollando las herramientas, automatizaciones y sistemas que tu operación realmente necesita.',
 				'cta_label'     => 'Hablemos',
 				'cta_url'       => '#contacto',
-				'link_label'    => 'Ver los sistemas ↗',
-				'link_url'      => '#mos',
 			),
 			array(
 				'acf_fc_layout' => 'problem',
@@ -76,8 +73,8 @@ final class LandingContent {
 			),
 			array(
 				'acf_fc_layout' => 'mos',
-				'eyebrow'       => 'CORE SISTEMA',
 				'title'         => 'Un Marketing Operating System real',
+				'emphasis'      => 'Marketing Operating System',
 				'text'          => 'Esto es lo que construimos para operar nuestras propias marcas — la prueba de que sabemos diseñar sistemas, no solo usarlos.',
 				'items'         => array(
 					array( 'title' => 'Dashboard interactivo', 'text' => 'Dashboard interactivos para el control total y métricas del sistema operando.' ),
@@ -88,8 +85,8 @@ final class LandingContent {
 			),
 			array(
 				'acf_fc_layout' => 'offer',
-				'eyebrow'       => 'OFERTA DIFERENCIADA',
-				'title'         => 'No solo usamos tecnología. La construimos.',
+				'title'         => 'Oferta diferenciada no solo usamos tecnología, la construimos',
+				'emphasis'      => 'Oferta diferenciada',
 				'text'          => 'Si tu equipo necesita tecnología de marketing que no existe en el mercado, la desarrollamos para ti.',
 				'items'         => array(
 					array( 'title' => 'Dashboard e integraciones a medida', 'text' => 'Herramientas de gestión diseñadas para tu operación — no plantillas genéricas. Conectamos CRM, ERP y sistemas operativos entre sí.', 'tags' => 'Reactivación, CRM' ),
@@ -101,12 +98,13 @@ final class LandingContent {
 				'acf_fc_layout' => 'projects',
 				'eyebrow'       => 'Portafolio',
 				'title'         => 'Nuestros Proyectos',
+				'emphasis'      => 'Proyectos',
 				'text'          => 'Nuestros casos de éxito con proyectos a la medida y con un enfoque a crecimiento de ventas e innovación.',
 			),
 			array(
 				'acf_fc_layout' => 'tools',
-				'eyebrow'       => 'CON QUÉ TRABAJAMOS',
 				'title'         => 'Trabajamos con +20 herramientas de marketing y tecnología',
+				'emphasis'      => '+20 herramientas de marketing y tecnología',
 			),
 			array(
 				'acf_fc_layout' => 'relevance',
@@ -134,13 +132,13 @@ final class LandingContent {
 				'acf_fc_layout' => 'next_steps',
 				'eyebrow'       => 'PRÓXIMOS PASOS',
 				'title'         => 'Empezamos con un diagnóstico estratégico sin compromiso.',
+				'emphasis'      => 'sin compromiso.',
 				'text'          => 'Auditoría inicial de marketing y tecnología para identificar brechas y oportunidades concretas, antes de proponer cualquier alcance de trabajo.',
 				'items'         => array(
 					array( 'title' => 'Diagnóstico', 'text' => 'Revisión de marca, marketing y stack tecnológico actual.' ),
 					array( 'title' => 'Hallazgos', 'text' => 'Brechas y oportunidades priorizadas por impacto.' ),
 					array( 'title' => 'Propuesta', 'text' => 'Alcance de trabajo a medida, con foco en resultados.' ),
 				),
-				'tagline'       => 'Start. Grow. Succeed',
 			),
 			array(
 				'acf_fc_layout' => 'strategists',

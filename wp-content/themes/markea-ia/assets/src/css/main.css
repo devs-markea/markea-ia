@@ -184,7 +184,16 @@ a {
 /* Layout guides (12 columns, margins, gutter): container and row are defined in grid.scss. */
 
 .u-highlight {
-	color: var(--text-accent);
+	font-weight: 700;
+}
+
+/* Titles with a bold fragment use the regular weight for the rest (Figma: Montserrat Regular + Bold). */
+.section__title:has(.u-strong) {
+	font-weight: 400;
+}
+
+.u-strong {
+	font-weight: 700;
 }
 
 /* Highlight that is not part of the title text: shown on its own line. */
@@ -200,6 +209,7 @@ a {
 }
 
 .section__title {
+	font-weight: 700;
 	margin: 0 0 1rem;
 	font-size: var(--wp--preset--font-size--h2, 2.25rem);
 	line-height: 1.1;
@@ -397,6 +407,7 @@ a {
 }
 
 .hero__title {
+	font-weight: 400;
 	max-width: 18ch;
 	margin: 0 0 1.5rem;
 	font-size: var(--wp--preset--font-size--h1, 4rem);
