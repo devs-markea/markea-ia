@@ -1,0 +1,45 @@
+<?php
+/**
+ * Section 13: Estrategas (CPT estratega).
+ *
+ * @package Markea_IA
+ */
+
+defined( 'ABSPATH' ) || exit;
+
+$people = markea_get_strategists();
+if ( ! $people->have_posts() ) {
+	return;
+}
+?>
+<section id="estrategas" class="section strategists">
+	<div class="container">
+		<?php if ( markea_field( 'strategists_title' ) ) : ?>
+			<h2 class="section__title"><?php echo esc_html( markea_field( 'strategists_title' ) ); ?></h2>
+		<?php endif; ?>
+		<?php if ( markea_field( 'strategists_text' ) ) : ?>
+			<p class="section__lead"><?php echo esc_html( markea_field( 'strategists_text' ) ); ?></p>
+		<?php endif; ?>
+		<ul class="cards cards--4" role="list">
+			<?php
+			while ( $people->have_posts() ) :
+				$people->the_post();
+				$linkedin = (string) markea_field( 'linkedin', '', get_the_ID() );
+				?>
+				<li class="card person">
+					<?php if ( has_post_thumbnail() ) : ?>
+						<div class="person__photo"><?php the_post_thumbnail( 'markea-portrait' ); ?></div>
+					<?php endif; ?>
+					<h3 class="card__title"><?php the_title(); ?></h3>
+					<p class="card__text"><?php echo esc_html( markea_field( 'role', '', get_the_ID() ) ); ?></p>
+					<?php if ( $linkedin ) : ?>
+						<a class="person__link" href="<?php echo esc_url( $linkedin ); ?>" target="_blank" rel="noopener noreferrer" data-track="contact" data-track-type="social" data-track-network="linkedin">
+							LinkedIn<span class="screen-reader-text">: <?php the_title(); ?></span>
+						</a>
+					<?php endif; ?>
+				</li>
+			<?php endwhile; ?>
+		</ul>
+	</div>
+</section>
+<?php wp_reset_postdata(); ?>

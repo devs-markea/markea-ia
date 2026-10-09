@@ -1,0 +1,13 @@
+/*
+Theme Name: Markea IA
+Theme URI: https://markeaagency.com
+Author: Markea Agency
+Author URI: https://markeaagency.com
+Description: Theme de presentacion de la landing Markea IA. Los datos viven en el plugin markea-core.
+Version: 0.1.0
+Requires at least: 6.5
+Requires PHP: 8.2
+Text Domain: markea-ia
+License: Proprietary
+*/
+/* Estilos reales en assets/src/css (compilados con Vite a assets/dist). */
