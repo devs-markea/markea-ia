@@ -1,3 +1,17 @@
+/* Fonts: self-hosted (npm @fontsource), Latin subset only. Montserrat = headings, Poppins = body text. */
+@import '@fontsource/poppins/latin-400.css';
+@import '@fontsource/poppins/latin-500.css';
+@import '@fontsource/poppins/latin-600.css';
+
+@font-face {
+	font-family: 'Montserrat Variable';
+	font-style: normal;
+	font-display: swap;
+	font-weight: 100 900;
+	src: url('@fontsource-variable/montserrat/files/montserrat-latin-wght-normal.woff2') format('woff2-variations');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
 	/* Base palette (design tokens). Site Settings > Colores overrides these via inline style. */
 	--navy: var(--wp--preset--color--navy, #001b71);
@@ -21,6 +35,9 @@
 	--primary: var(--electric);
 	--primary-hover: color-mix(in srgb, var(--electric) 85%, transparent);
 
+	--font-heading: 'Montserrat Variable', 'Montserrat', system-ui, sans-serif;
+	--font-body: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
 	--radius: 16px;
 	--gutter: clamp(1rem, 4vw, 2rem);
 	--section-y: var(--wp--preset--spacing--l, clamp(3rem, 8vw, 6rem));
@@ -43,7 +60,8 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-body { margin: 0; background: var(--white); color: var(--navy); }
+body { margin: 0; background: var(--white); color: var(--navy); font-family: var(--font-body); }
+h1, h2, h3, h4, .btn, .eyebrow, .about__years, .site-header__brand, .filters__btn, .card__index { font-family: var(--font-heading); }
 img { max-width: 100%; height: auto; display: block; }
 a { color: var(--text-accent); }
 [hidden] { display: none !important; }
@@ -63,7 +81,7 @@ a { color: var(--text-accent); }
 .u-highlight { color: var(--text-accent); }
 
 /* Buttons */
-.btn { display: inline-flex; align-items: center; justify-content: center; padding: .85rem 1.5rem; border-radius: 999px; border: 1px solid transparent; font: inherit; font-weight: 600; text-decoration: none; cursor: pointer; transition: transform .15s ease, background-color .15s ease; }
+.btn { display: inline-flex; align-items: center; justify-content: center; padding: .85rem 1.5rem; border-radius: 999px; border: 1px solid transparent; font: inherit; font-family: var(--font-heading); font-weight: 600; text-decoration: none; cursor: pointer; transition: transform .15s ease, background-color .15s ease; }
 .btn--primary { background: var(--primary); color: var(--white); }
 .btn--primary:hover { background: var(--primary-hover); color: var(--white); }
 .btn--small { padding: .55rem 1.1rem; font-size: .9rem; }
@@ -116,7 +134,7 @@ a { color: var(--text-accent); }
 
 /* Projects */
 .filters { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.5rem; }
-.filters__btn { background: transparent; color: var(--text-secondary); border: 1px solid var(--stroke); border-radius: 999px; padding: .5rem 1rem; font: inherit; cursor: pointer; }
+.filters__btn { background: transparent; color: var(--text-secondary); border: 1px solid var(--stroke); border-radius: 999px; padding: .5rem 1rem; font: inherit; font-family: var(--font-heading); cursor: pointer; }
 .filters__btn.is-active { background: var(--primary); border-color: var(--primary); color: var(--white); }
 .project__media { margin: -1.5rem -1.5rem 1rem; border-radius: var(--radius) var(--radius) 0 0; overflow: hidden; }
 .project__media img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }

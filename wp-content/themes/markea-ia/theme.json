@@ -22,7 +22,8 @@
 			"customFontSize": false,
 			"fluid": true,
 			"fontFamilies": [
-				{ "slug": "sans", "name": "Sans", "fontFamily": "system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" }
+				{ "slug": "heading", "name": "Montserrat", "fontFamily": "'Montserrat Variable', 'Montserrat', system-ui, sans-serif" },
+				{ "slug": "body", "name": "Poppins", "fontFamily": "'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif" }
 			],
 			"fontSizes": [
 				{ "slug": "small", "size": "0.875rem", "name": "Small" },
@@ -44,6 +45,6 @@
 	},
 	"styles": {
 		"color": { "background": "var(--wp--preset--color--white)", "text": "var(--wp--preset--color--navy)" },
-		"typography": { "fontFamily": "var(--wp--preset--font-family--sans)", "fontSize": "var(--wp--preset--font-size--base)", "lineHeight": "1.6" }
+		"typography": { "fontFamily": "var(--wp--preset--font-family--body)", "fontSize": "var(--wp--preset--font-size--base)", "lineHeight": "1.6" }
 	}
 }
