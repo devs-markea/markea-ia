@@ -193,3 +193,26 @@ function markea_social_links(): array {
 
 	return array_filter( $links );
 }
+
+/**
+ * Attributes that turn an element into a Splide carousel (mounted by assets/src/js/carousel.js).
+ *
+ * @param array<string,mixed> $options Splide options, e.g. array( 'perPage' => 3 ).
+ */
+function markea_carousel_attrs( array $options = array() ): string {
+	return 'data-splide data-splide-config="' . esc_attr( (string) wp_json_encode( $options ) ) . '"';
+}
+
+/**
+ * Brand logo <img>: Site Settings logo first, then the native Customizer logo, else empty.
+ */
+function markea_logo( string $size = 'markea-logo', array $attr = array() ): string {
+	$logo = markea_image( markea_option( 'brand_logo' ), $size, $attr );
+	if ( $logo ) {
+		return $logo;
+	}
+
+	$custom = (int) get_theme_mod( 'custom_logo' );
+
+	return $custom ? markea_image( $custom, $size, $attr ) : '';
+}

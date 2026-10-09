@@ -21,7 +21,7 @@ defined( 'ABSPATH' ) || exit;
 	<div class="container site-header__inner">
 		<a class="site-header__brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
 			<?php
-			$markea_logo = markea_image( markea_option( 'brand_logo' ), 'markea-logo', array( 'loading' => 'eager' ) );
+			$markea_logo = markea_logo( 'markea-logo', array( 'loading' => 'eager' ) );
 			echo $markea_logo ? $markea_logo : esc_html( get_bloginfo( 'name' ) ); // phpcs:ignore WordPress.Security.EscapeOutput
 			?>
 		</a>

@@ -128,3 +128,12 @@ a { color: var(--c-accent-strong); }
 .site-footer__legal { margin-top: 2rem; color: var(--c-muted); font-size: .85rem; }
 .badges { display: flex; flex-wrap: wrap; gap: 1rem; list-style: none; padding: 0; margin: 1rem 0 0; }
 .badges img { max-height: 36px; width: auto; }
+
+/* Carousels (Splide core CSS is imported in carousel.js; look and feel lives here) */
+.splide__arrows { display: flex; gap: .5rem; margin-top: 1rem; }
+.splide__arrow { width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 1px solid var(--c-line); background: var(--c-surface); color: var(--c-text); cursor: pointer; display: grid; place-items: center; }
+.splide__arrow:disabled { opacity: .4; cursor: default; }
+.splide__arrow svg { width: 1rem; height: 1rem; fill: currentColor; }
+.splide__pagination { display: flex; gap: .5rem; justify-content: center; padding: 0; margin-top: 1rem; list-style: none; }
+.splide__pagination__page { width: .6rem; height: .6rem; border-radius: 50%; border: 0; background: var(--c-line); cursor: pointer; }
+.splide__pagination__page.is-active { background: var(--c-accent); }

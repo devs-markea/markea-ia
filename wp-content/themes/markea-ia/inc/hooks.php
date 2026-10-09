@@ -54,3 +54,20 @@ function markea_ia_front_page_template( string $template ): string {
 
 	return $template;
 }
+
+/**
+ * Favicon from Site Settings (falls back to the native Site Icon).
+ */
+add_filter( 'get_site_icon_url', 'markea_ia_favicon_url', 10, 3 );
+
+function markea_ia_favicon_url( string $url, int $size, int $blog_id ): string {
+	$id = markea_option( 'brand_favicon' );
+	$id = is_array( $id ) ? (int) ( $id['ID'] ?? 0 ) : (int) $id;
+	if ( ! $id ) {
+		return $url;
+	}
+
+	$src = wp_get_attachment_image_url( $id, array( $size ?: 512, $size ?: 512 ) );
+
+	return $src ? $src : $url;
+}

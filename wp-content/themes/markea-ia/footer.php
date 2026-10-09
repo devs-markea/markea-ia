@@ -18,7 +18,7 @@ $markea_social  = markea_social_links();
 	<div class="container site-footer__grid">
 		<div class="site-footer__brand">
 			<?php
-			$markea_logo = markea_image( markea_option( 'brand_logo' ), 'markea-logo' );
+			$markea_logo = markea_logo( 'markea-logo' );
 			echo $markea_logo ? $markea_logo : '<strong>' . esc_html( get_bloginfo( 'name' ) ) . '</strong>'; // phpcs:ignore WordPress.Security.EscapeOutput
 			?>
 			<?php if ( is_array( $markea_badges ) && $markea_badges ) : ?>

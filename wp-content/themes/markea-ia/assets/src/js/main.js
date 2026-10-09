@@ -4,6 +4,7 @@ import { initNav } from './nav.js';
 import { initProjectFilters } from './filters.js';
 import { initVideo } from './video.js';
 import { initLeadForm } from './form.js';
+import { initCarousels } from './carousel.js';
 
 const ready = ( fn ) => {
 	if ( document.readyState !== 'loading' ) {
@@ -19,4 +20,5 @@ ready( () => {
 	initProjectFilters();
 	initVideo();
 	initLeadForm();
+	initCarousels();
 } );
