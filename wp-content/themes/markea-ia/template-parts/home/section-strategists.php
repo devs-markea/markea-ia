@@ -22,13 +22,14 @@ if ( ! $people->have_posts() ) {
 		<?php if ( ( $row['text'] ?? '' ) ) : ?>
 			<p class="section__lead"><?php echo esc_html( ( $row['text'] ?? '' ) ); ?></p>
 		<?php endif; ?>
-		<ul class="cards cards--4" role="list">
+		<div class="cards">
+			<ul class="row" role="list">
 			<?php
 			while ( $people->have_posts() ) :
 				$people->the_post();
 				$linkedin = (string) markea_field( 'linkedin', '', get_the_ID() );
 				?>
-				<li class="card person">
+				<li class="col-12 col-md-6 col-lg-3"><div class="card person">
 					<?php if ( has_post_thumbnail() ) : ?>
 						<div class="person__photo"><?php the_post_thumbnail( 'markea-portrait' ); ?></div>
 					<?php endif; ?>
@@ -39,9 +40,11 @@ if ( ! $people->have_posts() ) {
 							LinkedIn<span class="screen-reader-text">: <?php the_title(); ?></span>
 						</a>
 					<?php endif; ?>
+				</div>
 				</li>
 			<?php endwhile; ?>
 		</ul>
+		</div>
 	</div>
 </section>
 <?php wp_reset_postdata(); ?>

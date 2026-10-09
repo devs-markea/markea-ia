@@ -33,5 +33,7 @@ Landing "Markea IA" que reemplaza markeaagency.com. Administrable desde wp-admin
 
 - La landing es UN campo ACF Flexible Content (`markea_sections`): cada seccion es un layout (hero, problem, about, units, case, mos, offer, projects, tools, relevance, how, next_steps, strategists, form) que el editor anade y reordena. Layout `x_y` => `template-parts/home/section-x-y.php`, que recibe la fila en `$args['row']`. El CTA global sale del layout hero.
 
+- Grid: Bootstrap 5.3.3 SOLO grid (containers, row, col-*) compilado con Sass desde `assets/src/css/grid.scss`; sin utilidades, componentes ni JS de Bootstrap. Sin xxl: el contenedor para en 1200 px de contenido.
+
 ## Pendiente
 Inventario del sitio actual, destino del formulario y texto de consentimiento, redirecciones 301, aviso de cookies, transporte exacto del deploy. Detalle en la memoria del proyecto (`project-markea-ia`).

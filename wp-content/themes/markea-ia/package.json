@@ -8,11 +8,13 @@
 		"build": "vite build"
 	},
 	"devDependencies": {
+		"sass": "1.105.1",
 		"vite": "^6.0.0"
 	},
 	"dependencies": {
 		"@fontsource-variable/montserrat": "5.3.0",
 		"@fontsource/poppins": "5.3.0",
-		"@splidejs/splide": "4.1.4"
+		"@splidejs/splide": "4.1.4",
+		"bootstrap": "5.3.3"
 	}
 }

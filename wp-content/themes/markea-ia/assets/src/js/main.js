@@ -1,3 +1,4 @@
+import '../css/grid.scss';
 import '../css/main.css';
 import { initTracking } from './tracking.js';
 import { initNav } from './nav.js';

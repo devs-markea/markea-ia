@@ -15,8 +15,9 @@ $markea_badges  = markea_option( 'brand_partner_badges', array() );
 $markea_social  = markea_social_links();
 ?>
 <footer class="site-footer">
-	<div class="container site-footer__grid">
-		<div class="site-footer__brand">
+	<div class="container">
+		<div class="row">
+		<div class="col-12 col-md-5 site-footer__brand">
 			<?php
 			$markea_logo = markea_logo( 'markea-logo' );
 			echo $markea_logo ? $markea_logo : '<strong>' . esc_html( get_bloginfo( 'name' ) ) . '</strong>'; // phpcs:ignore WordPress.Security.EscapeOutput
@@ -30,6 +31,7 @@ $markea_social  = markea_social_links();
 			<?php endif; ?>
 		</div>
 
+		<div class="col-12 col-md-5">
 		<address class="site-footer__contact">
 			<?php if ( $markea_email ) : ?>
 				<a href="mailto:<?php echo esc_attr( antispambot( $markea_email ) ); ?>" data-track="contact" data-track-type="email"><?php echo esc_html( antispambot( $markea_email ) ); ?></a>
@@ -41,14 +43,18 @@ $markea_social  = markea_social_links();
 				<span><?php echo esc_html( $markea_address ); ?></span>
 			<?php endif; ?>
 		</address>
+		</div>
 
 		<?php if ( $markea_social ) : ?>
+			<div class="col-12 col-md-2">
 			<ul class="site-footer__social" role="list">
 				<?php foreach ( $markea_social as $markea_label => $markea_url ) : ?>
 					<li><a href="<?php echo esc_url( $markea_url ); ?>" target="_blank" rel="noopener noreferrer" data-track="contact" data-track-type="social" data-track-network="<?php echo esc_attr( strtolower( $markea_label ) ); ?>"><?php echo esc_html( $markea_label ); ?></a></li>
 				<?php endforeach; ?>
 			</ul>
+			</div>
 		<?php endif; ?>
+		</div>
 	</div>
 
 	<?php if ( $markea_legal ) : ?>

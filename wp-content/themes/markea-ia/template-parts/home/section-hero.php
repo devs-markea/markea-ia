@@ -21,5 +21,6 @@ if ( '' === $title ) {
 			<p class="hero__lead"><?php echo esc_html( ( $row['subtitle'] ?? '' ) ); ?></p>
 		<?php endif; ?>
 		<?php echo markea_cta( 'hero' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+
 	</div>
 </section>

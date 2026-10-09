@@ -17,8 +17,9 @@ if ( '' === $title && ! $blocks ) {
 }
 ?>
 <section id="quienes-somos" class="section about<?php echo esc_attr( markea_tone( $row ) ); ?>">
-	<div class="container about__grid">
-		<div>
+	<div class="container">
+		<div class="row">
+		<div class="col-12 col-lg-7">
 			<?php if ( $years ) : ?>
 				<p class="about__years"><?php echo esc_html( $years ); ?></p>
 			<?php endif; ?>
@@ -30,6 +31,7 @@ if ( '' === $title && ! $blocks ) {
 			<?php endif; ?>
 		</div>
 		<?php if ( $blocks ) : ?>
+			<div class="col-12 col-lg-5">
 			<ul class="about__blocks" role="list">
 				<?php foreach ( $blocks as $block ) : ?>
 					<li class="card">
@@ -38,6 +40,8 @@ if ( '' === $title && ! $blocks ) {
 					</li>
 				<?php endforeach; ?>
 			</ul>
+			</div>
 		<?php endif; ?>
+		</div>
 	</div>
 </section>

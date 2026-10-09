@@ -33,7 +33,8 @@ $categories = markea_get_project_categories();
 			</div>
 		<?php endif; ?>
 
-		<ul class="cards cards--3 projects__grid" role="list">
+		<div class="cards">
+			<ul class="row projects__grid" role="list">
 			<?php
 			while ( $projects->have_posts() ) :
 				$projects->the_post();
@@ -41,7 +42,7 @@ $categories = markea_get_project_categories();
 				$tag   = (string) markea_field( 'project_tag', '', get_the_ID() );
 				$url   = (string) markea_field( 'project_url', '', get_the_ID() );
 				?>
-				<li class="card project" data-categories="<?php echo esc_attr( implode( ' ', array_filter( $slugs ) ) ); ?>">
+				<li class="col-12 col-md-6 col-lg-4" data-categories="<?php echo esc_attr( implode( ' ', array_filter( $slugs ) ) ); ?>"><div class="card project">
 					<?php if ( has_post_thumbnail() ) : ?>
 						<div class="project__media"><?php the_post_thumbnail( 'markea-card' ); ?></div>
 					<?php endif; ?>
@@ -58,9 +59,11 @@ $categories = markea_get_project_categories();
 					<?php if ( has_excerpt() ) : ?>
 						<p class="card__text"><?php echo esc_html( get_the_excerpt() ); ?></p>
 					<?php endif; ?>
+				</div>
 				</li>
 			<?php endwhile; ?>
 		</ul>
+		</div>
 	</div>
 </section>
 <?php wp_reset_postdata(); ?>

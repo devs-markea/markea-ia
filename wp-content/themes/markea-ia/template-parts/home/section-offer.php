@@ -20,9 +20,10 @@ if ( '' === $title && ! $items ) {
 		<?php if ( $title ) : ?>
 			<h2 class="section__title"><?php echo esc_html( $title ); ?></h2>
 		<?php endif; ?>
-		<ul class="cards cards--3" role="list">
+		<div class="cards">
+			<ul class="row" role="list">
 			<?php foreach ( $items as $item ) : ?>
-				<li class="card">
+				<li class="col-12 col-md-6 col-lg-4"><div class="card">
 					<h3 class="card__title"><?php echo esc_html( $item['title'] ?? '' ); ?></h3>
 					<p class="card__text"><?php echo esc_html( $item['text'] ?? '' ); ?></p>
 					<?php $tags = markea_tags( (string) ( $item['tags'] ?? '' ) ); ?>
@@ -33,8 +34,10 @@ if ( '' === $title && ! $items ) {
 							<?php endforeach; ?>
 						</ul>
 					<?php endif; ?>
+				</div>
 				</li>
 			<?php endforeach; ?>
 		</ul>
+		</div>
 	</div>
 </section>

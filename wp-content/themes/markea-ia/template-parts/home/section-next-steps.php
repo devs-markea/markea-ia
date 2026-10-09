@@ -18,8 +18,9 @@ if ( '' === $title && ! $steps ) {
 $embed = $video ? wp_oembed_get( $video, array( 'width' => 960 ) ) : false;
 ?>
 <section id="proximos-pasos" class="section next<?php echo esc_attr( markea_tone( $row ) ); ?>">
-	<div class="container next__grid">
-		<div>
+	<div class="container">
+		<div class="row next__row">
+		<div class="col-12 col-lg-6">
 			<?php if ( $title ) : ?>
 				<h2 class="section__title"><?php echo esc_html( $title ); ?></h2>
 			<?php endif; ?>
@@ -34,12 +35,15 @@ $embed = $video ? wp_oembed_get( $video, array( 'width' => 960 ) ) : false;
 			</ol>
 		</div>
 		<?php if ( $embed ) : ?>
+			<div class="col-12 col-lg-6">
 			<div class="video" data-video>
 				<button type="button" class="video__play" data-video-play>
 					<span class="screen-reader-text"><?php esc_html_e( 'Reproducir video', 'markea-ia' ); ?></span>
 				</button>
 				<template data-video-embed><?php echo $embed; // phpcs:ignore WordPress.Security.EscapeOutput -- oEmbed HTML. ?></template>
 			</div>
+			</div>
 		<?php endif; ?>
+		</div>
 	</div>
 </section>
