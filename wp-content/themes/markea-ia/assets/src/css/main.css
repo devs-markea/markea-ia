@@ -73,7 +73,7 @@
 
 	/* Layout. */
 	--radius: 16px;
-	--page-margin: 1.25rem; /* Figma margin: 120 px from 1440 px, scaled down on smaller screens (see media queries below). */
+	--page-margin: 1rem; /* Figma margins: mobile 16 px, tablet 32 px, desktop 120 px (see media queries below). */
 	--page-max: 1440px; /* 1200 px of content + 2 x 120 px margin */
 	--section-y: var(--wp--preset--spacing--l, clamp(3rem, 8vw, 6rem));
 }
@@ -195,7 +195,13 @@ a {
 
 @media (min-width: 768px) {
 	:root {
-		--page-margin: clamp(2rem, 8.333vw, 7.5rem); /* 120 / 1440 = 8.333vw */
+		--page-margin: 2rem; /* tablet: 32 px */
+	}
+}
+
+@media (min-width: 1200px) {
+	:root {
+		--page-margin: 7.5rem; /* desktop: 120 px */
 	}
 }
 
