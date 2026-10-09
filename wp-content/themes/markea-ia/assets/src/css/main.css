@@ -638,6 +638,7 @@ html.is-menu-open {
 }
 
 .hero__frame {
+	display: block;
 	position: absolute;
 	inset: 0;
 	width: 100%;

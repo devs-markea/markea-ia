@@ -15,7 +15,9 @@ if ( '' === $title ) {
 }
 
 $embed_url   = (string) ( $row['embed_url'] ?? '' );
-$embed_title = (string) ( $row['embed_title'] ?? '' );
+$embed_label = (string) ( $row['embed_title'] ?? '' ) ?: __( 'Visual interactivo', 'markea-ia' );
+$hide_badge  = ! isset( $row['embed_hide_badge'] ) || '' === $row['embed_hide_badge'] || (bool) $row['embed_hide_badge'];
+$is_spline   = str_ends_with( strtolower( (string) wp_parse_url( $embed_url, PHP_URL_PATH ) ), '.splinecode' );
 ?>
 <section id="inicio" class="section hero<?php echo esc_attr( markea_tone( $row ) ); ?>">
 	<div class="container">
@@ -32,15 +34,24 @@ $embed_title = (string) ( $row['embed_title'] ?? '' );
 			</div>
 			<div class="col-12 col-lg-5">
 				<div class="hero__visual" data-hero-visual<?php echo $embed_url ? '' : ' aria-hidden="true"'; ?>>
-					<?php if ( $embed_url ) : ?>
+					<?php if ( $embed_url && $is_spline ) : ?>
+						<?php // The Spline viewer script is loaded by assets/src/js/hero-visual.js after the page is idle. ?>
+						<spline-viewer
+							class="hero__frame"
+							role="img"
+							aria-label="<?php echo esc_attr( $embed_label ); ?>"
+							data-spline-url="<?php echo esc_url( $embed_url ); ?>"
+							data-hide-badge="<?php echo $hide_badge ? '1' : '0'; ?>"
+						></spline-viewer>
+					<?php elseif ( $embed_url ) : ?>
 						<iframe
 							class="hero__frame"
-							title="<?php echo esc_attr( $embed_title ?: __( 'Visual interactivo', 'markea-ia' ) ); ?>"
+							title="<?php echo esc_attr( $embed_label ); ?>"
 							data-src="<?php echo esc_url( $embed_url ); ?>"
 							allow="fullscreen; autoplay"
 							referrerpolicy="strict-origin-when-cross-origin"
 						></iframe>
-						<noscript><iframe class="hero__frame" title="<?php echo esc_attr( $embed_title ?: __( 'Visual interactivo', 'markea-ia' ) ); ?>" src="<?php echo esc_url( $embed_url ); ?>"></iframe></noscript>
+						<noscript><iframe class="hero__frame" title="<?php echo esc_attr( $embed_label ); ?>" src="<?php echo esc_url( $embed_url ); ?>"></iframe></noscript>
 					<?php endif; ?>
 				</div>
 			</div>

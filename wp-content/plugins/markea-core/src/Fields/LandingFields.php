@@ -64,7 +64,8 @@ final class LandingFields {
 					F::sub( 'textarea', 'subtitle', 'Subtítulo', array( 'rows' => 3, 'new_lines' => '' ) ),
 					F::sub( 'text', 'cta_label', 'Texto del botón (CTA)', array( 'instructions' => 'Se usa en todos los botones "Hablemos" del sitio.' ) ),
 					F::sub( 'text', 'cta_url', 'Enlace del botón', array( 'default_value' => '#contacto' ) ),
-					F::sub( 'url', 'embed_url', 'Visual interactivo (URL del iframe)', array( 'instructions' => 'URL que se carga dentro del círculo de la derecha (por ejemplo, el cubo 3D). Se carga después de que la página termina de cargar para no frenarla.' ) ),
+					F::sub( 'url', 'embed_url', 'Visual interactivo (URL)', array( 'instructions' => 'Escena de Spline (URL que termina en .splinecode) o la URL de un iframe. Se muestra en el círculo de la derecha y se carga después de que la página termina de cargar.' ) ),
+					F::sub( 'true_false', 'embed_hide_badge', 'Ocultar la insignia de Spline', array( 'ui' => 1, 'default_value' => 1, 'instructions' => 'Solo aplica a escenas de Spline.' ) ),
 					F::sub( 'text', 'embed_title', 'Descripción del visual', array( 'instructions' => 'Texto para lectores de pantalla. Ej. "Cubo 3D interactivo".' ) ),
 				)
 			),
