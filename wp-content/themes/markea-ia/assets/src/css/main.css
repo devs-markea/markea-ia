@@ -186,6 +186,11 @@ a {
 	color: var(--text-accent);
 }
 
+/* Highlight that is not part of the title text: shown on its own line. */
+.u-highlight--line {
+	display: block;
+}
+
 /* ==========================================================================
    6. Section primitives
    ========================================================================== */

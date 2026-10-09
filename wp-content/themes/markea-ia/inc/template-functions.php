@@ -73,19 +73,23 @@ function markea_image( $image, string $size = 'large', array $attr = array() ): 
 }
 
 /**
- * Escape a title and wrap the highlighted fragment, if present.
+ * Escape a title and show the highlighted text: wrapped in place when it is a fragment of the title,
+ * otherwise added after the title as its own highlighted line.
  */
 function markea_highlight( string $title, string $highlight ): string {
-	$title = esc_html( $title );
+	$title     = esc_html( $title );
+	$highlight = trim( $highlight );
 	if ( '' === $highlight ) {
 		return $title;
 	}
 
 	$needle = esc_html( $highlight );
 
-	return str_contains( $title, $needle )
-		? str_replace( $needle, '<span class="u-highlight">' . $needle . '</span>', $title )
-		: $title;
+	if ( str_contains( $title, $needle ) ) {
+		return str_replace( $needle, '<span class="u-highlight">' . $needle . '</span>', $title );
+	}
+
+	return $title . ' <span class="u-highlight u-highlight--line">' . $needle . '</span>';
 }
 
 /**
