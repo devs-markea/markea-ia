@@ -119,4 +119,48 @@ final class F {
 	public static function sub( string $type, string $name, string $label, array $extra = array() ): array {
 		return array_merge( array( 'type' => $type, 'name' => $name, 'label' => $label ), $extra );
 	}
+
+	/**
+	 * Flexible Content layout. Sub field names are NOT prefixed; keys are assigned recursively
+	 * as field_markea_<layout>_<name>[_<name>...] so the seeder and ACF can address them.
+	 *
+	 * @param array<int,array<string,mixed>> $subs
+	 * @return array<string,mixed>
+	 */
+	public static function layout( string $name, string $label, array $subs ): array {
+		return array(
+			'key'        => 'layout_markea_' . $name,
+			'name'       => $name,
+			'label'      => $label,
+			'display'    => 'block',
+			'sub_fields' => self::assign_keys( $subs, self::key( $name ) ),
+		);
+	}
+
+	/**
+	 * @param array<int,array<string,mixed>> $fields
+	 * @return array<int,array<string,mixed>>
+	 */
+	private static function assign_keys( array $fields, string $parent ): array {
+		foreach ( $fields as &$field ) {
+			$field['key'] = $parent . '_' . $field['name'];
+			if ( ! empty( $field['sub_fields'] ) ) {
+				$field['sub_fields'] = self::assign_keys( $field['sub_fields'], $field['key'] );
+			}
+		}
+		unset( $field );
+
+		return $fields;
+	}
+
+	/**
+	 * Repeater used inside a layout (unprefixed name).
+	 *
+	 * @param array<int,array<string,mixed>> $subs
+	 * @param array<string,mixed>            $extra
+	 * @return array<string,mixed>
+	 */
+	public static function items( string $name, string $label, array $subs, array $extra = array() ): array {
+		return self::sub( 'repeater', $name, $label, array_merge( array( 'layout' => 'block', 'button_label' => 'Añadir fila', 'sub_fields' => $subs ), $extra ) );
+	}
 }

@@ -7,16 +7,18 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$title = (string) markea_field( 'hero_title' );
+$row = $args['row'] ?? array();
+
+$title = (string) ( $row['title'] ?? '' );
 if ( '' === $title ) {
 	return;
 }
 ?>
 <section id="inicio" class="section hero">
 	<div class="container hero__inner">
-		<h1 class="hero__title"><?php echo markea_highlight( $title, (string) markea_field( 'hero_highlight' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h1>
-		<?php if ( markea_field( 'hero_subtitle' ) ) : ?>
-			<p class="hero__lead"><?php echo esc_html( markea_field( 'hero_subtitle' ) ); ?></p>
+		<h1 class="hero__title"><?php echo markea_highlight( $title, (string) ( $row['highlight'] ?? '' ) ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h1>
+		<?php if ( ( $row['subtitle'] ?? '' ) ) : ?>
+			<p class="hero__lead"><?php echo esc_html( ( $row['subtitle'] ?? '' ) ); ?></p>
 		<?php endif; ?>
 		<?php echo markea_cta( 'hero' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 	</div>

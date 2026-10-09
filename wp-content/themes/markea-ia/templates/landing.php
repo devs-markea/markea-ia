@@ -13,30 +13,15 @@ get_header();
 ?>
 <main id="contenido" class="site-main">
 	<?php
-	while ( have_posts() ) :
-		the_post();
+	// Sections are ACF Flexible Content layouts; layout name => template-parts/home/section-<name>.php.
+	$markea_allowed = array( 'hero', 'problem', 'about', 'units', 'case', 'mos', 'offer', 'projects', 'tools', 'relevance', 'how', 'next_steps', 'strategists', 'form' );
 
-		$markea_sections = array(
-			'hero',
-			'problem',
-			'about',
-			'units',
-			'case',
-			'mos',
-			'offer',
-			'projects',
-			'tools',
-			'relevance',
-			'how',
-			'next-steps',
-			'strategists',
-			'form',
-		);
-
-		foreach ( $markea_sections as $markea_section ) {
-			get_template_part( 'template-parts/home/section', $markea_section );
+	foreach ( markea_sections() as $markea_row ) {
+		$markea_layout = (string) ( $markea_row['acf_fc_layout'] ?? '' );
+		if ( in_array( $markea_layout, $markea_allowed, true ) ) {
+			get_template_part( 'template-parts/home/section', str_replace( '_', '-', $markea_layout ), array( 'row' => $markea_row ) );
 		}
-	endwhile;
+	}
 	?>
 </main>
 <?php

@@ -7,9 +7,11 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$title  = (string) markea_field( 'about_title' );
-$years  = (string) markea_field( 'about_years' );
-$blocks = markea_rows( 'about_blocks' );
+$row = $args['row'] ?? array();
+
+$title  = (string) ( $row['title'] ?? '' );
+$years  = (string) ( $row['years'] ?? '' );
+$blocks = ( $row['items'] ?? array() );
 if ( '' === $title && ! $blocks ) {
 	return;
 }
@@ -23,8 +25,8 @@ if ( '' === $title && ! $blocks ) {
 			<?php if ( $title ) : ?>
 				<h2 class="section__title"><?php echo esc_html( $title ); ?></h2>
 			<?php endif; ?>
-			<?php if ( markea_field( 'about_text' ) ) : ?>
-				<div class="prose"><?php echo wp_kses_post( markea_field( 'about_text' ) ); ?></div>
+			<?php if ( ( $row['text'] ?? '' ) ) : ?>
+				<div class="prose"><?php echo wp_kses_post( ( $row['text'] ?? '' ) ); ?></div>
 			<?php endif; ?>
 		</div>
 		<?php if ( $blocks ) : ?>

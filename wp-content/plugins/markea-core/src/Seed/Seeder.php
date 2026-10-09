@@ -122,14 +122,21 @@ final class Seeder {
 		}
 
 		// Only what the brief states explicitly. Section copy comes from the design source and is loaded separately.
-		$this->field( 'hero_cta_label', 'Hablemos', $id );
-		$this->field( 'hero_cta_url', '#contacto', $id );
-		$this->field( 'about_years', '8 años', $id );
+		// Sections are Flexible Content layouts; the team can add and reorder them in wp-admin.
 		$this->field(
-			'about_blocks',
+			'sections',
 			array(
-				array( 'title' => 'Marcas propias', 'text' => '' ),
-				array( 'title' => 'Clientes externos', 'text' => '' ),
+				array( 'acf_fc_layout' => 'hero', 'cta_label' => 'Hablemos', 'cta_url' => '#contacto' ),
+				array(
+					'acf_fc_layout' => 'about',
+					'years'         => '8 años',
+					'items'         => array(
+						array( 'title' => 'Marcas propias', 'text' => '' ),
+						array( 'title' => 'Clientes externos', 'text' => '' ),
+					),
+				),
+				array( 'acf_fc_layout' => 'projects' ),
+				array( 'acf_fc_layout' => 'strategists' ),
 			),
 			$id
 		);

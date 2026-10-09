@@ -7,8 +7,10 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$title = (string) markea_field( 'units_title' );
-$items = markea_rows( 'units_items' );
+$row = $args['row'] ?? array();
+
+$title = (string) ( $row['title'] ?? '' );
+$items = ( $row['items'] ?? array() );
 if ( ! $items ) {
 	return;
 }

@@ -7,19 +7,21 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$title = (string) markea_field( 'case_title' );
+$row = $args['row'] ?? array();
+
+$title = (string) ( $row['title'] ?? '' );
 if ( '' === $title ) {
 	return;
 }
 ?>
 <section id="caso" class="section case">
 	<div class="container container--narrow">
-		<?php if ( markea_field( 'case_eyebrow' ) ) : ?>
-			<p class="eyebrow"><?php echo esc_html( markea_field( 'case_eyebrow' ) ); ?></p>
+		<?php if ( ( $row['eyebrow'] ?? '' ) ) : ?>
+			<p class="eyebrow"><?php echo esc_html( ( $row['eyebrow'] ?? '' ) ); ?></p>
 		<?php endif; ?>
 		<h2 class="section__title"><?php echo esc_html( $title ); ?></h2>
-		<?php if ( markea_field( 'case_text' ) ) : ?>
-			<div class="prose"><?php echo wp_kses_post( markea_field( 'case_text' ) ); ?></div>
+		<?php if ( ( $row['text'] ?? '' ) ) : ?>
+			<div class="prose"><?php echo wp_kses_post( ( $row['text'] ?? '' ) ); ?></div>
 		<?php endif; ?>
 	</div>
 </section>

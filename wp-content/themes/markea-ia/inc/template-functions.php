@@ -89,15 +89,47 @@ function markea_highlight( string $title, string $highlight ): string {
 }
 
 /**
- * Primary CTA link. Tracked as a "Hablemos" click.
+ * Landing sections (Flexible Content rows) of the page being shown.
+ *
+ * @return array<int,array<string,mixed>>
+ */
+function markea_sections(): array {
+	static $cache = array();
+
+	$post_id = get_queried_object_id() ?: (int) get_option( 'page_on_front' );
+	if ( ! isset( $cache[ $post_id ] ) ) {
+		$cache[ $post_id ] = $post_id ? markea_rows( 'sections', $post_id ) : array();
+	}
+
+	return $cache[ $post_id ];
+}
+
+/**
+ * First row of a layout (e.g. the hero), or an empty array.
+ *
+ * @return array<string,mixed>
+ */
+function markea_section( string $layout ): array {
+	foreach ( markea_sections() as $row ) {
+		if ( ( $row['acf_fc_layout'] ?? '' ) === $layout ) {
+			return $row;
+		}
+	}
+
+	return array();
+}
+
+/**
+ * Primary CTA link (label and URL live in the hero layout). Tracked as a "Hablemos" click.
  */
 function markea_cta( string $location, string $class = 'btn btn--primary' ): string {
-	$label = (string) markea_field( 'hero_cta_label', '', (int) get_option( 'page_on_front' ) ?: null );
+	$hero  = markea_section( 'hero' );
+	$label = (string) ( $hero['cta_label'] ?? '' );
 	if ( '' === $label ) {
 		return '';
 	}
 
-	$url = (string) markea_field( 'hero_cta_url', '#contacto', (int) get_option( 'page_on_front' ) ?: null );
+	$url = (string) ( $hero['cta_url'] ?? '' ) ?: '#contacto';
 
 	return sprintf(
 		'<a class="%1$s" href="%2$s" data-track="cta" data-track-label="%3$s" data-track-location="%4$s">%3$s</a>',

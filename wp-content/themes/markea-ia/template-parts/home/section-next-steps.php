@@ -7,9 +7,11 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$title = (string) markea_field( 'next_title' );
-$steps = markea_rows( 'next_steps' );
-$video = (string) markea_field( 'next_video_url' );
+$row = $args['row'] ?? array();
+
+$title = (string) ( $row['title'] ?? '' );
+$steps = ( $row['items'] ?? array() );
+$video = (string) ( $row['video_url'] ?? '' );
 if ( '' === $title && ! $steps ) {
 	return;
 }

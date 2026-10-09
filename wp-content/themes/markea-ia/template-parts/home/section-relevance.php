@@ -7,8 +7,10 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$title  = (string) markea_field( 'relevance_title' );
-$points = markea_rows( 'relevance_points' );
+$row = $args['row'] ?? array();
+
+$title  = (string) ( $row['title'] ?? '' );
+$points = ( $row['items'] ?? array() );
 if ( '' === $title && ! $points ) {
 	return;
 }
@@ -18,8 +20,8 @@ if ( '' === $title && ! $points ) {
 		<?php if ( $title ) : ?>
 			<h2 class="section__title"><?php echo esc_html( $title ); ?></h2>
 		<?php endif; ?>
-		<?php if ( markea_field( 'relevance_text' ) ) : ?>
-			<p class="section__lead"><?php echo esc_html( markea_field( 'relevance_text' ) ); ?></p>
+		<?php if ( ( $row['text'] ?? '' ) ) : ?>
+			<p class="section__lead"><?php echo esc_html( ( $row['text'] ?? '' ) ); ?></p>
 		<?php endif; ?>
 		<?php if ( $points ) : ?>
 			<ul class="checklist" role="list">

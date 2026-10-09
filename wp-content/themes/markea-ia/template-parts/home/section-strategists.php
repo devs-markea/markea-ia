@@ -7,6 +7,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
+$row = $args['row'] ?? array();
+
 $people = markea_get_strategists();
 if ( ! $people->have_posts() ) {
 	return;
@@ -14,11 +16,11 @@ if ( ! $people->have_posts() ) {
 ?>
 <section id="estrategas" class="section strategists">
 	<div class="container">
-		<?php if ( markea_field( 'strategists_title' ) ) : ?>
-			<h2 class="section__title"><?php echo esc_html( markea_field( 'strategists_title' ) ); ?></h2>
+		<?php if ( ( $row['title'] ?? '' ) ) : ?>
+			<h2 class="section__title"><?php echo esc_html( ( $row['title'] ?? '' ) ); ?></h2>
 		<?php endif; ?>
-		<?php if ( markea_field( 'strategists_text' ) ) : ?>
-			<p class="section__lead"><?php echo esc_html( markea_field( 'strategists_text' ) ); ?></p>
+		<?php if ( ( $row['text'] ?? '' ) ) : ?>
+			<p class="section__lead"><?php echo esc_html( ( $row['text'] ?? '' ) ); ?></p>
 		<?php endif; ?>
 		<ul class="cards cards--4" role="list">
 			<?php

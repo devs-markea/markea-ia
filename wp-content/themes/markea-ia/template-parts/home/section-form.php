@@ -7,20 +7,22 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$title = (string) markea_field( 'form_title' );
+$row = $args['row'] ?? array();
+
+$title = (string) ( $row['title'] ?? '' );
 if ( '' === $title ) {
 	return;
 }
 
-$interests = markea_lines( (string) markea_field( 'form_interests' ) );
+$interests = markea_lines( (string) ( $row['interests'] ?? '' ) );
 $consent   = (string) markea_option( 'form_consent_text' );
 $success   = (string) markea_option( 'form_success_message' );
 ?>
 <section id="contacto" class="section contact">
 	<div class="container container--narrow">
 		<h2 class="section__title"><?php echo esc_html( $title ); ?></h2>
-		<?php if ( markea_field( 'form_text' ) ) : ?>
-			<p class="section__lead"><?php echo esc_html( markea_field( 'form_text' ) ); ?></p>
+		<?php if ( ( $row['text'] ?? '' ) ) : ?>
+			<p class="section__lead"><?php echo esc_html( ( $row['text'] ?? '' ) ); ?></p>
 		<?php endif; ?>
 
 		<form class="form" method="post" novalidate data-lead-form data-endpoint="<?php echo esc_url( rest_url( 'markea/v1/leads' ) ); ?>" data-success="<?php echo esc_attr( $success ); ?>">

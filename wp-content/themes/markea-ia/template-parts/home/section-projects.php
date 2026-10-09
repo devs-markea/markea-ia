@@ -7,6 +7,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
+$row = $args['row'] ?? array();
+
 $projects = markea_get_projects();
 if ( ! $projects->have_posts() ) {
 	return;
@@ -15,11 +17,11 @@ $categories = markea_get_project_categories();
 ?>
 <section id="proyectos" class="section projects" data-projects>
 	<div class="container">
-		<?php if ( markea_field( 'projects_title' ) ) : ?>
-			<h2 class="section__title"><?php echo esc_html( markea_field( 'projects_title' ) ); ?></h2>
+		<?php if ( ( $row['title'] ?? '' ) ) : ?>
+			<h2 class="section__title"><?php echo esc_html( ( $row['title'] ?? '' ) ); ?></h2>
 		<?php endif; ?>
-		<?php if ( markea_field( 'projects_text' ) ) : ?>
-			<p class="section__lead"><?php echo esc_html( markea_field( 'projects_text' ) ); ?></p>
+		<?php if ( ( $row['text'] ?? '' ) ) : ?>
+			<p class="section__lead"><?php echo esc_html( ( $row['text'] ?? '' ) ); ?></p>
 		<?php endif; ?>
 
 		<?php if ( $categories ) : ?>

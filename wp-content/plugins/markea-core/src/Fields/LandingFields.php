@@ -6,116 +6,173 @@ namespace Markea\Core\Fields;
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Field group for the landing page (template templates/landing.php), one tab per section.
+ * Landing content as ONE Flexible Content field (markea_sections). Each section is a layout the team can
+ * add, remove and reorder on the page that uses templates/landing.php.
+ *
+ * Layout names map to theme partials: next_steps => template-parts/home/section-next-steps.php.
  */
 final class LandingFields {
 
 	public const TEMPLATE = 'templates/landing.php';
 
+	/** Layout names the theme is allowed to render. */
+	public const LAYOUTS = array( 'hero', 'problem', 'about', 'units', 'case', 'mos', 'offer', 'projects', 'tools', 'relevance', 'how', 'next_steps', 'strategists', 'form' );
+
 	public function register(): void {
 		acf_add_local_field_group(
 			array(
-				'key'                   => 'group_markea_landing',
-				'title'                 => 'Contenido de la landing',
-				'fields'                => $this->fields(),
-				'location'              => array( array( array( 'param' => 'page_template', 'operator' => '==', 'value' => self::TEMPLATE ) ) ),
-				'hide_on_screen'        => array( 'the_content', 'excerpt', 'discussion', 'comments', 'slug', 'author', 'format', 'categories', 'tags', 'send-trackbacks' ),
-				'label_placement'       => 'top',
-				'instruction_placement' => 'field',
+				'key'            => 'group_markea_landing',
+				'title'          => 'Contenido de la landing',
+				'fields'         => array(
+					F::field(
+						'flexible_content',
+						'sections',
+						'Secciones',
+						array(
+							'instructions' => 'Añade, quita y reordena las secciones. Las secciones sin contenido no se muestran.',
+							'button_label' => 'Añadir sección',
+							'layouts'      => $this->layouts(),
+						)
+					),
+				),
+				'location'       => array( array( array( 'param' => 'page_template', 'operator' => '==', 'value' => self::TEMPLATE ) ) ),
+				'hide_on_screen' => array( 'the_content', 'excerpt', 'discussion', 'comments', 'slug', 'author', 'format', 'categories', 'tags', 'send-trackbacks' ),
 			)
 		);
 	}
 
 	/** @return array<int,array<string,mixed>> */
-	private function fields(): array {
-		$title_text = static fn( string $label ): array => array(
-			F::sub( 'text', 'title', 'Título' ),
-			F::sub( 'textarea', 'text', 'Texto', array( 'rows' => 3 ) ),
+	private function layouts(): array {
+		$title = F::sub( 'text', 'title', 'Título' );
+		$cards = static fn( string $label ): array => F::items(
+			'items',
+			$label,
+			array(
+				F::sub( 'text', 'title', 'Título' ),
+				F::sub( 'textarea', 'text', 'Texto', array( 'rows' => 3, 'new_lines' => '' ) ),
+			),
+			array( 'button_label' => 'Añadir fila' )
 		);
 
 		return array(
-			F::tab( 'hero', '1. Hero' ),
-			F::text( 'hero_title', 'Título', array( 'instructions' => 'Titular principal.' ) ),
-			F::text( 'hero_highlight', 'Parte resaltada', array( 'instructions' => 'Fragmento exacto del título que se muestra resaltado.' ) ),
-			F::textarea( 'hero_subtitle', 'Subtítulo', array( 'rows' => 3 ) ),
-			F::text( 'hero_cta_label', 'Texto del botón (CTA)', array( 'instructions' => 'Se usa en todos los botones "Hablemos" del sitio.' ) ),
-			F::text( 'hero_cta_url', 'Enlace del botón', array( 'default_value' => '#contacto' ) ),
-
-			F::tab( 'problem', '2. El problema' ),
-			F::text( 'problem_title', 'Título de la sección' ),
-			F::repeater( 'problem_items', 'Cards', $title_text( '' ), array( 'max' => 6, 'button_label' => 'Añadir card' ) ),
-
-			F::tab( 'about', '3. Quiénes somos' ),
-			F::text( 'about_years', 'Dato destacado', array( 'instructions' => 'Ej. "8 años".' ) ),
-			F::text( 'about_title', 'Título' ),
-			F::wysiwyg( 'about_text', 'Texto' ),
-			F::repeater( 'about_blocks', 'Bloques', $title_text( '' ), array( 'max' => 4, 'button_label' => 'Añadir bloque' ) ),
-
-			F::tab( 'units', '4. Unidades de negocio' ),
-			F::text( 'units_title', 'Título' ),
-			F::repeater(
-				'units_items',
-				'Unidades',
-				array(
-					F::sub( 'text', 'name', 'Nombre' ),
-					F::sub( 'image', 'logo', 'Logo', array( 'return_format' => 'id', 'preview_size' => 'thumbnail' ) ),
-					F::sub( 'url', 'url', 'Enlace (opcional)' ),
-				),
-				array( 'button_label' => 'Añadir unidad' )
-			),
-
-			F::tab( 'case', '5. Caso de operación propia' ),
-			F::text( 'case_eyebrow', 'Etiqueta superior' ),
-			F::text( 'case_title', 'Título' ),
-			F::wysiwyg( 'case_text', 'Texto' ),
-
-			F::tab( 'mos', '6. Marketing Operating System' ),
-			F::text( 'mos_title', 'Título' ),
-			F::repeater( 'mos_steps', 'Pasos', $title_text( '' ), array( 'max' => 8, 'button_label' => 'Añadir paso' ) ),
-
-			F::tab( 'offer', '7. Oferta diferenciada' ),
-			F::text( 'offer_title', 'Título' ),
-			F::repeater(
-				'offer_items',
-				'Cards',
+			F::layout(
+				'hero',
+				'Hero',
 				array(
 					F::sub( 'text', 'title', 'Título' ),
-					F::sub( 'textarea', 'text', 'Texto', array( 'rows' => 3 ) ),
-					F::sub( 'text', 'tags', 'Tags', array( 'instructions' => 'Separados por coma.' ) ),
-				),
-				array( 'button_label' => 'Añadir card' )
+					F::sub( 'text', 'highlight', 'Parte resaltada', array( 'instructions' => 'Fragmento exacto del título que se muestra resaltado.' ) ),
+					F::sub( 'textarea', 'subtitle', 'Subtítulo', array( 'rows' => 3, 'new_lines' => '' ) ),
+					F::sub( 'text', 'cta_label', 'Texto del botón (CTA)', array( 'instructions' => 'Se usa en todos los botones "Hablemos" del sitio.' ) ),
+					F::sub( 'text', 'cta_url', 'Enlace del botón', array( 'default_value' => '#contacto' ) ),
+				)
 			),
-
-			F::tab( 'projects', '8. Proyectos' ),
-			F::text( 'projects_title', 'Título' ),
-			F::textarea( 'projects_text', 'Texto', array( 'instructions' => 'Los proyectos y sus filtros se administran en el menú Proyectos.' ) ),
-
-			F::tab( 'tools', '9. Herramientas' ),
-			F::text( 'tools_title', 'Título' ),
-			F::gallery( 'tools_gallery', 'Logos de herramientas' ),
-
-			F::tab( 'relevance', '10. Relevancia sectorial' ),
-			F::text( 'relevance_title', 'Título' ),
-			F::textarea( 'relevance_text', 'Texto' ),
-			F::repeater( 'relevance_points', 'Puntos', array( F::sub( 'text', 'text', 'Punto' ) ), array( 'layout' => 'table', 'button_label' => 'Añadir punto' ) ),
-
-			F::tab( 'how', '11. Cómo trabajamos' ),
-			F::text( 'how_title', 'Título' ),
-			F::repeater( 'how_items', 'Líneas de servicio', $title_text( '' ), array( 'max' => 6, 'button_label' => 'Añadir línea' ) ),
-
-			F::tab( 'next', '12. Próximos pasos' ),
-			F::text( 'next_title', 'Título' ),
-			F::repeater( 'next_steps', 'Pasos', $title_text( '' ), array( 'max' => 6, 'button_label' => 'Añadir paso' ) ),
-			F::url( 'next_video_url', 'URL del video', array( 'instructions' => 'YouTube o Vimeo. Se carga al hacer clic en reproducir.' ) ),
-
-			F::tab( 'strategists', '13. Estrategas' ),
-			F::text( 'strategists_title', 'Título' ),
-			F::textarea( 'strategists_text', 'Texto', array( 'instructions' => 'Las personas se administran en el menú Estrategas.' ) ),
-
-			F::tab( 'form', '14. Formulario' ),
-			F::text( 'form_title', 'Título' ),
-			F::textarea( 'form_text', 'Texto' ),
-			F::textarea( 'form_interests', 'Opciones de "Me interesa"', array( 'rows' => 6, 'instructions' => 'Una opción por línea.' ) ),
+			F::layout( 'problem', 'El problema', array( $title, $cards( 'Cards' ) ) ),
+			F::layout(
+				'about',
+				'Quiénes somos',
+				array(
+					F::sub( 'text', 'years', 'Dato destacado', array( 'instructions' => 'Ej. "8 años".' ) ),
+					$title,
+					F::sub( 'wysiwyg', 'text', 'Texto', array( 'media_upload' => 0, 'toolbar' => 'basic' ) ),
+					$cards( 'Bloques' ),
+				)
+			),
+			F::layout(
+				'units',
+				'Unidades de negocio',
+				array(
+					$title,
+					F::items(
+						'items',
+						'Unidades',
+						array(
+							F::sub( 'text', 'name', 'Nombre' ),
+							F::sub( 'image', 'logo', 'Logo', array( 'return_format' => 'id', 'preview_size' => 'thumbnail' ) ),
+							F::sub( 'url', 'url', 'Enlace (opcional)' ),
+						),
+						array( 'button_label' => 'Añadir unidad' )
+					),
+				)
+			),
+			F::layout(
+				'case',
+				'Caso de operación propia',
+				array(
+					F::sub( 'text', 'eyebrow', 'Etiqueta superior' ),
+					$title,
+					F::sub( 'wysiwyg', 'text', 'Texto', array( 'media_upload' => 0, 'toolbar' => 'basic' ) ),
+				)
+			),
+			F::layout( 'mos', 'Marketing Operating System', array( $title, $cards( 'Pasos' ) ) ),
+			F::layout(
+				'offer',
+				'Oferta diferenciada',
+				array(
+					$title,
+					F::items(
+						'items',
+						'Cards',
+						array(
+							F::sub( 'text', 'title', 'Título' ),
+							F::sub( 'textarea', 'text', 'Texto', array( 'rows' => 3, 'new_lines' => '' ) ),
+							F::sub( 'text', 'tags', 'Tags', array( 'instructions' => 'Separados por coma.' ) ),
+						),
+						array( 'button_label' => 'Añadir card' )
+					),
+				)
+			),
+			F::layout(
+				'projects',
+				'Proyectos',
+				array(
+					$title,
+					F::sub( 'textarea', 'text', 'Texto', array( 'rows' => 3, 'new_lines' => '', 'instructions' => 'Los proyectos y sus filtros se administran en el menú Proyectos.' ) ),
+				)
+			),
+			F::layout(
+				'tools',
+				'Herramientas',
+				array(
+					$title,
+					F::sub( 'gallery', 'gallery', 'Logos de herramientas', array( 'return_format' => 'id', 'preview_size' => 'thumbnail' ) ),
+				)
+			),
+			F::layout(
+				'relevance',
+				'Relevancia sectorial',
+				array(
+					$title,
+					F::sub( 'textarea', 'text', 'Texto', array( 'rows' => 3, 'new_lines' => '' ) ),
+					F::items( 'items', 'Puntos', array( F::sub( 'text', 'text', 'Punto' ) ), array( 'layout' => 'table', 'button_label' => 'Añadir punto' ) ),
+				)
+			),
+			F::layout( 'how', 'Cómo trabajamos', array( $title, $cards( 'Líneas de servicio' ) ) ),
+			F::layout(
+				'next_steps',
+				'Próximos pasos',
+				array(
+					$title,
+					$cards( 'Pasos' ),
+					F::sub( 'url', 'video_url', 'URL del video', array( 'instructions' => 'YouTube o Vimeo. Se carga al hacer clic en reproducir.' ) ),
+				)
+			),
+			F::layout(
+				'strategists',
+				'Estrategas',
+				array(
+					$title,
+					F::sub( 'textarea', 'text', 'Texto', array( 'rows' => 3, 'new_lines' => '', 'instructions' => 'Las personas se administran en el menú Estrategas.' ) ),
+				)
+			),
+			F::layout(
+				'form',
+				'Formulario',
+				array(
+					$title,
+					F::sub( 'textarea', 'text', 'Texto', array( 'rows' => 3, 'new_lines' => '' ) ),
+					F::sub( 'textarea', 'interests', 'Opciones de "Me interesa"', array( 'rows' => 6, 'new_lines' => '', 'instructions' => 'Una opción por línea.' ) ),
+				)
+			),
 		);
 	}
 }

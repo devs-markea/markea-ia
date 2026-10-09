@@ -7,8 +7,10 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$title = (string) markea_field( 'mos_title' );
-$rows  = markea_rows( 'mos_steps' );
+$row = $args['row'] ?? array();
+
+$title = (string) ( $row['title'] ?? '' );
+$rows  = ( $row['items'] ?? array() );
 if ( '' === $title && ! $rows ) {
 	return;
 }
@@ -20,14 +22,14 @@ if ( '' === $title && ! $rows ) {
 		<?php endif; ?>
 		<?php if ( $rows ) : ?>
 			<ol class="cards cards--4" role="list">
-				<?php foreach ( $rows as $i => $row ) : ?>
+				<?php foreach ( $rows as $i => $card ) : ?>
 					<li class="card">
 						<span class="card__index" aria-hidden="true"><?php echo esc_html( str_pad( (string) ( $i + 1 ), 2, '0', STR_PAD_LEFT ) ); ?></span>
-						<?php if ( ! empty( $row['title'] ) ) : ?>
-							<h3 class="card__title"><?php echo esc_html( $row['title'] ); ?></h3>
+						<?php if ( ! empty( $card['title'] ) ) : ?>
+							<h3 class="card__title"><?php echo esc_html( $card['title'] ); ?></h3>
 						<?php endif; ?>
-						<?php if ( ! empty( $row['text'] ) ) : ?>
-							<p class="card__text"><?php echo esc_html( $row['text'] ); ?></p>
+						<?php if ( ! empty( $card['text'] ) ) : ?>
+							<p class="card__text"><?php echo esc_html( $card['text'] ); ?></p>
 						<?php endif; ?>
 					</li>
 				<?php endforeach; ?>
