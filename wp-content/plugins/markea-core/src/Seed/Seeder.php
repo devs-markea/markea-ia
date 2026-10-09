@@ -27,8 +27,8 @@ final class Seeder {
 	 * @return string[]
 	 */
 	public function run(): array {
-		if ( ! function_exists( 'update_field' ) ) {
-			throw new \RuntimeException( 'ACF Pro no está activo: el seeder necesita update_field().' );
+		if ( ! \Markea\Core\Plugin::has_acf_pro() ) {
+			throw new \RuntimeException( 'ACF PRO no está activo: el seeder necesita sus campos.' );
 		}
 
 		$this->terms();

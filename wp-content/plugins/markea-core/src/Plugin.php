@@ -36,16 +36,25 @@ final class Plugin {
 		}
 	}
 
+	public static function has_acf_pro(): bool {
+		return function_exists( 'acf_add_local_field_group' ) && function_exists( 'acf_add_options_page' );
+	}
+
 	public static function register_fields(): void {
+		// Options pages, repeaters and galleries are ACF PRO features; free ACF would fatal here.
+		if ( ! self::has_acf_pro() ) {
+			return;
+		}
+
 		( new SiteSettings() )->register();
 		( new LandingFields() )->register();
 		( new ContentFields() )->register();
 	}
 
 	public static function acf_notice(): void {
-		if ( function_exists( 'acf_add_local_field_group' ) || ! current_user_can( 'activate_plugins' ) ) {
+		if ( self::has_acf_pro() || ! current_user_can( 'activate_plugins' ) ) {
 			return;
 		}
-		echo '<div class="notice notice-error"><p>' . esc_html__( 'Markea Core necesita ACF Pro activo para mostrar los campos de la landing y Site Settings.', 'markea-core' ) . '</p></div>';
+		echo '<div class="notice notice-error"><p>' . esc_html__( 'Markea Core necesita ACF PRO (no la versión gratuita) para los campos de la landing y Site Settings. Instala y activa ACF PRO.', 'markea-core' ) . '</p></div>';
 	}
 }
