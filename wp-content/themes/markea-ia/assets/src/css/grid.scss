@@ -1,10 +1,21 @@
+// Layout guides (Figma): 12 columns, 16 px gutter, page margins 16 / 32 / 120 px.
 // Bootstrap 5.3.3, grid only (row and col-*). No containers, components, utilities or JS.
-// Figma layout guides: 12 columns, 120 px margin, 16 px gutter. The margin lives on .container (main.css).
+// Change the values below and run `npm run build`.
 
+// Columns and gutter.
 $grid-columns: 12;
 $grid-gutter-width: 1rem; // 16 px
 $enable-cssgrid: false;
 $enable-grid-classes: true;
+
+// Page margins (container side padding) per breakpoint.
+$page-margin-mobile: 1rem;   // < md   (16 px)
+$page-margin-tablet: 2rem;   // md up  (32 px, from 768 px)
+$page-margin-desktop: 7.5rem; // xl up  (120 px, from 1200 px)
+
+// Widest page (content + both margins) and the narrow variant's content width.
+$page-max-width: 1440px;   // 1200 px of content + 2 x 120 px
+$content-narrow-width: 780px;
 
 @import 'bootstrap/scss/functions';
 @import 'bootstrap/scss/variables';
@@ -12,3 +23,36 @@ $enable-grid-classes: true;
 @import 'bootstrap/scss/maps';
 @import 'bootstrap/scss/mixins';
 @import 'bootstrap/scss/grid';
+
+// Page margin as a custom property so other components (mobile nav) can reuse it.
+:root {
+	--page-margin: #{$page-margin-mobile};
+}
+
+@include media-breakpoint-up(md) {
+	:root {
+		--page-margin: #{$page-margin-tablet};
+	}
+}
+
+@include media-breakpoint-up(xl) {
+	:root {
+		--page-margin: #{$page-margin-desktop};
+	}
+}
+
+.container {
+	width: 100%;
+	max-width: $page-max-width;
+	margin-inline: auto;
+	padding-inline: var(--page-margin);
+}
+
+.container.container--narrow {
+	max-width: calc(#{$content-narrow-width} + 2 * var(--page-margin));
+}
+
+// Equal horizontal and vertical gutters.
+.row {
+	--bs-gutter-y: var(--bs-gutter-x);
+}

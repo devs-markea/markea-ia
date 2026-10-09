@@ -6,7 +6,7 @@
  *  2. Design tokens
  *  3. Dark tone (section--dark, footer)
  *  4. Base (reset, typography, links)
- *  5. Utilities (accessibility, containers, highlight). Grid = Bootstrap 5.3.3 grid only (grid.scss)
+ *  5. Utilities (accessibility, highlight). Grid, container and page margins live in grid.scss
  *  6. Section primitives (titles, lead, eyebrow, prose)
  *  7. Buttons
  *  8. Header and navigation
@@ -73,8 +73,6 @@
 
 	/* Layout. */
 	--radius: 16px;
-	--page-margin: 1rem; /* Figma margins: mobile 16 px, tablet 32 px, desktop 120 px (see media queries below). */
-	--page-max: 1440px; /* 1200 px of content + 2 x 120 px margin */
 	--section-y: var(--wp--preset--spacing--l, clamp(3rem, 8vw, 6rem));
 }
 
@@ -182,37 +180,7 @@ a {
 	background: var(--surface);
 }
 
-/*
- * Layout guides (Figma): 12 columns, 120 px margin, 16 px gutter.
- * Columns come from Bootstrap's grid (grid.scss); the margin is the container padding.
- */
-.container {
-	width: 100%;
-	max-width: var(--page-max);
-	margin-inline: auto;
-	padding-inline: var(--page-margin);
-}
-
-@media (min-width: 768px) {
-	:root {
-		--page-margin: 2rem; /* tablet: 32 px */
-	}
-}
-
-@media (min-width: 1200px) {
-	:root {
-		--page-margin: 7.5rem; /* desktop: 120 px */
-	}
-}
-
-.container.container--narrow {
-	max-width: calc(780px + 2 * var(--page-margin));
-}
-
-/* Equal horizontal and vertical gutters (16 px). */
-.row {
-	--bs-gutter-y: var(--bs-gutter-x);
-}
+/* Layout guides (12 columns, margins, gutter): container and row are defined in grid.scss. */
 
 .u-highlight {
 	color: var(--text-accent);
