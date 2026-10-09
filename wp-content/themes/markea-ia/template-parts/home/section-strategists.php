@@ -16,6 +16,7 @@ if ( ! $people->have_posts() ) {
 ?>
 <section id="estrategas" class="section strategists<?php echo esc_attr( markea_tone( $row ) ); ?>">
 	<div class="container">
+		<?php echo markea_eyebrow( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 		<?php if ( ( $row['title'] ?? '' ) ) : ?>
 			<h2 class="section__title"><?php echo esc_html( ( $row['title'] ?? '' ) ); ?></h2>
 		<?php endif; ?>

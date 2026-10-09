@@ -17,9 +17,11 @@ if ( '' === $title && ! $rows ) {
 ?>
 <section id="problema" class="section problem<?php echo esc_attr( markea_tone( $row ) ); ?>">
 	<div class="container">
+		<?php echo markea_eyebrow( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 		<?php if ( $title ) : ?>
 			<h2 class="section__title"><?php echo esc_html( $title ); ?></h2>
 		<?php endif; ?>
+		<?php echo markea_lead( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 		<?php if ( $rows ) : ?>
 			<div class="cards">
 				<ol class="row" role="list">
@@ -38,5 +40,6 @@ if ( '' === $title && ! $rows ) {
 			</ol>
 		</div>
 		<?php endif; ?>
+		<p class="section__cta"><?php echo markea_cta( 'problem' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></p>
 	</div>
 </section>

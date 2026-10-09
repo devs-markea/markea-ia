@@ -11,22 +11,24 @@ $row = $args['row'] ?? array();
 
 $title = (string) ( $row['title'] ?? '' );
 $items = ( $row['items'] ?? array() );
-if ( ! $items ) {
+if ( '' === $title && ! $items ) {
 	return;
 }
 ?>
 <section id="unidades" class="section units<?php echo esc_attr( markea_tone( $row ) ); ?>">
 	<div class="container">
+		<?php echo markea_eyebrow( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 		<?php if ( $title ) : ?>
 			<h2 class="section__title"><?php echo esc_html( $title ); ?></h2>
 		<?php endif; ?>
-		<ul class="units__list" role="list">
-			<?php foreach ( $items as $item ) : ?>
+		<?php echo markea_lead( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+		<ol class="units__list" role="list">
+			<?php foreach ( $items as $i => $item ) : ?>
 				<?php
 				$logo = markea_image( $item['logo'] ?? 0, 'markea-logo' );
 				$name = (string) ( $item['name'] ?? '' );
 				$url  = (string) ( $item['url'] ?? '' );
-				$body = $logo ? $logo . '<span class="screen-reader-text">' . esc_html( $name ) . '</span>' : esc_html( $name );
+				$body = ( $logo ? $logo . '<span class="screen-reader-text">' . esc_html( $name ) . '</span>' : '<span class="units__marker" aria-hidden="true">' . esc_html( str_pad( (string) ( $i + 1 ), 2, '0', STR_PAD_LEFT ) ) . '</span><span class="units__name">' . esc_html( $name ) . '</span>' );
 				?>
 				<li class="units__item">
 					<?php if ( $url ) : ?>
@@ -36,6 +38,6 @@ if ( ! $items ) {
 					<?php endif; ?>
 				</li>
 			<?php endforeach; ?>
-		</ul>
+		</ol>
 	</div>
 </section>

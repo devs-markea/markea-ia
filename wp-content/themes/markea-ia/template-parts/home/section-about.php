@@ -18,30 +18,39 @@ if ( '' === $title && ! $blocks ) {
 ?>
 <section id="quienes-somos" class="section about<?php echo esc_attr( markea_tone( $row ) ); ?>">
 	<div class="container">
-		<div class="row">
-		<div class="col-12 col-lg-7">
+		<?php echo markea_eyebrow( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+		<h2 class="section__title about__title">
 			<?php if ( $years ) : ?>
-				<p class="about__years"><?php echo esc_html( $years ); ?></p>
+				<span class="about__years"><?php echo esc_html( $years ); ?></span>
 			<?php endif; ?>
-			<?php if ( $title ) : ?>
-				<h2 class="section__title"><?php echo esc_html( $title ); ?></h2>
-			<?php endif; ?>
-			<?php if ( ( $row['text'] ?? '' ) ) : ?>
-				<div class="prose"><?php echo wp_kses_post( ( $row['text'] ?? '' ) ); ?></div>
-			<?php endif; ?>
-		</div>
-		<?php if ( $blocks ) : ?>
-			<div class="col-12 col-lg-5">
-			<ul class="about__blocks" role="list">
-				<?php foreach ( $blocks as $block ) : ?>
-					<li class="card">
-						<h3 class="card__title"><?php echo esc_html( $block['title'] ?? '' ); ?></h3>
-						<p class="card__text"><?php echo esc_html( $block['text'] ?? '' ); ?></p>
-					</li>
-				<?php endforeach; ?>
-			</ul>
+			<?php echo esc_html( $title ); ?>
+		</h2>
+		<div class="row about__panels">
+			<div class="col-12 col-lg-6">
+				<div class="card about__narrative">
+					<?php if ( ! empty( $row['text'] ) ) : ?>
+						<div class="prose"><?php echo wp_kses_post( $row['text'] ); ?></div>
+					<?php endif; ?>
+					<p><?php echo markea_cta( 'about' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></p>
+				</div>
 			</div>
-		<?php endif; ?>
+			<div class="col-12 col-lg-6">
+				<div class="card about__model">
+					<?php if ( ! empty( $row['panel_text'] ) ) : ?>
+						<p class="card__text"><?php echo esc_html( $row['panel_text'] ); ?></p>
+					<?php endif; ?>
+					<?php if ( $blocks ) : ?>
+						<ol class="about__blocks" role="list">
+							<?php foreach ( $blocks as $i => $block ) : ?>
+								<li class="about__block">
+									<span class="about__marker" aria-hidden="true"><?php echo esc_html( str_pad( (string) ( $i + 1 ), 2, '0', STR_PAD_LEFT ) ); ?></span>
+									<span class="about__block-title"><?php echo esc_html( $block['title'] ?? '' ); ?></span>
+								</li>
+							<?php endforeach; ?>
+						</ol>
+					<?php endif; ?>
+				</div>
+			</div>
 		</div>
 	</div>
 </section>

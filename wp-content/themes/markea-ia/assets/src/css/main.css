@@ -411,6 +411,20 @@ a {
 	font-size: var(--wp--preset--font-size--lead, 1.25rem);
 }
 
+/* Hero actions and secondary link */
+.hero__actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 1rem 1.5rem;
+}
+
+.hero__link {
+	font-family: var(--font-heading);
+	font-weight: 600;
+	text-decoration: none;
+}
+
 /* ==========================================================================
    10. Cards and tags
    ========================================================================== */
@@ -511,6 +525,88 @@ a {
 	max-height: 56px;
 	margin-inline: auto;
 	opacity: 0.85;
+}
+
+/* About: eyebrow badge, big years, narrative and dark model panel */
+.about__years {
+	display: inline;
+	margin-right: 0.35em;
+	font-size: inherit;
+}
+
+.about__panels {
+	margin-top: 2rem;
+}
+
+.about__model {
+	background: var(--navy);
+	color: var(--white);
+}
+
+.about__model .card__text {
+	color: color-mix(in srgb, var(--white) 85%, transparent);
+}
+
+.about__block {
+	display: flex;
+	align-items: center;
+	gap: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.about__marker,
+.units__marker {
+	display: grid;
+	flex: none;
+	place-items: center;
+	width: 2.5rem;
+	height: 2.5rem;
+	background: var(--electric);
+	color: var(--white);
+	border-radius: 50%;
+	font-family: var(--font-heading);
+	font-size: 0.7rem;
+	font-weight: 700;
+}
+
+.about__block-title {
+	font-family: var(--font-heading);
+	font-size: 1.375rem;
+}
+
+.units__list {
+	counter-reset: units;
+}
+
+.units__item a,
+.units__item {
+	display: flex;
+	align-items: center;
+	gap: 1.25rem;
+	font-family: var(--font-heading);
+	font-size: 1.375rem;
+}
+
+.case__subtitle {
+	margin: 0 0 0.5rem;
+	font-family: var(--font-heading);
+	font-size: 1.125rem;
+}
+
+.section__cta {
+	margin-top: 2rem;
+}
+
+.checklist__text {
+	display: block;
+	color: var(--text-secondary);
+	font-size: 0.9rem;
+}
+
+.next__tagline {
+	margin-top: 2rem;
+	font-family: var(--font-heading);
+	font-weight: 700;
 }
 
 /* ==========================================================================
@@ -716,6 +812,51 @@ a {
 	display: grid;
 	gap: 0.35rem;
 	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.site-footer__cta {
+	padding-bottom: 2.5rem;
+	margin-bottom: 2.5rem;
+	border-bottom: 1px solid var(--stroke);
+}
+
+.site-footer__question {
+	margin: 0 0 0.5rem;
+	font-family: var(--font-heading);
+	font-size: var(--wp--preset--font-size--h2, 2.25rem);
+	font-weight: 700;
+}
+
+.site-footer__email {
+	font-family: var(--font-heading);
+	font-size: 1.25rem;
+}
+
+.site-footer__tagline {
+	margin: 1rem 0 0.25rem;
+	font-family: var(--font-heading);
+	font-weight: 700;
+}
+
+.site-footer__text {
+	margin: 0;
+	color: var(--text-secondary);
+}
+
+.site-footer__label {
+	margin: 0 0 0.5rem;
+	color: var(--text-secondary);
+	font-size: 0.8rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.site-footer__list {
+	display: grid;
+	gap: 0.35rem;
+	margin: 0 0 1.25rem;
 	padding: 0;
 	list-style: none;
 }

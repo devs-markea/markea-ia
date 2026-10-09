@@ -17,16 +17,20 @@ if ( '' === $title && ! $points ) {
 ?>
 <section id="relevancia" class="section relevance<?php echo esc_attr( markea_tone( $row ) ); ?>">
 	<div class="container container--narrow">
+		<?php echo markea_eyebrow( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 		<?php if ( $title ) : ?>
 			<h2 class="section__title"><?php echo esc_html( $title ); ?></h2>
 		<?php endif; ?>
-		<?php if ( ( $row['text'] ?? '' ) ) : ?>
-			<p class="section__lead"><?php echo esc_html( ( $row['text'] ?? '' ) ); ?></p>
-		<?php endif; ?>
+		<?php echo markea_lead( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 		<?php if ( $points ) : ?>
 			<ul class="checklist" role="list">
 				<?php foreach ( $points as $point ) : ?>
-					<li><?php echo esc_html( is_array( $point ) ? ( $point['text'] ?? '' ) : $point ); ?></li>
+					<li>
+						<strong><?php echo esc_html( $point['title'] ?? '' ); ?></strong>
+						<?php if ( ! empty( $point['text'] ) ) : ?>
+							<span class="checklist__text"><?php echo esc_html( $point['text'] ); ?></span>
+						<?php endif; ?>
+					</li>
 				<?php endforeach; ?>
 			</ul>
 		<?php endif; ?>

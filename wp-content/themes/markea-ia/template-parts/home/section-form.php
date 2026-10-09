@@ -20,6 +20,7 @@ $success   = (string) markea_option( 'form_success_message' );
 ?>
 <section id="contacto" class="section contact<?php echo esc_attr( markea_tone( $row ) ); ?>">
 	<div class="container container--narrow">
+		<?php echo markea_eyebrow( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 		<h2 class="section__title"><?php echo esc_html( $title ); ?></h2>
 		<?php if ( ( $row['text'] ?? '' ) ) : ?>
 			<p class="section__lead"><?php echo esc_html( ( $row['text'] ?? '' ) ); ?></p>
@@ -27,11 +28,11 @@ $success   = (string) markea_option( 'form_success_message' );
 
 		<form class="form" method="post" novalidate data-lead-form data-endpoint="<?php echo esc_url( rest_url( 'markea/v1/leads' ) ); ?>" data-success="<?php echo esc_attr( $success ); ?>">
 			<div class="form__row">
-				<label for="lead-name"><?php esc_html_e( 'Nombre', 'markea-ia' ); ?></label>
+				<label for="lead-name"><?php esc_html_e( 'Nombre completo', 'markea-ia' ); ?></label>
 				<input id="lead-name" name="name" type="text" autocomplete="name" required>
 			</div>
 			<div class="form__row">
-				<label for="lead-email"><?php esc_html_e( 'Correo', 'markea-ia' ); ?></label>
+				<label for="lead-email"><?php esc_html_e( 'Email', 'markea-ia' ); ?></label>
 				<input id="lead-email" name="email" type="email" autocomplete="email" required>
 			</div>
 			<div class="form__row">
@@ -53,7 +54,7 @@ $success   = (string) markea_option( 'form_success_message' );
 				</div>
 			<?php endif; ?>
 			<div class="form__row">
-				<label for="lead-message"><?php esc_html_e( 'Mensaje', 'markea-ia' ); ?></label>
+				<label for="lead-message"><?php esc_html_e( 'Cuéntanos sobre tu proyecto', 'markea-ia' ); ?></label>
 				<textarea id="lead-message" name="message" rows="4"></textarea>
 			</div>
 
@@ -69,7 +70,7 @@ $success   = (string) markea_option( 'form_success_message' );
 				</div>
 			<?php endif; ?>
 
-			<button class="btn btn--primary" type="submit"><?php esc_html_e( 'Enviar', 'markea-ia' ); ?></button>
+			<button class="btn btn--primary" type="submit"><?php esc_html_e( 'ENVIAR', 'markea-ia' ); ?></button>
 			<p class="form__status" role="status" aria-live="polite" data-form-status></p>
 		</form>
 	</div>

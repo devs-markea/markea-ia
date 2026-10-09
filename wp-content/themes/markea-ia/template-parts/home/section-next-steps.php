@@ -21,9 +21,12 @@ $embed = $video ? wp_oembed_get( $video, array( 'width' => 960 ) ) : false;
 	<div class="container">
 		<div class="row next__row">
 		<div class="col-12 col-lg-6">
+			<?php echo markea_eyebrow( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 			<?php if ( $title ) : ?>
 				<h2 class="section__title"><?php echo esc_html( $title ); ?></h2>
 			<?php endif; ?>
+			<?php echo markea_lead( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+			<p class="section__cta"><?php echo markea_cta( 'next-steps' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></p>
 			<ol class="steps" role="list">
 				<?php foreach ( $steps as $i => $step ) : ?>
 					<li class="steps__item">
@@ -33,6 +36,9 @@ $embed = $video ? wp_oembed_get( $video, array( 'width' => 960 ) ) : false;
 					</li>
 				<?php endforeach; ?>
 			</ol>
+			<?php if ( ! empty( $row['tagline'] ) ) : ?>
+				<p class="next__tagline"><?php echo esc_html( $row['tagline'] ); ?></p>
+			<?php endif; ?>
 		</div>
 		<?php if ( $embed ) : ?>
 			<div class="col-12 col-lg-6">

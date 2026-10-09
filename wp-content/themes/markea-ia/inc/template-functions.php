@@ -229,3 +229,25 @@ function markea_logo( string $size = 'markea-logo', array $attr = array() ): str
 function markea_tone( array $row ): string {
 	return 'dark' === ( $row['tone'] ?? '' ) ? ' section--dark' : '';
 }
+
+/**
+ * Eyebrow label of a section row.
+ *
+ * @param array<string,mixed> $row Flexible Content row.
+ */
+function markea_eyebrow( array $row ): string {
+	$text = trim( (string) ( $row['eyebrow'] ?? '' ) );
+
+	return '' === $text ? '' : '<p class="eyebrow">' . esc_html( $text ) . '</p>';
+}
+
+/**
+ * Lead paragraph of a section row (field "text" as plain text).
+ *
+ * @param array<string,mixed> $row Flexible Content row.
+ */
+function markea_lead( array $row ): string {
+	$text = trim( (string) ( $row['text'] ?? '' ) );
+
+	return '' === $text ? '' : '<p class="section__lead">' . esc_html( $text ) . '</p>';
+}
