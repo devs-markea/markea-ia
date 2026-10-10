@@ -94,6 +94,7 @@ final class LandingFields {
 					$title,
 					F::sub( 'wysiwyg', 'text', 'Texto', array( 'media_upload' => 0, 'toolbar' => 'basic' ) ),
 					F::sub( 'textarea', 'panel_text', 'Texto del panel', array( 'rows' => 3, 'new_lines' => '', 'instructions' => 'Frase sobre los bloques (panel oscuro).' ) ),
+					F::sub( 'image', 'panel_image', 'Imagen del panel', array( 'return_format' => 'id', 'preview_size' => 'medium', 'instructions' => 'Foto inclinada en la esquina del panel oscuro. Si queda vacía se usa la imagen del diseño. Recomendado: horizontal, mínimo 1000 px de ancho.' ) ),
 					$cards( 'Bloques' ),
 				)
 			),

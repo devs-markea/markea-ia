@@ -21,6 +21,7 @@
  * 17. Carousels (Splide)
  * 18. Ambient glows (decorative radial ellipses from Figma)
  * 19. Section: El problema
+ * 20. Section: Quienes somos
  *
  * Colors come from Site Settings > Colores (inline style overrides the base palette in section 2).
  */
@@ -760,22 +761,6 @@ html.is-menu-open {
 /* ==========================================================================
    11. About, units and tools
    ========================================================================== */
-.about__years {
-	margin: 0;
-	color: var(--text-accent);
-	font-size: clamp(3rem, 8vw, 5rem);
-	font-weight: 700;
-	line-height: 1;
-}
-
-.about__blocks {
-	display: grid;
-	gap: 1rem;
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-
 .units__list,
 .tools__grid {
 	display: grid;
@@ -793,53 +778,6 @@ html.is-menu-open {
 	max-height: 56px;
 	margin-inline: auto;
 	opacity: 0.85;
-}
-
-/* About: eyebrow badge, big years, narrative and dark model panel */
-.about__years {
-	display: inline;
-	margin-right: 0.35em;
-	font-size: inherit;
-}
-
-.about__panels {
-	margin-top: 2rem;
-}
-
-.about__model {
-	background: var(--navy);
-	color: var(--white);
-}
-
-.about__model .card__text {
-	color: color-mix(in srgb, var(--white) 85%, transparent);
-}
-
-.about__block {
-	display: flex;
-	align-items: center;
-	gap: 1.25rem;
-	margin-top: 1.25rem;
-}
-
-.about__marker,
-.units__marker {
-	display: grid;
-	flex: none;
-	place-items: center;
-	width: 2.5rem;
-	height: 2.5rem;
-	background: var(--electric);
-	color: var(--white);
-	border-radius: 50%;
-	font-family: var(--font-heading);
-	font-size: 0.7rem;
-	font-weight: 700;
-}
-
-.about__block-title {
-	font-family: var(--font-heading);
-	font-size: 1.375rem;
 }
 
 .units__list {
@@ -1303,4 +1241,176 @@ html.is-menu-open {
 .section__cta--center {
 	margin: 3.5rem 0 0;
 	text-align: center;
+}
+
+/* ==========================================================================
+   20. Section: Quienes somos
+   Figma (457:3020): header (badge + 40 px title: "8 años." Bold, rest Regular, 500 px wide), two 548 px panels
+   20 px apart, radius 32 px: white narrative panel (44 px padding) and navy model panel (42 px padding)
+   with two numbered steps and a photo tilted -8deg that bleeds off the bottom-right corner.
+   Electric ambient glow on the left edge.
+   ========================================================================== */
+.about {
+	--glow-color: var(--electric);
+	--glow-x: 0;
+	--glow-y: 676px; /* Figma: ellipse center at y 500 + 176 */
+	--glow-size: 1352px;
+	position: relative;
+	overflow-x: clip;
+	padding-top: clamp(3rem, 5.7vw, 5.125rem); /* 82 px */
+	padding-bottom: clamp(4rem, 12.85vw, 11.5625rem); /* 185 px */
+}
+
+.about::before {
+	content: '';
+	position: absolute;
+	left: var(--glow-x);
+	top: var(--glow-y);
+	z-index: -1;
+	width: var(--glow-size);
+	height: var(--glow-size);
+	background: radial-gradient(
+		closest-side,
+		color-mix(in srgb, var(--glow-color) 14%, transparent) 0%,
+		color-mix(in srgb, var(--glow-color) 8%, transparent) 35%,
+		color-mix(in srgb, var(--glow-color) 3%, transparent) 70%,
+		transparent 100%
+	);
+	transform: translate(-50%, -50%);
+	pointer-events: none;
+}
+
+.about__title {
+	max-width: 31.25rem; /* 500 px */
+	font-size: var(--fs-h2);
+	line-height: 1.05;
+	text-wrap: balance;
+}
+
+.about__panels {
+	--bs-gutter-x: 1.25rem; /* 20 px between panels */
+	margin-top: calc(3.25rem - var(--bs-gutter-y)); /* 52 px below the header */
+}
+
+.about__narrative,
+.about__model {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	min-height: 548px;
+	overflow: hidden;
+	border-radius: 32px;
+}
+
+.about__narrative {
+	gap: 7.5rem; /* 120 px between logo and text */
+	padding: 2.75rem; /* 44 px */
+	background: var(--white);
+	box-shadow: 0 0 4px color-mix(in srgb, var(--navy) 40%, transparent);
+}
+
+.about__logo {
+	align-self: flex-start;
+	width: auto;
+	max-width: 100%;
+	height: 26px;
+}
+
+.about__narrative-body {
+	display: flex;
+	flex-direction: column;
+	gap: 1.875rem; /* 30 px */
+}
+
+.about__text {
+	color: var(--text-secondary);
+	line-height: 1.72;
+}
+
+.about__text > * {
+	margin: 0;
+}
+
+.about__text > * + * {
+	margin-top: 1rem;
+}
+
+.about__cta {
+	margin: 0;
+}
+
+.about__model {
+	gap: 0.9375rem; /* 15 px */
+	padding: 2.625rem; /* 42 px */
+	background: var(--navy);
+	color: var(--white);
+	border: 1px solid color-mix(in srgb, var(--white) 8%, transparent);
+	box-shadow: 0 24px 64px -16px color-mix(in srgb, var(--navy) 10%, transparent);
+}
+
+.about__model-text {
+	max-width: 31.25rem; /* 500 px */
+	margin: 0 0 1rem;
+	line-height: 1.65;
+}
+
+.about__steps {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.about__step {
+	display: flex;
+	align-items: center;
+	gap: 1.25rem; /* 20 px */
+	min-height: 76px;
+}
+
+.about__marker {
+	display: grid;
+	flex: none;
+	place-items: center;
+	width: 2.5rem; /* 40 px */
+	height: 2.5rem;
+	background: var(--electric);
+	color: var(--white);
+	border-radius: 50%;
+	font-family: var(--font-heading);
+	font-size: 0.6875rem;
+	font-weight: 700;
+}
+
+.about__step-title {
+	font-family: var(--font-heading);
+	font-size: 1.375rem; /* 22 px */
+}
+
+/* Tilted photo: stacked under the steps on small screens, bleeding off the corner on large ones. */
+.about__photo {
+	width: min(100%, 300px);
+	aspect-ratio: 3 / 4;
+	margin: 1.5rem auto 0;
+	overflow: hidden;
+	border-radius: 24px 24px 0 0;
+	transform: rotate(-8deg);
+}
+
+.about__photo-img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: 78% 50%; /* Figma crop: monitor, keyboard and hands */
+}
+
+@media (min-width: 992px) {
+	.about__photo {
+		position: absolute;
+		left: 45.5%; /* Figma: x 276 of 606 */
+		top: 46.4%; /* y 254 of 548 */
+		width: 300px;
+		height: 400px;
+		margin: 0;
+	}
 }
