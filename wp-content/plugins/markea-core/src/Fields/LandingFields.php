@@ -141,6 +141,7 @@ final class LandingFields {
 						'items',
 						'Cards',
 						array(
+							F::sub( 'select', 'icon', 'Ícono', array( 'choices' => array( '' => 'Sin ícono', 'layout-dashboard' => 'Tablero', 'brain' => 'Cerebro', 'settings-2' => 'Ajustes' ), 'default_value' => '', 'allow_null' => 0 ) ),
 							F::sub( 'text', 'title', 'Título' ),
 							F::sub( 'textarea', 'text', 'Texto', array( 'rows' => 3, 'new_lines' => '' ) ),
 							F::sub( 'text', 'tags', 'Tags', array( 'instructions' => 'Separados por coma.' ) ),

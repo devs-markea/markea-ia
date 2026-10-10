@@ -95,9 +95,9 @@ final class LandingContent {
 				'emphasis'      => 'Oferta diferenciada',
 				'text'          => 'Si tu equipo necesita tecnología de marketing que no existe en el mercado, la desarrollamos para ti.',
 				'items'         => array(
-					array( 'title' => 'Dashboard e integraciones a medida', 'text' => 'Herramientas de gestión diseñadas para tu operación — no plantillas genéricas. Conectamos CRM, ERP y sistemas operativos entre sí.', 'tags' => 'Reactivación, CRM' ),
-					array( 'title' => 'Flujos de IA aplicados a ventas y marketing', 'text' => 'Generación de contenido e imagen, y automatizaciones que aceleran la producción sin sacrificar calidad.', 'tags' => 'CRM, Ads' ),
-					array( 'title' => 'Automatización de procesos comerciales', 'text' => 'Seguimiento de leads, reportes y checklists operativos que corren solos, sin depender de memoria o buena voluntad.', 'tags' => 'CRM, Datos, Cuentas Clave' ),
+					array( 'icon' => 'layout-dashboard', 'title' => 'Dashboard e integraciones a medida', 'text' => 'Herramientas de gestión diseñadas para tu operación — no plantillas genéricas. Conectamos CRM, ERP y sistemas operativos entre sí.', 'tags' => 'Reactivación, CRM' ),
+					array( 'icon' => 'brain', 'title' => 'Flujos de IA aplicados a ventas y marketing', 'text' => 'Generación de contenido e imagen, y automatizaciones que aceleran la producción sin sacrificar calidad.', 'tags' => 'CRM, Ads' ),
+					array( 'icon' => 'settings-2', 'title' => 'Automatización de procesos comerciales', 'text' => 'Seguimiento de leads, reportes y checklists operativos que corren solos, sin depender de memoria o buena voluntad.', 'tags' => 'CRM, Datos, Cuentas Clave' ),
 				),
 			),
 			array(
