@@ -124,7 +124,7 @@ $markea_icons      = array(
 	<div class="site-footer__rule" aria-hidden="true"></div>
 
 	<div class="container site-footer__brand">
-		<img src="<?php echo esc_url( MARKEA_IA_URI . '/assets/images/markea-wordmark.svg' ); ?>" width="942" height="128" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" loading="lazy" decoding="async">
+		<?php get_template_part( 'template-parts/footer-wordmark' ); ?>
 	</div>
 
 	<?php if ( $markea_copyright || $markea_legal ) : ?>

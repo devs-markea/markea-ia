@@ -5,6 +5,7 @@ import Lenis from 'lenis';
 import { initLoader } from './loader.js';
 import { initHeroIntro, initReveals } from './reveal.js';
 import { initButtons } from './buttons.js';
+import { initFooterLogo } from './footer-logo.js';
 
 // One easing for everything: slow start, long soft landing (same curve as --ease-markea in CSS).
 export const EASE = 'markea';
@@ -34,6 +35,7 @@ export function startMotion() {
 
 	initButtons();
 	initReveals( gsap, EASE );
+	initFooterLogo( gsap, ScrollTrigger );
 
 	const hasLoader = root.classList.contains( 'has-loader' );
 	if ( hasLoader ) {
