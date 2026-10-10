@@ -1918,6 +1918,8 @@ html.is-menu-open {
 }
 
 .filters {
+	position: relative;
+	z-index: 1; /* Above the grid, whose negative row margin overlaps the bottom of the pills. */
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.75rem; /* 12 px */
@@ -3573,4 +3575,48 @@ html[data-motion='ready'] .projects__grid > li.is-leaving {
 
 html[data-motion='ready'] .projects__grid > li.is-instant {
 	transition: none;
+}
+
+/* Filter pills: the fill is the same circle, and it follows the pointer from pill to pill. The active pill keeps
+   its circle open until the pointer is over another pill (the group is hovered), as on the reference site. */
+.filters__btn.btn--fx {
+	transition: color 0.4s var(--ease-markea);
+}
+
+.filters__btn.btn--fx:hover,
+.filters__btn.btn--fx.is-active {
+	background: transparent;
+}
+
+.filters__btn.btn--fx .btn__circle {
+	z-index: -1; /* Behind the label, which is a bare text node. */
+	background: var(--electric);
+}
+
+.filters__btn.btn--fx.is-active {
+	border-color: var(--electric);
+	color: var(--white);
+}
+
+.filters__btn.btn--fx.is-active .btn__circle,
+.filters__btn.btn--fx:hover .btn__circle {
+	transform: translate(-50%, -50%) scale(1);
+}
+
+.filters__btn.btn--fx:hover {
+	border-color: var(--electric);
+	color: var(--white);
+}
+
+.filters:hover .filters__btn.btn--fx .btn__circle {
+	transform: translate(-50%, -50%) scale(0);
+}
+
+.filters:hover .filters__btn.btn--fx:hover .btn__circle {
+	transform: translate(-50%, -50%) scale(1);
+}
+
+.filters:hover .filters__btn.btn--fx.is-active:not(:hover) {
+	border-color: var(--navy);
+	color: var(--navy);
 }

@@ -1,5 +1,5 @@
 /**
- * Primary buttons: a circle grows from the point where the pointer enters and shrinks toward where it leaves.
+ * Primary buttons and filter pills: a circle grows from the point where the pointer enters and shrinks toward where it leaves.
  * Pointer devices only; touch keeps the plain hover color.
  */
 export function initButtons() {
@@ -7,7 +7,7 @@ export function initButtons() {
 		return;
 	}
 
-	document.querySelectorAll( '.btn--primary' ).forEach( ( button ) => {
+	document.querySelectorAll( '.btn--primary, .filters__btn' ).forEach( ( button ) => {
 		const circle = document.createElement( 'span' );
 		circle.className = 'btn__circle';
 		circle.setAttribute( 'aria-hidden', 'true' );
