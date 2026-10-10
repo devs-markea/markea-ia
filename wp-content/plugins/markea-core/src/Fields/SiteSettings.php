@@ -115,7 +115,7 @@ final class SiteSettings {
 			F::tab( 'set_newsletter', 'Newsletter' ),
 			F::text( 'newsletter_title', 'Título' ),
 			F::text( 'newsletter_button', 'Texto del botón' ),
-			F::url( 'newsletter_action', 'Destino del formulario del footer', array( 'instructions' => 'A definir. Mientras esté vacío no se muestra el formulario.' ) ),
+			F::field( 'message', 'newsletter_note', 'Destino', array( 'message' => 'Las suscripciones se guardan como leads (interés "Newsletter") y se envían al correo destino del formulario.', 'new_lines' => 'wpautop', 'esc_html' => 0 ) ),
 		);
 	}
 }

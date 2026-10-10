@@ -1,11 +1,10 @@
 import { track, getAttribution } from './tracking.js';
 
 export function initLeadForm() {
-	const form = document.querySelector( '[data-lead-form]' );
-	if ( ! form ) {
-		return;
-	}
+	document.querySelectorAll( '[data-lead-form]' ).forEach( bind );
+}
 
+function bind( form ) {
 	const status = form.querySelector( '[data-form-status]' );
 	const submit = form.querySelector( '[type="submit"]' );
 
@@ -42,7 +41,7 @@ export function initLeadForm() {
 
 			form.reset();
 			setStatus( form.dataset.success || 'Gracias, te contactaremos pronto.', 'success' );
-			track( 'markea_form_success', { interest: payload.interest } );
+			track( 'markea_form_success', { interest: payload.interest, form: payload.interest === 'Newsletter' ? 'newsletter' : 'contact' } );
 		} catch ( err ) {
 			setStatus( 'No pudimos enviar el formulario. Intenta de nuevo.', 'error' );
 			track( 'markea_form_error', { error: String( err.message || err ) } );

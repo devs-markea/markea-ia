@@ -3296,3 +3296,46 @@ button.relevance__trigger {
 .site-footer__legal > * {
 	margin: 0;
 }
+
+/* Newsletter form in the footer (Figma: 60 px field on a white 50% fill with a 1 px white line, electric pill). */
+.site-footer__news {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 1rem; /* 16 px */
+}
+
+.site-footer__news-input {
+	width: 100%;
+	height: 60px;
+	padding: 0 0.75rem;
+	background: color-mix(in srgb, var(--white) 50%, transparent);
+	color: var(--navy);
+	border: 0;
+	border-bottom: 1px solid var(--white);
+	border-radius: 4px 4px 0 0;
+	font: inherit;
+}
+
+.site-footer__news-input:focus-visible {
+	outline: 2px solid var(--white);
+	outline-offset: 2px;
+}
+
+.site-footer__news-status {
+	min-height: 1.25em;
+	margin: 0;
+	font-size: 0.8125rem;
+}
+
+.site-footer__news-status[data-state='success'] {
+	color: var(--cyan);
+}
+
+.site-footer__news-status[data-state='error'] {
+	color: #ffb3b8;
+}
+
+.site-footer__col--news {
+	max-width: 280px;
+}

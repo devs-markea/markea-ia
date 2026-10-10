@@ -189,14 +189,21 @@ function markea_get_strategists(): WP_Query {
  *
  * @return array<string,string>
  */
-function markea_social_links(): array {
-	$links = array(
+function markea_social_links( array $order = array( 'LinkedIn', 'Instagram', 'Facebook' ) ): array {
+	$all = array(
 		'LinkedIn'  => (string) markea_option( 'social_linkedin' ),
 		'Instagram' => (string) markea_option( 'social_instagram' ),
 		'Facebook'  => (string) markea_option( 'social_facebook' ),
 	);
 
-	return array_filter( $links );
+	$links = array();
+	foreach ( $order as $label ) {
+		if ( ! empty( $all[ $label ] ) ) {
+			$links[ $label ] = $all[ $label ];
+		}
+	}
+
+	return $links;
 }
 
 /**

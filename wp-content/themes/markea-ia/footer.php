@@ -23,7 +23,8 @@ $markea_services   = markea_lines( (string) markea_option( 'footer_services' ) )
 $markea_copyright  = (string) markea_option( 'footer_copyright' );
 $markea_news_title = (string) markea_option( 'newsletter_title' );
 $markea_news_btn   = (string) markea_option( 'newsletter_button' );
-$markea_news_url   = (string) markea_option( 'newsletter_action' );
+$markea_news_title = $markea_news_title ?: __( 'Newsletter', 'markea-ia' );
+$markea_success    = (string) markea_option( 'form_success_message' );
 $markea_icons      = array(
 	'LinkedIn'  => 'linkedin-solid',
 	'Instagram' => 'instagram-solid',
@@ -103,12 +104,21 @@ $markea_icons      = array(
 			</div>
 		<?php endif; ?>
 
-		<?php if ( $markea_news_url && $markea_news_title ) : ?>
-			<div class="site-footer__col site-footer__col--news">
-				<p class="site-footer__label"><?php echo esc_html( $markea_news_title ); ?></p>
-				<a class="btn btn--primary site-footer__news-btn" href="<?php echo esc_url( $markea_news_url ); ?>"><?php echo esc_html( $markea_news_btn ?: __( 'Registrarme', 'markea-ia' ) ); ?></a>
-			</div>
-		<?php endif; ?>
+		<div class="site-footer__col site-footer__col--news">
+			<p class="site-footer__label"><?php echo esc_html( $markea_news_title ); ?></p>
+			<form class="site-footer__news" method="post" novalidate data-lead-form data-endpoint="<?php echo esc_url( rest_url( 'markea/v1/leads' ) ); ?>" data-success="<?php echo esc_attr( $markea_success ); ?>">
+				<input type="hidden" name="name" value="<?php esc_attr_e( 'Suscripción newsletter', 'markea-ia' ); ?>">
+				<input type="hidden" name="interest" value="Newsletter">
+				<div class="contact__hp" aria-hidden="true">
+					<label for="news-website">Website</label>
+					<input id="news-website" name="website" type="text" tabindex="-1" autocomplete="off">
+				</div>
+				<label class="screen-reader-text" for="news-email"><?php esc_html_e( 'Email', 'markea-ia' ); ?></label>
+				<input id="news-email" class="site-footer__news-input" name="email" type="email" autocomplete="email" required>
+				<button class="btn btn--primary site-footer__news-btn" type="submit"><?php echo esc_html( $markea_news_btn ?: __( 'Registrarme', 'markea-ia' ) ); ?></button>
+				<p class="site-footer__news-status" role="status" aria-live="polite" data-form-status></p>
+			</form>
+		</div>
 	</div>
 
 	<div class="site-footer__rule" aria-hidden="true"></div>
