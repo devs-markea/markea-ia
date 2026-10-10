@@ -121,10 +121,13 @@ final class LandingFields {
 				'case',
 				'Caso de operación propia',
 				array(
+					F::sub( 'text', 'subtitle', 'Título de la columna izquierda', array( 'instructions' => 'Ej. "Real estate de ultra-lujo".' ) ),
+					F::sub( 'image', 'image', 'Imagen', array( 'return_format' => 'id', 'preview_size' => 'medium', 'instructions' => 'Foto de la columna izquierda (aprox. 480 x 343 px). Si queda vacía se usa la imagen del diseño.' ) ),
+					F::sub( 'image', 'image_overlay', 'Logo sobre la imagen', array( 'return_format' => 'id', 'preview_size' => 'thumbnail', 'instructions' => 'PNG con fondo transparente (aprox. 116 x 64 px), esquina superior derecha de la imagen.' ) ),
 					F::sub( 'text', 'kicker', 'Etiqueta destacada', array( 'instructions' => 'Ej. "LA PRUEBA DE FUEGO".' ) ),
-					F::sub( 'text', 'subtitle', 'Subtítulo' ),
 					$title,
-					F::sub( 'wysiwyg', 'text', 'Texto', array( 'media_upload' => 0, 'toolbar' => 'basic' ) ),
+					F::sub( 'textarea', 'text', 'Texto', array( 'rows' => 4, 'new_lines' => '' ) ),
+					F::items( 'items', 'Puntos', array( F::sub( 'text', 'text', 'Punto' ) ), array( 'layout' => 'table', 'button_label' => 'Añadir punto' ) ),
 				)
 			),
 			F::layout( 'mos', 'Marketing Operating System', array( $title, F::sub( 'textarea', 'text', 'Texto', array( 'rows' => 3, 'new_lines' => '' ) ), $cards( 'Pilares' ) ) ),

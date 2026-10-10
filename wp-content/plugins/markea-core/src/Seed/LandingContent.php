@@ -69,7 +69,13 @@ final class LandingContent {
 				'kicker'        => 'LA PRUEBA DE FUEGO',
 				'subtitle'      => 'Real estate de ultra-lujo',
 				'title'         => 'No somos teoría.',
-				'text'          => '<p>Operamos una firma de real estate ultra-lujo y una marca de F&amp;B en formato dark kitchen. Aplicamos exactamente lo que ofrecemos — posicionamiento, CRM, contenido, ventas con presupuesto y consecuencias reales.</p><p>No es un caso de estudio ajeno: es una operación en vivo, hoy.</p><p>Cada decisión de marketing la sostenemos con nuestro propio riesgo.</p><p>El mismo sistema que usamos ahí es el que ponemos a tu servicio.</p>',
+				'text'          => 'Operamos una firma de real estate ultra-lujo y una marca de F&B en formato dark kitchen. Aplicamos exactamente lo que ofrecemos — posicionamiento, CRM, contenido, ventas con presupuesto y consecuencias reales.',
+				'items'         => array(
+					array( 'text' => 'No es un caso de estudio ajeno: es una operación en vivo, hoy.' ),
+					array( 'text' => 'Cada decisión de marketing la sostenemos con nuestro propio riesgo.' ),
+					array( 'text' => 'El mismo sistema que usamos ahí es el que ponemos a tu servicio.' ),
+				),
+				'tone'          => 'dark',
 			),
 			array(
 				'acf_fc_layout' => 'mos',

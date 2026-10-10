@@ -23,6 +23,7 @@
  * 19. Section: El problema
  * 20. Section: Quienes somos
  * 21. Section: Unidades de negocio
+ * 22. Section: Caso de operacion propia
  *
  * Colors come from Site Settings > Colores (inline style overrides the base palette in section 2).
  */
@@ -777,12 +778,6 @@ html.is-menu-open {
 	max-height: 56px;
 	margin-inline: auto;
 	opacity: 0.85;
-}
-
-.case__subtitle {
-	margin: 0 0 0.5rem;
-	font-family: var(--font-heading);
-	font-size: 1.125rem;
 }
 
 .section__cta {
@@ -1598,4 +1593,168 @@ html.is-menu-open {
 		animation: none;
 		transition: none;
 	}
+}
+
+/* ==========================================================================
+   22. Section: Caso de operacion propia
+   Figma (181:82): navy section, 220 px top and bottom, two columns 80 px apart (480 px photo column).
+   A solid cyan circle (424 px) with a 75 px cyan glow is centered on the top-right corner, clipped by
+   the section. Left: 12 px label, 36 px title, 343 px photo card (radius 24) with a logo in its
+   top-right corner. Right: translucent pill, 40 px title, 16 px paragraph, three bulleted lines.
+   ========================================================================== */
+.case {
+	position: relative;
+	overflow: hidden;
+	padding-block: clamp(4rem, 15.28vw, 13.75rem);
+}
+
+.case__orb {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 424px;
+	max-width: 70vw;
+	aspect-ratio: 1;
+	background: var(--cyan);
+	border-radius: 50%;
+	box-shadow: 0 0 150px var(--cyan); /* the Figma glow is a 75 px Gaussian blur */
+	transform: translate(50%, -50%);
+	pointer-events: none;
+}
+
+.case .container {
+	position: relative; /* above the orb */
+}
+
+.case__grid {
+	display: grid;
+	gap: 3rem;
+}
+
+@media (min-width: 992px) {
+	.case__grid {
+		grid-template-columns: minmax(0, 480fr) minmax(0, 640fr);
+		align-items: center;
+		gap: 5rem; /* 80 px */
+	}
+}
+
+.case__left {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem; /* 32 px */
+}
+
+.case__heading {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem; /* 12 px */
+	font-family: var(--font-heading);
+	font-weight: 700;
+}
+
+.case__heading > * {
+	margin: 0;
+}
+
+.case__label {
+	font-size: 0.75rem; /* 12 px */
+	opacity: 0.6;
+}
+
+.case__subtitle {
+	font-size: clamp(1.75rem, 1.2rem + 1.1vw, 2.25rem); /* 36 px */
+	line-height: 1.2;
+}
+
+.case__card {
+	position: relative;
+	height: 343px;
+	margin: 0;
+	overflow: hidden;
+	border-radius: 24px;
+}
+
+.case__image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.case__overlay {
+	position: absolute;
+	top: 35px;
+	right: 30px;
+	width: 116px;
+	height: 64px;
+	line-height: 0;
+}
+
+.case__overlay-img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.case__right {
+	display: flex;
+	flex-direction: column;
+	gap: 2.25rem; /* 36 px */
+}
+
+.case__intro {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 1rem; /* 16 px */
+}
+
+.case__intro > * {
+	margin: 0;
+}
+
+.case__pill {
+	padding: 0.375rem 0.75rem;
+	background: color-mix(in srgb, var(--white) 10%, transparent);
+	border-radius: 6px;
+	font-family: var(--font-heading);
+	font-size: 0.6875rem;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.case .section__title {
+	font-weight: 700;
+	line-height: normal;
+}
+
+.case__text {
+	max-width: 40rem;
+	line-height: 1.7;
+	opacity: 0.8;
+}
+
+.case__bullets {
+	display: grid;
+	gap: 1rem;
+	margin: 0;
+	padding: 0;
+	font-size: 0.875rem; /* 14 px */
+	list-style: none;
+	opacity: 0.9;
+}
+
+.case__bullets li {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.case__bullets li::before {
+	content: '';
+	flex: none;
+	width: 6px;
+	height: 6px;
+	background: currentColor;
+	border-radius: 50%;
 }
