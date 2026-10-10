@@ -61,9 +61,16 @@ final class Seeder {
 		);
 
 		foreach ( $people as $i => [ $name, $role ] ) {
-			$id = $this->post( PostTypes::STRATEGIST, 'estratega-' . sanitize_title( $name ), $name, $i + 1 );
+			$key = 'estratega-' . sanitize_title( $name );
+			$id  = $this->post( PostTypes::STRATEGIST, $key, $name, $i + 1 );
 			if ( $id ) {
 				$this->field( 'role', $role, $id );
+			}
+
+			// Portrait from the design (plugin assets/seed), only when the person has none yet.
+			$id = $id ?: $this->find_seeded( $key, PostTypes::STRATEGIST );
+			if ( $id && ! has_post_thumbnail( $id ) ) {
+				$this->attach_image( $id, MARKEA_CORE_DIR . 'assets/seed/' . sanitize_title( $name ) . '.jpg', $name );
 			}
 		}
 	}
