@@ -29,6 +29,9 @@ export function startMotion() {
 	// The menu overlay owns the scroll while it is open.
 	document.addEventListener( 'markea:menu', ( e ) => ( e.detail.open ? lenis.stop() : lenis.start() ) );
 
+	// Content height changed (e.g. the project filter): measure the scroll triggers again.
+	document.addEventListener( 'markea:layout', () => ScrollTrigger.refresh() );
+
 	initButtons();
 	initReveals( gsap, EASE );
 

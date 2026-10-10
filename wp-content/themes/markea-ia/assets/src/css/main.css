@@ -3620,3 +3620,15 @@ html[data-motion='ready'] .projects__grid > li.is-instant {
 	border-color: var(--navy);
 	color: var(--navy);
 }
+
+html[data-motion='ready'] .projects__grid.is-resizing {
+	overflow: hidden;
+	transition: height 0.8s var(--ease-markea);
+}
+
+.projects__empty {
+	margin: 3rem 0 0;
+	color: var(--text-muted, var(--navy));
+	font-size: 1rem;
+	text-align: center;
+}

@@ -74,6 +74,7 @@ $categories = markea_get_project_categories();
 				</li>
 			<?php endwhile; ?>
 		</ul>
+		<p class="projects__empty" data-projects-empty hidden><?php esc_html_e( 'Aún no hay proyectos en esta categoría.', 'markea-ia' ); ?></p>
 	</div>
 </section>
 <?php wp_reset_postdata(); ?>

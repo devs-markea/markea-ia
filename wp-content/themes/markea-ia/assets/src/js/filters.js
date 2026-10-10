@@ -13,6 +13,8 @@ export function initProjectFilters() {
 		return;
 	}
 
+	const grid = root.querySelector( '.projects__grid' );
+	const empty = root.querySelector( '[data-projects-empty]' );
 	const buttons = root.querySelectorAll( '[data-filter]' );
 	const items = [ ...root.querySelectorAll( '[data-categories]' ) ];
 	let current = '*';
@@ -26,6 +28,42 @@ export function initProjectFilters() {
 		items.forEach( ( item ) => {
 			item.hidden = ! matches( item, filter );
 		} );
+		showEmpty( filter );
+	};
+
+	const showEmpty = ( filter ) => {
+		if ( empty ) {
+			empty.hidden = items.some( ( item ) => matches( item, filter ) );
+		}
+	};
+
+	// The grid keeps its old height while the cards swap, then eases to the new one, so the page never jumps.
+	const settle = ( from ) => {
+		grid.style.height = 'auto';
+		const to = grid.offsetHeight;
+		if ( Math.abs( to - from ) < 2 ) {
+			grid.style.height = '';
+			return;
+		}
+
+		grid.classList.add( 'is-resizing' );
+		grid.style.height = from + 'px';
+		void grid.offsetHeight;
+		grid.style.height = to + 'px';
+
+		let finished = false;
+		const done = () => {
+			if ( finished ) {
+				return;
+			}
+			finished = true;
+			grid.style.height = '';
+			grid.classList.remove( 'is-resizing' );
+			// Section heights changed: let the scroll triggers measure again.
+			document.dispatchEvent( new CustomEvent( 'markea:layout' ) );
+		};
+		grid.addEventListener( 'transitionend', ( e ) => e.target === grid && e.propertyName === 'height' && done(), { once: true } );
+		window.setTimeout( done, 1000 );
 	};
 
 	const enter = ( filter ) => {
@@ -40,6 +78,7 @@ export function initProjectFilters() {
 			item.hidden = true;
 			item.classList.remove( 'is-leaving' );
 		} );
+		showEmpty( filter );
 		void root.offsetWidth; // Commit the start pose.
 		shown.forEach( ( item ) => item.classList.remove( 'is-leaving', 'is-instant' ) );
 	};
@@ -53,10 +92,13 @@ export function initProjectFilters() {
 		}
 
 		busy = true;
+		const fromHeight = grid.offsetHeight;
+		grid.style.height = fromHeight + 'px';
 		items.filter( ( item ) => ! item.hidden ).forEach( ( item ) => item.classList.add( 'is-leaving' ) );
 
 		window.setTimeout( () => {
 			enter( filter );
+			settle( fromHeight );
 			busy = false;
 
 			// A pill clicked during the leave: go straight to the latest choice.
