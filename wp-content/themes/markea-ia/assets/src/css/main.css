@@ -24,6 +24,7 @@
  * 20. Section: Quienes somos
  * 21. Section: Unidades de negocio
  * 22. Section: Caso de operacion propia
+ * 23. Section: Marketing Operating System
  *
  * Colors come from Site Settings > Colores (inline style overrides the base palette in section 2).
  */
@@ -1757,4 +1758,199 @@ html.is-menu-open {
 	height: 6px;
 	background: currentColor;
 	border-radius: 50%;
+}
+
+/* ==========================================================================
+   23. Section: Marketing Operating System
+   Figma (457:2879): 40 px title (Regular + Bold fragment, lh 1.02) and an 18 px intro on the right,
+   72 px above four bottom-aligned pillar cards 18 px apart: a featured card (420 x 574) with a 300 px chart
+   visual and three 458 px cards (big 08% number, visual, accent rule + 19 px title).
+   Soft cyan glow bottom-right (12% disk, 75 px blur).
+   ========================================================================== */
+.mos {
+	--glow-color: var(--cyan);
+	position: relative;
+	overflow-x: clip;
+	padding-top: clamp(3rem, 7.78vw, 7rem); /* 112 px */
+	padding-bottom: clamp(3rem, 8.06vw, 7.25rem); /* 116 px */
+}
+
+.mos::before {
+	content: '';
+	position: absolute;
+	top: 922px; /* Figma: ellipse center y 662 + 260 */
+	right: 70px; /* center x 1370 of 1440 */
+	z-index: -1;
+	width: 740px;
+	height: 740px;
+	background: radial-gradient(
+		closest-side,
+		color-mix(in srgb, var(--glow-color) 12%, transparent) 0%,
+		color-mix(in srgb, var(--glow-color) 12%, transparent) 40%,
+		color-mix(in srgb, var(--glow-color) 6%, transparent) 70%,
+		transparent 100%
+	);
+	transform: translate(50%, -50%);
+	pointer-events: none;
+}
+
+.mos__header {
+	display: grid;
+	gap: 1.5rem;
+	align-items: end;
+}
+
+@media (min-width: 992px) {
+	.mos__header {
+		grid-template-columns: minmax(0, 1fr) minmax(0, 466px);
+		gap: 3rem;
+	}
+}
+
+.mos__header .section__title {
+	max-width: 716px;
+	margin: 0;
+	line-height: 1.02;
+}
+
+.mos__intro {
+	margin: 0;
+	color: var(--text-secondary);
+	font-size: 1.125rem; /* 18 px */
+	line-height: 1.65;
+}
+
+.mos__pillars {
+	display: grid;
+	gap: 1.125rem; /* 18 px */
+	margin: 4.5rem 0 0; /* 72 px */
+	padding: 0;
+	list-style: none;
+}
+
+@media (min-width: 640px) {
+	.mos__pillars {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.mos__card--featured {
+		grid-column: 1 / -1;
+	}
+}
+
+@media (min-width: 992px) {
+	.mos__pillars {
+		grid-template-columns: minmax(0, 420fr) repeat(3, minmax(0, 242fr));
+		align-items: end;
+	}
+
+	.mos__card--featured {
+		grid-column: auto;
+		min-height: 574px;
+	}
+}
+
+.mos__card {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	background: var(--white);
+	border: 1px solid color-mix(in srgb, var(--navy) 14%, var(--white)); /* Figma #DDE5F5 */
+	border-radius: 22px;
+	box-shadow: 0 12px 32px -8px color-mix(in srgb, var(--navy) 5%, transparent);
+}
+
+.mos__card--featured {
+	box-shadow: 0 24px 60px -10px color-mix(in srgb, var(--navy) 14%, transparent);
+}
+
+.mos__visual {
+	width: 100%;
+	height: auto;
+	aspect-ratio: 420 / 300;
+}
+
+.mos__body {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	padding: 1.75rem; /* 28 px */
+}
+
+.mos__body > * {
+	margin: 0;
+}
+
+.mos__index {
+	font-family: var(--font-heading);
+	font-weight: 700;
+}
+
+.mos__title {
+	font-size: 1.625rem; /* 26 px */
+	font-weight: 400;
+	line-height: 1.12;
+}
+
+.mos__text {
+	color: var(--text-secondary);
+	font-size: 0.875rem; /* 14 px */
+	line-height: 1.65;
+}
+
+/* Small cards: number, visual and footer spread over a 458 px column. */
+.mos__card:not(.mos__card--featured) {
+	justify-content: space-between;
+	gap: 1.5rem;
+	padding: 1.625rem 1.5rem; /* 26 x 24 px */
+}
+
+@media (min-width: 992px) {
+	.mos__card:not(.mos__card--featured) {
+		min-height: 458px;
+	}
+}
+
+.mos__number {
+	margin: 0;
+	color: color-mix(in srgb, var(--navy) 8%, transparent);
+	font-family: var(--font-heading);
+	font-size: 4.25rem; /* 68 px */
+	font-weight: 500;
+	line-height: 0.9;
+}
+
+.mos__art {
+	width: 100%;
+	height: 132px;
+	object-fit: contain;
+	object-position: left center;
+}
+
+.mos__footer {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.mos__rule {
+	width: 42px;
+	height: 3px;
+	background: var(--electric);
+	border-radius: 999px;
+}
+
+.mos__card--indigo .mos__rule {
+	background: var(--indigo);
+}
+
+.mos__card--purple .mos__rule {
+	background: var(--purple);
+}
+
+.mos__card-title {
+	margin: 0;
+	font-size: 1.1875rem; /* 19 px */
+	font-weight: 400;
+	line-height: 1.2;
 }

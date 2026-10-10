@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 300" fill="none">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DDFBFC"/><stop offset="0.54" stop-color="#F7FAFF"/><stop offset="1" stop-color="#F2E9FF"/></linearGradient>
+<filter id="b1" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="27"/></filter>
+<filter id="b2" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="26"/></filter>
+<clipPath id="c"><rect width="420" height="300"/></clipPath>
+</defs>
+<g clip-path="url(#c)">
+<rect width="420" height="300" fill="url(#bg)"/>
+<circle cx="55" cy="251" r="125" fill="#56E1E9" fill-opacity="0.2" filter="url(#b1)"/>
+<circle cx="363" cy="51" r="115" fill="#BB63FF" fill-opacity="0.141176" filter="url(#b2)"/>
+<rect x="24.5" y="22.5" width="75" height="20" rx="10" fill="#fff" fill-opacity="0.85" stroke="#fff"/>
+<circle cx="38" cy="32.5" r="3.5" fill="#56E1E9"/>
+<rect x="48" y="30" width="42" height="5" rx="2.5" fill="#001B71" fill-opacity="0.19"/>
+<rect x="356" y="145" width="18" height="103" rx="9" fill="#56E1E9" fill-opacity="0.6"/><rect x="271" y="166" width="18" height="82" rx="9" fill="#5B58EB" fill-opacity="0.6"/><rect x="184" y="181" width="18" height="67" rx="9" fill="#56E1E9" fill-opacity="0.6"/><rect x="103" y="195" width="18" height="53" rx="9" fill="#5B58EB" fill-opacity="0.6"/><rect x="44" y="214" width="18" height="34" rx="9" fill="#56E1E9" fill-opacity="0.6"/>
+<path transform="translate(12 78)" d="M0.105867 144.504C68.1059 151.744 95.1059 76.934 149.106 103.479C209.106 134.851 229.106 -24.4208 288.106 4.53771C329.106 23.8434 350.106 113.132 386.106 60.0415" stroke="#BB63FF" stroke-opacity="0.52" stroke-width="2" fill="none"/><path transform="translate(18 66)" d="M0.401868 165.465C48.4019 144.399 78.4019 -10.7197 137.402 29.4964C190.402 65.8823 211.402 221.001 266.402 157.805C316.402 100.353 330.402 37.1566 374.402 0.770634" stroke="#5B58EB" stroke-opacity="0.48" stroke-width="2" fill="none"/><path transform="translate(22 56)" d="M0.180709 168.538C48.1807 159.719 55.1807 89.165 108.181 99.4542C162.181 109.743 165.181 199.406 225.181 168.538C279.181 142.08 288.181 20.081 368.181 0.97264" stroke="#56E1E9" stroke-opacity="0.9" stroke-width="2" fill="none"/>
+</g></svg>
