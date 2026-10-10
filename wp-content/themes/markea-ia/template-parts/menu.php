@@ -19,7 +19,7 @@ $markea_icons     = array(
 	'LinkedIn'  => 'linkedin',
 );
 ?>
-<div id="site-menu" class="site-menu" role="dialog" aria-modal="true" aria-labelledby="site-menu-title" data-menu>
+<div id="site-menu" class="site-menu" role="dialog" aria-modal="true" aria-labelledby="site-menu-title" data-menu data-lenis-prevent>
 	<div class="site-menu__card">
 		<div class="site-menu__grid">
 			<div class="site-menu__intro">

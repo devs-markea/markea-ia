@@ -34,6 +34,7 @@
  * 30. Section: Estrategas
  * 31. Section: Formulario
  * 32. Footer
+ * 33. Motion (smooth scroll, reveals, loader, menu and button effects)
  *
  * Colors come from Site Settings > Colores (inline style overrides the base palette in section 2).
  */
@@ -92,6 +93,7 @@
 	--fs-h3: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
 
 	/* Layout. */
+	--ease-markea: cubic-bezier(0.6, 0.08, 0.02, 0.99); /* same curve as the GSAP ease in motion/engine.js */
 	--header-h: 5.25rem; /* 84 px (Figma): 20 + 44 + 20; the hero fills the rest of the window */
 	--radius: 16px;
 	--section-y: var(--wp--preset--spacing--l, clamp(3rem, 8vw, 6rem));
@@ -3338,4 +3340,206 @@ button.relevance__trigger {
 
 .site-footer__col--news {
 	max-width: 280px;
+}
+
+/* ==========================================================================
+   33. Motion
+   Everything here is gated by html.has-motion (set in <head> only when the visitor has not asked for
+   reduced motion and motion is not switched off in Site Settings), so without it the page is static.
+   The hidden lists below must match the targets in assets/src/js/motion/reveal.js; GSAP reveals them.
+   ========================================================================== */
+
+/* Lenis (smooth scroll) */
+html.lenis,
+html.lenis body {
+	height: auto;
+}
+
+.lenis.lenis-smooth {
+	scroll-behavior: auto !important;
+}
+
+.lenis.lenis-stopped {
+	overflow: clip;
+}
+
+.lenis.lenis-scrolling iframe {
+	pointer-events: none;
+}
+
+/* Reveals and hero intro: hidden until their animation runs. */
+html.has-motion #contenido > .section:not(.hero) > .container > *,
+html.has-motion [data-reveal],
+html.has-motion .hero__content > *,
+html.has-motion .hero__visual {
+	visibility: hidden;
+}
+
+/* Entry loader */
+.loader {
+	display: none;
+}
+
+html.has-loader {
+	overflow: hidden;
+}
+
+html.has-loader .loader {
+	position: fixed;
+	inset: 0;
+	z-index: 100;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 2rem;
+	background: var(--white);
+}
+
+.loader__logo {
+	width: min(190px, 50vw);
+	height: auto;
+}
+
+.loader__bottom {
+	position: absolute;
+	inset: auto 0 0;
+	display: grid;
+	gap: 1rem;
+	padding: 2rem var(--page-margin);
+}
+
+.loader__meta {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	font-family: var(--font-heading);
+	color: var(--navy);
+}
+
+.loader__text {
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.loader__count {
+	font-size: clamp(2rem, 5vw, 4rem);
+	font-weight: 300;
+	line-height: 1;
+	font-variant-numeric: tabular-nums;
+}
+
+.loader__bar {
+	height: 4px;
+	overflow: hidden;
+	background: color-mix(in srgb, var(--navy) 12%, transparent);
+}
+
+.loader__fill {
+	display: block;
+	height: 100%;
+	background: var(--electric);
+	transform: scaleX(0);
+	transform-origin: left;
+}
+
+/* Menu: the card rises in and its content follows one by one (--i is set in menu.js). */
+html.has-motion .site-menu {
+	transition: opacity 0.5s var(--ease-markea), visibility 0s linear 0.5s;
+}
+
+html.has-motion .site-menu.is-open {
+	transition: opacity 0.5s var(--ease-markea);
+}
+
+html.has-motion .site-menu__card {
+	transform: translateY(3rem) scale(0.98);
+	transition: transform 0.9s var(--ease-markea);
+}
+
+html.has-motion .site-menu.is-open .site-menu__card {
+	transform: none;
+}
+
+html.has-motion .site-menu :is(.site-menu__intro > *, .site-menu__list li, .site-menu__footer > *) {
+	opacity: 0;
+	transform: translateY(1.5rem);
+	transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+html.has-motion .site-menu.is-open :is(.site-menu__intro > *, .site-menu__list li, .site-menu__footer > *) {
+	opacity: 1;
+	transform: none;
+	transition: opacity 0.7s var(--ease-markea), transform 1s var(--ease-markea);
+	transition-delay: calc(0.15s + var(--i, 0) * 0.06s);
+}
+
+/* Menu button: the two bars and the cross swap by rotating and fading. */
+html.has-motion .site-header__menu {
+	position: relative;
+}
+
+html.has-motion .site-header__menu .icon,
+html.has-motion .site-header__menu[aria-expanded] .icon {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	display: block;
+	transition: opacity 0.4s var(--ease-markea), transform 0.7s var(--ease-markea);
+}
+
+html.has-motion .site-header__menu .icon--menu {
+	opacity: 1;
+	transform: translate(-50%, -50%);
+}
+
+html.has-motion .site-header__menu .icon--close {
+	opacity: 0;
+	transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+html.has-motion .site-header__menu[aria-expanded='true'] .icon--menu {
+	opacity: 0;
+	transform: translate(-50%, -50%) rotate(90deg);
+}
+
+html.has-motion .site-header__menu[aria-expanded='true'] .icon--close {
+	opacity: 1;
+	transform: translate(-50%, -50%);
+}
+
+/* Primary buttons: circle that grows from the pointer (motion/buttons.js). */
+.btn--fx {
+	position: relative;
+	overflow: hidden;
+	isolation: isolate;
+}
+
+.btn--fx:hover {
+	background: var(--primary);
+}
+
+.btn--fx > :not(.btn__circle) {
+	position: relative;
+	z-index: 1;
+}
+
+.btn__circle {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	z-index: 0;
+	width: 200%;
+	aspect-ratio: 1;
+	border-radius: 50%;
+	background: var(--navy);
+	transform: translate(-50%, -50%) scale(0);
+	transition: transform 0.7s var(--ease-markea);
+	pointer-events: none;
+}
+
+.btn--fx:hover .btn__circle,
+.btn--fx:focus-visible .btn__circle {
+	transform: translate(-50%, -50%) scale(1);
 }

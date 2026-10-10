@@ -21,6 +21,7 @@ export function initMenu() {
 		toggle.setAttribute( 'aria-expanded', String( open ) );
 		menu.classList.toggle( 'is-open', open );
 		root.classList.toggle( 'is-menu-open', open );
+		document.dispatchEvent( new CustomEvent( 'markea:menu', { detail: { open } } ) );
 		if ( label ) {
 			label.textContent = open ? toggle.dataset.labelClose : toggle.dataset.labelOpen;
 		}
@@ -32,6 +33,9 @@ export function initMenu() {
 			toggle.focus( { preventScroll: true } );
 		}
 	};
+
+	// Stagger index for the entrance transition (see Motion in main.css).
+	menu.querySelectorAll( '.site-menu__intro > *, .site-menu__list li, .site-menu__footer > *' ).forEach( ( el, i ) => el.style.setProperty( '--i', String( i ) ) );
 
 	const isOpen = () => menu.classList.contains( 'is-open' );
 

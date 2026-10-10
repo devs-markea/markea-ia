@@ -9,6 +9,7 @@ import { initCarousels } from './carousel.js';
 import { initHeroVisual } from './hero-visual.js';
 import { initUnits } from './units.js';
 import { initAccordions } from './accordion.js';
+import { initMotion } from './motion.js';
 
 const ready = ( fn ) => {
 	if ( document.readyState !== 'loading' ) {
@@ -28,4 +29,5 @@ ready( () => {
 	initHeroVisual();
 	initUnits();
 	initAccordions();
+	initMotion();
 } );

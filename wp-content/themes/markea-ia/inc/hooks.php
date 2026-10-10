@@ -108,3 +108,58 @@ add_filter( 'show_admin_bar', 'markea_ia_show_admin_bar' );
 function markea_ia_show_admin_bar( bool $show ): bool {
 	return is_admin() ? $show : (bool) apply_filters( 'markea_show_admin_bar', false );
 }
+
+/**
+ * Motion flags, set before first paint so content that will be animated is never seen un-animated.
+ * - has-motion: JS-driven effects are allowed (not reduced motion, not switched off). Removed after 6 s
+ *   if the motion script never reports ready, so content can never stay hidden.
+ * - has-loader: the entry loader is on screen (once per session when configured).
+ */
+add_action( 'wp_head', 'markea_ia_print_motion_flags', 1 );
+
+function markea_ia_print_motion_flags(): void {
+	if ( ! markea_motion_enabled() ) {
+		return;
+	}
+
+	$loader = markea_loader_enabled();
+	$once   = $loader && (bool) markea_option( 'loader_once', 1 );
+	?>
+<script>
+(function(d,w){var r=d.documentElement;if(w.matchMedia&&w.matchMedia('(prefers-reduced-motion: reduce)').matches){return;}
+r.classList.add('has-motion');
+<?php if ( $loader ) : ?>
+var seen=false;<?php echo $once ? "try{seen=w.sessionStorage.getItem('markea-loader')==='1';}catch(e){}" : ''; ?>
+
+if(!seen){r.classList.add('has-loader');}
+<?php endif; ?>
+setTimeout(function(){if(r.getAttribute('data-motion')!=='ready'){r.classList.remove('has-motion','has-loader');}},6000);
+})(document,window);
+</script>
+	<?php
+}
+
+/**
+ * Entry loader markup (the front page only). Hidden by CSS unless html.has-loader is set.
+ */
+add_action( 'wp_body_open', 'markea_ia_print_loader', 5 );
+
+function markea_ia_print_loader(): void {
+	if ( ! markea_loader_enabled() ) {
+		return;
+	}
+
+	$text = (string) markea_option( 'loader_text', __( 'Cargando', 'markea-ia' ) );
+	?>
+<div class="loader" data-loader aria-hidden="true">
+	<img class="loader__logo" src="<?php echo esc_url( MARKEA_IA_URI . '/assets/images/markea-logo.svg' ); ?>" width="190" height="26" alt="">
+	<div class="loader__bottom">
+		<div class="loader__meta">
+			<span class="loader__text"><?php echo esc_html( $text ); ?></span>
+			<span class="loader__count" data-loader-count>0%</span>
+		</div>
+		<div class="loader__bar"><span class="loader__fill" data-loader-fill></span></div>
+	</div>
+</div>
+	<?php
+}

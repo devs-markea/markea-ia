@@ -195,6 +195,8 @@ final class LandingContent {
 			'footer_text'       => 'Construimos sistemas de IA que transforman operaciones comerciales',
 			'footer_services'   => "Sistemas IA\nGrowth Ops\nAutomatización\nRevenue Ops\nConsultoría",
 			'footer_copyright'  => '© 2026 Markea IA Native. Todos los derechos reservados.',
+			'loader_text'       => 'Cargando',
+			'loader_once'       => 1,
 			'newsletter_title'  => 'Newsletter',
 			'newsletter_button' => 'Registrarme',
 		);

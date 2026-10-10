@@ -319,3 +319,17 @@ function markea_tool_logo( array $item ): string {
 		esc_attr( (string) round( $height ) )
 	);
 }
+
+/**
+ * Motion (smooth scroll, reveals, menu and button effects) is on unless switched off in Site Settings > Animaciones.
+ */
+function markea_motion_enabled(): bool {
+	return ! (bool) markea_option( 'motion_off' );
+}
+
+/**
+ * The entry loader only runs on the front page and only when motion is on.
+ */
+function markea_loader_enabled(): bool {
+	return is_front_page() && markea_motion_enabled() && (bool) markea_option( 'loader_on' );
+}

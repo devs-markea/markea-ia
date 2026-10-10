@@ -103,6 +103,12 @@ final class SiteSettings {
 			F::text( 'menu_title', 'Título' ),
 			F::text( 'menu_copyright', 'Derechos reservados' ),
 
+			F::tab( 'set_motion', 'Animaciones' ),
+			F::toggle( 'motion_off', 'Desactivar animaciones', array( 'message' => 'Apaga el scroll suave, las entradas por scroll y los efectos de botones y menú. Las personas con "reducir movimiento" en su sistema nunca las ven, aunque esto esté activo.' ) ),
+			F::toggle( 'loader_on', 'Pantalla de carga', array( 'message' => 'Muestra una pantalla de entrada con contador antes del contenido. Retrasa unos segundos lo primero que se ve; úsala solo si el diseño lo pide.' ) ),
+			F::text( 'loader_text', 'Texto de la pantalla de carga', array( 'default_value' => 'Cargando', 'instructions' => 'Se muestra junto al contador. Ej. "Cargando".' ) ),
+			F::toggle( 'loader_once', 'Solo la primera visita de la sesión', array( 'default_value' => 1, 'message' => 'Si está activo, la pantalla de carga no se repite al volver a la página durante la misma visita.' ) ),
+
 			F::tab( 'set_footer', 'Footer' ),
 			F::text( 'footer_cta_title', 'Pregunta principal', array( 'instructions' => 'Ej. "¿Tienes un proyecto fascinante en mente?".' ) ),
 			F::text( 'footer_cta_emphasis', 'Parte en negrita de la pregunta', array( 'instructions' => 'Fragmento exacto de la pregunta. Ej. "en mente".' ) ),
