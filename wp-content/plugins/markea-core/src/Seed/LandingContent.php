@@ -149,6 +149,8 @@ final class LandingContent {
 				'eyebrow'       => 'PRÓXIMOS PASOS',
 				'title'         => 'Empezamos con un diagnóstico estratégico sin compromiso.',
 				'emphasis'      => 'sin compromiso.',
+				'video_label'   => 'Reproducir',
+				'video_duration' => '4 min 30 sec',
 				'text'          => 'Auditoría inicial de marketing y tecnología para identificar brechas y oportunidades concretas, antes de proponer cualquier alcance de trabajo.',
 				'items'         => array(
 					array( 'title' => 'Diagnóstico', 'text' => 'Revisión de marca, marketing y stack tecnológico actual.' ),

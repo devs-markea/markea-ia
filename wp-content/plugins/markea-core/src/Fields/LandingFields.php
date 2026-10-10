@@ -218,8 +218,10 @@ final class LandingFields {
 					$title,
 					F::sub( 'textarea', 'text', 'Texto', array( 'rows' => 3, 'new_lines' => '' ) ),
 					$cards( 'Pasos' ),
-					F::sub( 'text', 'tagline', 'Frase de cierre', array( 'instructions' => 'Ej. "Start. Grow. Succeed".' ) ),
-					F::sub( 'url', 'video_url', 'URL del video', array( 'instructions' => 'YouTube o Vimeo. Se carga al hacer clic en reproducir.' ) ),
+					F::sub( 'url', 'video_url', 'URL del video', array( 'instructions' => 'YouTube o Vimeo. Se carga al hacer clic en reproducir. Si queda vacío no se muestra el botón.' ) ),
+					F::sub( 'image', 'video_image', 'Imagen del video', array( 'return_format' => 'id', 'preview_size' => 'medium', 'instructions' => 'Portada del video. Si queda vacía se usa la imagen del diseño.' ) ),
+					F::sub( 'text', 'video_label', 'Texto del botón de reproducir', array( 'default_value' => 'Reproducir' ) ),
+					F::sub( 'text', 'video_duration', 'Duración', array( 'instructions' => 'Ej. "4 min 30 sec".' ) ),
 				)
 			),
 			F::layout(
