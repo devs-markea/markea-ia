@@ -32,6 +32,7 @@
  * 28. Section: Como trabajamos
  * 29. Section: Proximos pasos
  * 30. Section: Estrategas
+ * 31. Section: Formulario
  *
  * Colors come from Site Settings > Colores (inline style overrides the base palette in section 2).
  */
@@ -794,54 +795,8 @@ html.is-menu-open {
    ========================================================================== */
 /* ==========================================================================
    15. Form
+   See section 31 (Formulario).
    ========================================================================== */
-.form {
-	display: grid;
-	gap: 1rem;
-	margin-top: 1.5rem;
-}
-
-.form__row {
-	display: grid;
-	gap: 0.35rem;
-}
-
-.form__row--check {
-	grid-template-columns: auto 1fr;
-	align-items: start;
-	gap: 0.75rem;
-}
-
-.form label {
-	color: var(--text-secondary);
-	font-size: 0.9rem;
-}
-
-.form input:not([type='checkbox']),
-.form select,
-.form textarea {
-	width: 100%;
-	padding: 0.8rem 1rem;
-	background: var(--surface);
-	color: var(--text);
-	border: 1px solid var(--stroke);
-	border-radius: 12px;
-	font: inherit;
-}
-
-/* Honeypot: hidden from people, visible to bots. */
-.form__hp {
-	position: absolute;
-	left: -9999px;
-}
-
-.form__status[data-state='success'] {
-	color: #0a7a4b;
-}
-
-.form__status[data-state='error'] {
-	color: #c0262d;
-}
 
 /* ==========================================================================
    16. Footer
@@ -2963,4 +2918,267 @@ button.relevance__trigger {
 	.strategists__plate {
 		transition: none;
 	}
+}
+
+/* ==========================================================================
+   31. Section: Formulario
+   Figma (177:361): 120 px top, 200 px bottom, 20 px side padding. One large white card (radius 24, 2 px
+   shadow, 100 px padding, 80 px between columns). Left: dotted eyebrow, 40 px Bold title, 48 x 2 rule,
+   15 px text, 36 px social circles, underlined email. Right: 36 px ExtraBold heading, two-column grid of
+   underlined fields (11 px uppercase labels), interest chips (selected = electric fill), a 60 px
+   textarea on a navy 6% fill and a full-width navy submit button.
+   ========================================================================== */
+.contact {
+	padding-top: clamp(3rem, 8.33vw, 7.5rem);
+	padding-bottom: clamp(4rem, 13.89vw, 12.5rem);
+	padding-inline: 1.25rem; /* 20 px */
+}
+
+.contact__card {
+	display: grid;
+	gap: 3rem;
+	max-width: 1400px;
+	margin-inline: auto;
+	padding: clamp(1.5rem, 6.94vw, 6.25rem); /* 100 px at 1440 */
+	background: var(--white);
+	border-radius: 24px;
+	box-shadow: 0 0 2px color-mix(in srgb, var(--navy) 40%, transparent);
+}
+
+@media (min-width: 992px) {
+	.contact__card {
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		gap: 5rem; /* 80 px */
+		align-items: start;
+	}
+}
+
+.contact__intro {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 1rem;
+}
+
+.contact__intro > * {
+	margin: 0;
+}
+
+.contact__eyebrow {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	color: var(--electric);
+	font-size: 0.8125rem; /* 13 px */
+	font-weight: 500;
+}
+
+.contact__eyebrow::before {
+	content: '';
+	width: 8px;
+	height: 8px;
+	background: currentColor;
+	border-radius: 50%;
+}
+
+.contact .section__title {
+	line-height: normal;
+}
+
+.contact__rule {
+	width: 48px;
+	height: 2px;
+	background: color-mix(in srgb, var(--navy) 40%, transparent);
+}
+
+.contact__text {
+	color: var(--text-secondary);
+	font-size: 0.9375rem; /* 15 px */
+}
+
+.contact__social {
+	display: flex;
+	gap: 1rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.contact__social a {
+	display: block;
+	color: var(--navy);
+	line-height: 0;
+}
+
+.contact__social a:hover {
+	color: var(--electric);
+}
+
+.contact__email {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	color: color-mix(in srgb, var(--navy) 40%, transparent);
+	font-size: 0.875rem; /* 14 px */
+	font-weight: 500;
+}
+
+.contact__email .icon {
+	color: var(--navy); /* the exported icon already has 40% opacity */
+}
+
+.contact__form {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem; /* 32 px */
+}
+
+.contact__heading {
+	margin: 0;
+	font-size: 2.25rem; /* 36 px */
+	font-weight: 800;
+	line-height: normal;
+}
+
+.contact__grid {
+	display: grid;
+	gap: 1rem 1.5rem; /* compact rows like the design, 24 px between columns */
+}
+
+@media (min-width: 576px) {
+	.contact__grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+.field {
+	display: flex;
+	flex-direction: column;
+	gap: 0.375rem; /* 6 px */
+}
+
+.field label,
+.chips legend {
+	color: var(--text-muted);
+	font-size: 0.6875rem; /* 11 px */
+	font-weight: 500;
+	text-transform: uppercase;
+}
+
+.field input,
+.field textarea {
+	width: 100%;
+	padding: 0.125rem 0;
+	background: transparent;
+	color: var(--text);
+	border: 0;
+	border-bottom: 1px solid color-mix(in srgb, var(--navy) 25%, transparent);
+	border-radius: 0;
+	font: inherit;
+	font-size: 0.9375rem;
+}
+
+.field input {
+	height: 1.75rem;
+}
+
+.field input:focus,
+.field textarea:focus {
+	border-bottom-color: var(--electric);
+	outline: none;
+}
+
+.field input:focus-visible,
+.field textarea:focus-visible {
+	box-shadow: 0 1px 0 0 var(--electric);
+}
+
+.field--area textarea {
+	min-height: 60px;
+	padding: 0.5rem 0.75rem;
+	background: var(--surface);
+	border-radius: 4px 4px 0 0;
+	resize: vertical;
+}
+
+/* Interest chips: radio inputs styled as pills. */
+.chips {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+
+.chips legend {
+	margin-bottom: 0.75rem; /* 12 px */
+	padding: 0;
+}
+
+.chips__list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem; /* 8 px */
+}
+
+.chips__item input {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.chips__item label {
+	display: inline-block;
+	padding: 0.375rem 0.875rem; /* 6 x 14 px */
+	color: var(--navy);
+	border: 1px solid color-mix(in srgb, var(--navy) 25%, transparent);
+	border-radius: 999px;
+	font-size: 0.75rem; /* 12 px */
+	font-weight: 500;
+	cursor: pointer;
+	transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.chips__item input:checked + label {
+	background: var(--electric);
+	border-color: var(--white);
+	color: var(--white);
+}
+
+.chips__item input:focus-visible + label {
+	outline: 2px solid var(--electric);
+	outline-offset: 2px;
+}
+
+.contact__hp {
+	position: absolute;
+	left: -9999px;
+}
+
+.contact__consent {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.75rem;
+	color: var(--text-secondary);
+	font-size: 0.8125rem;
+}
+
+.contact__submit {
+	width: 100%;
+	gap: 0.5rem;
+	padding-block: 1rem; /* 16 px */
+	box-shadow: 0 0 2px color-mix(in srgb, var(--navy) 60%, transparent);
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.contact__status {
+	margin: 0;
+	min-height: 1.5em;
+}
+
+.contact__status[data-state='success'] {
+	color: #0a7a4b;
+}
+
+.contact__status[data-state='error'] {
+	color: #c0262d;
 }
