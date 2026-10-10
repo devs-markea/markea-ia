@@ -193,7 +193,24 @@ final class LandingFields {
 					F::sub( 'image', 'image', 'Imagen', array( 'return_format' => 'id', 'preview_size' => 'medium', 'instructions' => 'Foto inclinada a la derecha de la tarjeta. Si queda vacía se usa la imagen del diseño.' ) ),
 				)
 			),
-			F::layout( 'how', 'Cómo trabajamos', array( $title, F::sub( 'textarea', 'text', 'Texto', array( 'rows' => 3, 'new_lines' => '' ) ), $cards( 'Líneas de servicio' ) ) ),
+			F::layout(
+				'how',
+				'Cómo trabajamos',
+				array(
+					$title,
+					F::sub( 'textarea', 'text', 'Texto', array( 'rows' => 3, 'new_lines' => '' ) ),
+					F::items(
+						'items',
+						'Líneas de servicio',
+						array(
+							F::sub( 'select', 'icon', 'Ícono', array( 'choices' => array( '' => 'Sin ícono', 'presentation-chart-line' => 'Gráfica', 'target' => 'Objetivo', 'code' => 'Código' ), 'default_value' => '', 'allow_null' => 0 ) ),
+							F::sub( 'text', 'title', 'Título' ),
+							F::sub( 'textarea', 'text', 'Texto', array( 'rows' => 3, 'new_lines' => '' ) ),
+						),
+						array( 'button_label' => 'Añadir línea' )
+					),
+				)
+			),
 			F::layout(
 				'next_steps',
 				'Próximos pasos',

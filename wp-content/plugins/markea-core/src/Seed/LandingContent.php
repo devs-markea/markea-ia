@@ -139,9 +139,9 @@ final class LandingContent {
 				'title'         => 'Tres líneas de servicio, una sola disciplina',
 				'text'          => 'Pocas marcas. Foco total. No buscamos volumen.',
 				'items'         => array(
-					array( 'title' => 'Estrategia y operación de marketing', 'text' => 'Posicionamiento, sistema y ejecución continua.' ),
-					array( 'title' => 'Desarrollo de contenido y marca', 'text' => 'Narrativa premium bilingüe, consistente en cada canal.' ),
-					array( 'title' => 'Desarrollo tecnológico e IA', 'text' => 'Dashboards, integraciones y automatización a medida.' ),
+					array( 'icon' => 'presentation-chart-line', 'title' => 'Estrategia y operación de marketing', 'text' => 'Posicionamiento, sistema y ejecución continua.' ),
+					array( 'icon' => 'target', 'title' => 'Desarrollo de contenido y marca', 'text' => 'Narrativa premium bilingüe, consistente en cada canal.' ),
+					array( 'icon' => 'code', 'title' => 'Desarrollo tecnológico e IA', 'text' => 'Dashboards, integraciones y automatización a medida.' ),
 				),
 			),
 			array(

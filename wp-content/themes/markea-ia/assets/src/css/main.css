@@ -29,6 +29,7 @@
  * 25. Section: Portafolio (proyectos)
  * 26. Section: Herramientas
  * 27. Section: Relevancia sectorial
+ * 28. Section: Como trabajamos
  *
  * Colors come from Site Settings > Colores (inline style overrides the base palette in section 2).
  */
@@ -2520,4 +2521,98 @@ button.relevance__trigger {
 		top: 21px;
 		transform: rotate(-8deg);
 	}
+}
+
+/* ==========================================================================
+   28. Section: Como trabajamos
+   Figma (177:327): 110 px top, 220 px bottom, 48 px between header and cards. Centered header on a 600 px
+   column: badge, 36 px Bold title, a 1 px rule that fades out at both ends, 16 px subtitle. Three
+   equal-height white cards (24 px apart, radius 16, 2 px shadow, 32 px padding): 48 px navy icon disc,
+   56 px gap, 24 px Bold title and 16 px text.
+   ========================================================================== */
+.how {
+	padding-top: clamp(3rem, 7.64vw, 6.875rem);
+	padding-bottom: clamp(4rem, 15.28vw, 13.75rem);
+}
+
+.how__header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+	text-align: center;
+}
+
+.how__header > * {
+	margin: 0;
+}
+
+.how .section__title {
+	max-width: 600px;
+	font-size: clamp(1.75rem, 1rem + 1.9vw, 2.25rem); /* 36 px */
+	line-height: normal;
+}
+
+.how__rule {
+	width: min(100%, 600px);
+	height: 1px;
+	background: linear-gradient(to right, transparent, var(--navy), transparent);
+}
+
+.how__subtitle {
+	max-width: 367px;
+	font-family: var(--font-heading);
+}
+
+.how__grid {
+	display: grid;
+	gap: 1.5rem; /* 24 px */
+	margin: 3rem 0 0; /* 48 px */
+	padding: 0;
+	list-style: none;
+}
+
+@media (min-width: 768px) {
+	.how__grid {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+.how__card {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 3.5rem; /* 56 px */
+	padding: 2rem;
+	background: var(--white);
+	border-radius: 16px;
+	box-shadow: 0 0 2px color-mix(in srgb, var(--navy) 40%, transparent);
+}
+
+.how__icon {
+	display: grid;
+	place-items: center;
+	width: 48px;
+	height: 48px;
+	background: var(--navy);
+	color: var(--white);
+	border-radius: 50%;
+}
+
+.how__body {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.how__title {
+	margin: 0;
+	font-size: 1.5rem; /* 24 px */
+	line-height: normal;
+}
+
+.how__text {
+	margin: 0;
+	color: var(--text-secondary);
+	line-height: 1.5;
 }

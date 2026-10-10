@@ -1,6 +1,6 @@
 <?php
 /**
- * Cards section: como-trabajamos.
+ * Section 11: Como trabajamos. Centered header (badge, title, gradient rule, subtitle) and three service cards.
  *
  * @package Markea_IA
  */
@@ -10,35 +10,40 @@ defined( 'ABSPATH' ) || exit;
 $row = $args['row'] ?? array();
 
 $title = (string) ( $row['title'] ?? '' );
-$rows  = ( $row['items'] ?? array() );
-if ( '' === $title && ! $rows ) {
+$items = ( $row['items'] ?? array() );
+if ( '' === $title && ! $items ) {
 	return;
 }
 ?>
 <section id="como-trabajamos" class="section how<?php echo esc_attr( markea_tone( $row ) ); ?>">
 	<div class="container">
-		<?php echo markea_eyebrow( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-		<?php if ( $title ) : ?>
-			<h2 class="section__title"><?php echo markea_title( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
-		<?php endif; ?>
-		<?php echo markea_lead( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-		<?php if ( $rows ) : ?>
-			<div class="cards">
-				<ol class="row" role="list">
-				<?php foreach ( $rows as $i => $card ) : ?>
-					<li class="col-12 col-md-6 col-lg-4"><div class="card">
-						<span class="card__index" aria-hidden="true"><?php echo esc_html( str_pad( (string) ( $i + 1 ), 2, '0', STR_PAD_LEFT ) ); ?></span>
-						<?php if ( ! empty( $card['title'] ) ) : ?>
-							<h3 class="card__title"><?php echo esc_html( $card['title'] ); ?></h3>
+		<header class="how__header">
+			<?php echo markea_eyebrow( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+			<?php if ( $title ) : ?>
+				<h2 class="section__title"><?php echo markea_title( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?></h2>
+			<?php endif; ?>
+			<span class="how__rule" aria-hidden="true"></span>
+			<?php if ( ! empty( $row['text'] ) ) : ?>
+				<p class="how__subtitle"><?php echo esc_html( $row['text'] ); ?></p>
+			<?php endif; ?>
+		</header>
+
+		<?php if ( $items ) : ?>
+			<ul class="how__grid" role="list">
+				<?php foreach ( $items as $item ) : ?>
+					<li class="how__card">
+						<?php if ( ! empty( $item['icon'] ) ) : ?>
+							<span class="how__icon"><?php echo markea_icon( (string) $item['icon'], 28 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
 						<?php endif; ?>
-						<?php if ( ! empty( $card['text'] ) ) : ?>
-							<p class="card__text"><?php echo esc_html( $card['text'] ); ?></p>
-						<?php endif; ?>
-					</div>
-				</li>
+						<div class="how__body">
+							<h3 class="how__title"><?php echo esc_html( $item['title'] ?? '' ); ?></h3>
+							<?php if ( ! empty( $item['text'] ) ) : ?>
+								<p class="how__text"><?php echo esc_html( $item['text'] ); ?></p>
+							<?php endif; ?>
+						</div>
+					</li>
 				<?php endforeach; ?>
-			</ol>
-		</div>
+			</ul>
 		<?php endif; ?>
 	</div>
 </section>
