@@ -494,6 +494,8 @@ html.is-menu-open {
 
 .site-menu__title {
 	margin: 0 0 1.75rem;
+	font-family: var(--font-heading);
+	font-weight: 700;
 	font-size: clamp(1.75rem, 3vw, 2.5rem);
 	line-height: normal;
 	text-wrap: balance;

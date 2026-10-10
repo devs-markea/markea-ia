@@ -1,39 +1,29 @@
 # Markea IA (WordPress)
 
 Landing "Markea IA" que reemplaza markeaagency.com. Administrable desde wp-admin sin tocar codigo.
+Entorno local: el WordPress de ServBay en esta carpeta (BD `markea_ia`, `WP_ENVIRONMENT_TYPE=local`).
 
 ## Reglas
 - Nunca editar el core de WordPress; todo por hooks y filtros.
-- Logica de datos en el plugin `markea-core` (namespace `Markea\Core`, prefijo `markea_`); el theme `markea-ia` solo presenta (templates, estilos, assets).
+- Datos en el plugin `markea-core` (namespace `Markea\Core`, prefijo `markea_`); el theme `markea-ia` solo presenta.
 - Sin secretos en el repo: `.env` ignorado, `.env.example` versionado.
-- Codigo en ingles; labels y ayudas del admin en espanol (es_MX).
-- Escapar salida, sanitizar entradas, nonces donde aplique.
-- PHP 8.2+, JS/TS con Vite, CSS moderno. Sin jQuery en el front nuevo.
-- Sin emojis en textos redactados.
+- Codigo en ingles; labels y ayudas del admin en espanol (es_MX). Sin emojis en textos redactados.
+- Escapar salida, sanitizar entradas. PHP 8.2+, Vite, CSS moderno. Sin jQuery ni Bootstrap JS en el front.
+- Los post types usan los permisos nativos de WordPress (sin roles propios). Sin HubSpot.
 
 ## Estructura
-- `wp-content/plugins/markea-core/`: post types (`proyecto`, `estratega`, `lead`), taxonomia `categoria-proyecto`, campos, Site Settings, tracking, formulario/leads, seeder.
-- `wp-content/themes/markea-ia/`: `theme.json`, `functions.php` minimo que solo carga `inc/`, `inc/` (`hooks.php`, `template-functions.php`, `enqueue.php`, setup), template de la landing, `template-parts/home/` con un partial por seccion, assets con Vite. Sigue la convencion `inc/` + hooks + template-functions del theme actual.
-- `scripts/`: sincronizacion de BD y deploy. `.github/workflows/`: deploy.
-- Git excluye core, `wp-config.php`, `.env`, `node_modules`, `vendor`, uploads, caches y todo `wp-content/` salvo plugin y theme propios.
+- `wp-content/plugins/markea-core/`: CPT (`proyecto`, `estratega`, `lead`) y taxonomia `categoria-proyecto`; campos ACF PRO por codigo (la landing es UN Flexible Content `markea_sections` con un layout por seccion); Site Settings (opciones ACF); tracking (GTM/GA4/Pixel, solo produccion); endpoint REST `markea/v1/leads`; seeder `wp markea seed` (contenido del Figma, sin pisar ediciones; adjunta imagenes de `assets/seed/`).
+- `wp-content/themes/markea-ia/`: `functions.php` minimo que carga `inc/` (setup, enqueue, icons, hooks, template-functions); `templates/landing.php`; `template-parts/home/section-*.php` (la fila del layout llega en `$args['row']`); `template-parts/menu.php` (overlay del menu); `assets/src` (Vite): `css/grid.scss` (grid de Bootstrap 5.3.3 SOLO row/col, margenes 16/32/120, gutter 16) y `css/main.css` (indice al inicio, una seccion por bloque numerado); `assets/icons` e `assets/images` (SVG/imagenes exportados del Figma); `assets/dist` se compila y NO se versiona.
+- Compilar: `cd wp-content/themes/markea-ia && npm install && npm run build` (o `npm run dev` con `MARKEA_VITE_DEV` en wp-config).
+
+## Diseno
+- Fuente de verdad: Figma `YKKmmuL5veJsw4wWWNu3xa` ("Propuestas de Disenos - Markea IA"), frame `Markea IA Homepage - Type A Future v2`. Lo OCULTO en Figma no es diseno.
+- Tokens: colores base en Site Settings > Colores (navy, electric, white, cyan, purple, indigo, dark); transparencias calculadas en CSS. Tipografia: Montserrat (titulos) y Poppins (texto), autoalojadas.
+- Cada seccion de `main.css` documenta sus medidas del Figma.
 
 ## Base de datos y deploy
-- Estructura por codigo; contenido inicial con `wp markea seed` (idempotente).
-- Direccion unica: produccion -> local. A produccion solo sube codigo (plugin y theme).
-- Respaldo obligatorio antes de cada deploy; purgar cache de SiteGround tras deploy.
-
-## Decisiones tomadas
-- ACF Pro con licencia: campos por codigo y Options Page para Site Settings.
-- Solo espanol. Pagina de contacto se migra; sitio nuevo por lo demas limpio.
-- Formulario a la medida (posible plugin de forms extendido por hooks); siempre guarda lead.
-- Entorno local: el WordPress de ServBay en esta misma carpeta (BD `markea_ia`); sin wp-env ni Docker. Deploy por CI/CD de Git (GitHub Actions); sin SSH confirmado en SiteGround.
-- Son 3 unidades de negocio.
-
-- No se usa HubSpot (ni script, ni API de formularios, ni campos en Site Settings).
-
-- La landing es UN campo ACF Flexible Content (`markea_sections`): cada seccion es un layout (hero, problem, about, units, case, mos, offer, projects, tools, relevance, how, next_steps, strategists, form) que el editor anade y reordena. Layout `x_y` => `template-parts/home/section-x-y.php`, que recibe la fila en `$args['row']`. El CTA global sale del layout hero.
-
-- Grid: Bootstrap 5.3.3 SOLO grid (containers, row, col-*) compilado con Sass desde `assets/src/css/grid.scss`; sin containers propios de Bootstrap, utilidades, componentes ni JS. Guias de Figma: 12 columnas, margen mobile 16 px (<768), tablet 32 px (768-1199), desktop 120 px (>=1200), gutter 16 px; el margen vive en `.container` (variables Sass en `grid.scss`: `$page-margin-mobile/tablet/desktop`, `$page-max-width`; custom property `--page-margin`).
+- Estructura por codigo; contenido inicial con `wp markea seed` (idempotente). Direccion unica: produccion -> local.
+- Deploy en pausa (se trabaja en local). Plan: GitHub Actions + rsync solo de plugin y theme, compilando `assets/dist` en CI; respaldo antes de cada deploy; purgar cache de SiteGround.
 
 ## Pendiente
-Inventario del sitio actual, destino del formulario y texto de consentimiento, redirecciones 301, aviso de cookies, transporte exacto del deploy. Detalle en la memoria del proyecto (`project-markea-ia`).
+Ver la memoria del proyecto (`project-markea-ia`): URL del video, redes, newsletter, aviso de cookies, destino/consentimiento del formulario, Lighthouse, workflow de deploy.

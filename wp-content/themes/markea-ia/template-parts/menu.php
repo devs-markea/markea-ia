@@ -26,7 +26,7 @@ $markea_icons     = array(
 				<?php if ( $markea_eyebrow ) : ?>
 					<p class="site-menu__eyebrow"><?php echo esc_html( $markea_eyebrow ); ?></p>
 				<?php endif; ?>
-				<h2 id="site-menu-title" class="site-menu__title"><?php echo esc_html( $markea_title ?: __( 'Menú', 'markea-ia' ) ); ?></h2>
+				<p id="site-menu-title" class="site-menu__title"><?php echo esc_html( $markea_title ?: __( 'Menú', 'markea-ia' ) ); ?></p>
 				<span class="site-menu__rule" aria-hidden="true"></span>
 				<?php if ( $markea_email ) : ?>
 					<a class="site-menu__email" href="mailto:<?php echo esc_attr( antispambot( $markea_email ) ); ?>" data-track="contact" data-track-type="email">
