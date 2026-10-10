@@ -19,6 +19,7 @@
  * 15. Form
  * 16. Footer
  * 17. Carousels (Splide)
+ * 18. Ambient glows (decorative radial ellipses from Figma)
  *
  * Colors come from Site Settings > Colores (inline style overrides the base palette in section 2).
  */
@@ -1172,4 +1173,47 @@ html.is-menu-open {
 
 .splide__pagination__page.is-active {
 	background: var(--primary);
+}
+
+/* ==========================================================================
+   18. Ambient glows
+   Figma has soft radial "ellipses" spread across the page (circle r=176 with a color-to-white radial
+   gradient and a 200 px blur). They are decoration only: a blurred disk peaks at ~20% of its color,
+   so each one is a pseudo-element with a radial gradient (no blur filter, cheap to paint).
+   The pseudo-element sits at z-index -1 (behind all content, above the page background); the section
+   clips it horizontally so it never creates a horizontal scrollbar, but not vertically, so it can
+   bleed into the neighbouring section like in the design.
+
+   Per section: --glow-color, --glow-x / --glow-y (center, from the section top-left), --glow-size.
+   Design positions (1440 px frame) -> inline notes next to each rule.
+   ========================================================================== */
+.problem {
+	--glow-color: var(--purple);
+	--glow-x: 100%; /* Figma: ellipse at x 1264, w 352 -> center on the right edge */
+	--glow-y: 220px; /* Figma: y 44 + 176 */
+	--glow-size: 1152px; /* 352 + 2 x blur spread */
+}
+
+.problem {
+	position: relative;
+	overflow-x: clip;
+}
+
+.problem::before {
+	content: '';
+	position: absolute;
+	left: var(--glow-x);
+	top: var(--glow-y);
+	z-index: -1;
+	width: var(--glow-size);
+	height: var(--glow-size);
+	background: radial-gradient(
+		closest-side,
+		color-mix(in srgb, var(--glow-color) 20%, transparent) 0%,
+		color-mix(in srgb, var(--glow-color) 12%, transparent) 35%,
+		color-mix(in srgb, var(--glow-color) 4%, transparent) 70%,
+		transparent 100%
+	);
+	transform: translate(-50%, -50%);
+	pointer-events: none;
 }
