@@ -20,7 +20,7 @@
 		},
 		"typography": {
 			"customFontSize": false,
-			"fluid": true,
+			"fluid": false,
 			"fontFamilies": [
 				{ "slug": "heading", "name": "Montserrat", "fontFamily": "'Montserrat Variable', 'Montserrat', system-ui, sans-serif" },
 				{ "slug": "body", "name": "Poppins", "fontFamily": "'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif" }
@@ -30,7 +30,7 @@
 				{ "slug": "base", "size": "1rem", "name": "Base" },
 				{ "slug": "lead", "size": "clamp(1.125rem, 1.5vw, 1.375rem)", "name": "Lead" },
 				{ "slug": "h3", "size": "clamp(1.25rem, 2vw, 1.5rem)", "name": "H3" },
-				{ "slug": "h2", "size": "clamp(1.75rem, 4vw, 3rem)", "name": "H2" },
+				{ "slug": "h2", "size": "clamp(1.75rem, 1.2rem + 1.5vw, 2.5rem)", "name": "H2" },
 				{ "slug": "h1", "size": "clamp(2.5rem, 7vw, 5rem)", "name": "H1" }
 			]
 		},
