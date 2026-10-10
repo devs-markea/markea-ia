@@ -1326,6 +1326,26 @@ html.is-menu-open {
 	}
 }
 
+/* Deck: the top card is dealt off while fading, the next one rises from underneath. */
+html[data-motion='ready'] .units__card {
+	z-index: 2;
+	animation: none;
+	transition: transform 0.8s var(--ease-markea), opacity 0.8s var(--ease-markea);
+}
+
+html[data-motion='ready'] .units__card.is-entering {
+	z-index: 1;
+	opacity: 0;
+	transform: translate(-50%, -45%) rotate(-3deg) scale(0.92);
+	transition: none;
+}
+
+html[data-motion='ready'] .units__card.is-leaving {
+	z-index: 3;
+	opacity: 0;
+	transform: translate(calc(-50% + var(--deal-dir, -1) * 42%), -53%) rotate(calc(2deg + var(--deal-dir, -1) * 16deg));
+}
+
 @media (prefers-reduced-motion: reduce) {
 	.units__card,
 	.units__tab,
