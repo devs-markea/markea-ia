@@ -1146,6 +1146,7 @@ html.is-menu-open {
 .units {
 	padding-top: clamp(3rem, 8.2vw, 7.375rem); /* 118 px */
 	padding-bottom: clamp(3rem, 8.75vw, 7.875rem); /* 126 px */
+	overflow-x: clip; /* The card dealt off to the right can swing past the window edge; it must never add a horizontal scroll. */
 }
 
 .units .eyebrow {
@@ -1328,7 +1329,7 @@ html.is-menu-open {
 	text-align: center;
 }
 
-/* Motion: cards ease between their poses; the card leaving the top is dealt off to the side, drops under the
+/* Motion: cards ease between their poses; the card leaving the top is dealt off to the right, drops under the
    deck at the midpoint, and slides into the back pose, while the others move up one place. */
 html[data-motion='ready'] .units__card {
 	transition: left 0.8s var(--ease-markea), top 0.8s var(--ease-markea), width 0.8s var(--ease-markea),
@@ -1355,20 +1356,20 @@ html[data-motion='ready'] .units__card.is-dealt {
 
 	45% {
 		z-index: 4;
-		left: calc(49.62% + var(--deal-dir, -1) * 54%);
+		left: calc(49.62% + 46%);
 		top: 44%;
 		width: 68.85%;
 		height: 73.21%;
-		transform: translate(-50%, -50%) rotate(calc(var(--deal-dir, -1) * 14deg));
+		transform: translate(-50%, -50%) rotate(14deg);
 	}
 
 	55% {
 		z-index: 0;
-		left: calc(49.62% + var(--deal-dir, -1) * 54%);
+		left: calc(49.62% + 46%);
 		top: 44%;
 		width: 68.85%;
 		height: 73.21%;
-		transform: translate(-50%, -50%) rotate(calc(var(--deal-dir, -1) * 14deg));
+		transform: translate(-50%, -50%) rotate(14deg);
 	}
 }
 

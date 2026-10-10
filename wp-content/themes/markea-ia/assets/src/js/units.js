@@ -2,7 +2,7 @@
  * Business units: tabs (WAI-ARIA tabs pattern) over a stack of cards, one card per unit.
  * Click, Arrow keys, Home and End select a unit. The stack is a deck: the selected card is on top (depth 0) and the
  * rest follow in tab order (depth 1, 2...). Poses per depth live in CSS ("Unidades" in main.css). With motion on,
- * the card that was on top is dealt off to one side and slips under the deck while the others move up one place.
+ * the card that was on top is dealt off to the right and slips under the deck while the others move up one place.
  */
 const DEAL_MS = 900; // keep in sync with the deal animation in main.css
 
@@ -26,11 +26,10 @@ export function initUnits() {
 			} );
 		};
 
-		const deal = ( out, forward ) => {
+		const deal = ( out ) => {
 			window.clearTimeout( timer );
 			cards.forEach( ( card ) => card.classList.remove( 'is-dealt' ) );
 			void root.offsetWidth; // Restart the animation if it was still running.
-			root.style.setProperty( '--deal-dir', forward ? '-1' : '1' );
 			out.classList.add( 'is-dealt' );
 			timer = window.setTimeout( () => out.classList.remove( 'is-dealt' ), DEAL_MS );
 		};
@@ -46,7 +45,7 @@ export function initUnits() {
 			const out = cards[ current ];
 			stack( index );
 			if ( animate ) {
-				deal( out, index > current );
+				deal( out );
 			}
 			current = index;
 
