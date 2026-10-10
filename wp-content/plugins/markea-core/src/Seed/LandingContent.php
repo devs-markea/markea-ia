@@ -111,6 +111,16 @@ final class LandingContent {
 				'acf_fc_layout' => 'tools',
 				'title'         => 'Trabajamos con +20 herramientas de marketing y tecnología',
 				'emphasis'      => '+20 herramientas de marketing y tecnología',
+				'items'         => array(
+					array( 'name' => 'Claude' ),
+					array( 'name' => 'OpenClaw' ),
+					array( 'name' => 'Wati' ),
+					array( 'name' => 'n8n' ),
+					array( 'name' => 'Zapier' ),
+					array( 'name' => 'Metricool' ),
+					array( 'name' => 'HubSpot' ),
+					array( 'name' => 'fal' ),
+				),
 			),
 			array(
 				'acf_fc_layout' => 'relevance',

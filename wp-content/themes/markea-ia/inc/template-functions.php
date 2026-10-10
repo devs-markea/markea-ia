@@ -278,3 +278,37 @@ function markea_title( array $row, string $key = 'title' ): string {
 
 	return str_contains( $html, $needle ) ? str_replace( $needle, '<strong class="u-strong">' . $needle . '</strong>', $html ) : $html;
 }
+
+/**
+ * Logo for a tool: the uploaded image, or the Figma default shipped in assets/images/tools/<slug>.svg
+ * (slug of the tool name). Returns an empty string when neither exists.
+ *
+ * @param array<string,mixed> $item Repeater row with name and logo.
+ */
+function markea_tool_logo( array $item ): string {
+	$uploaded = markea_image( $item['logo'] ?? 0, 'markea-logo', array( 'class' => 'tools__logo' ) );
+	if ( $uploaded ) {
+		return $uploaded;
+	}
+
+	$slug = sanitize_title( (string) ( $item['name'] ?? '' ) );
+	$file = MARKEA_IA_DIR . '/assets/images/tools/' . $slug . '.svg';
+	if ( '' === $slug || ! is_readable( $file ) ) {
+		return '';
+	}
+
+	// Intrinsic size from the SVG viewBox (design size at 1x).
+	$width  = 80;
+	$height = 24;
+	if ( 1 === preg_match( '/viewBox="[\d.\-]+ [\d.\-]+ ([\d.]+) ([\d.]+)"/', (string) file_get_contents( $file ), $m ) ) {
+		$width  = (float) $m[1];
+		$height = (float) $m[2];
+	}
+
+	return sprintf(
+		'<img class="tools__logo" src="%s" width="%s" height="%s" alt="" loading="lazy" decoding="async">',
+		esc_url( MARKEA_IA_URI . '/assets/images/tools/' . $slug . '.svg' ),
+		esc_attr( (string) round( $width ) ),
+		esc_attr( (string) round( $height ) )
+	);
+}

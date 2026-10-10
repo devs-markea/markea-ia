@@ -27,6 +27,7 @@
  * 23. Section: Marketing Operating System
  * 24. Section: Oferta diferenciada
  * 25. Section: Portafolio (proyectos)
+ * 26. Section: Herramientas
  *
  * Colors come from Site Settings > Colores (inline style overrides the base palette in section 2).
  */
@@ -766,23 +767,6 @@ html.is-menu-open {
 /* ==========================================================================
    11. About, units and tools
    ========================================================================== */
-.tools__grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-	align-items: center;
-	gap: 1.5rem;
-	margin: 2rem 0 0;
-	padding: 0;
-	list-style: none;
-}
-
-.tools__grid img {
-	width: auto;
-	max-height: 56px;
-	margin-inline: auto;
-	opacity: 0.85;
-}
-
 .section__cta {
 	margin-top: 2rem;
 }
@@ -2233,4 +2217,142 @@ html.is-menu-open {
 .projects__title a {
 	color: inherit;
 	text-decoration: none;
+}
+
+/* ==========================================================================
+   26. Section: Herramientas
+   Figma (177:72): 1 px top border (navy 8%), 110 px top and bottom, 50 px between the statement block
+   (asterisk 48 px + 16 px text, 380 px wide) and a row of 176 x 90 logo cards (16 px apart, radius 16,
+   navy 6% fill, logos at 70%). The row runs off the right edge with a white fade on its left side;
+   here it loops slowly and pauses on hover or focus.
+   ========================================================================== */
+.tools {
+	position: relative;
+	overflow-x: clip;
+	padding-block: clamp(3rem, 7.64vw, 6.875rem);
+	border-top: 1px solid color-mix(in srgb, var(--navy) 8%, transparent);
+}
+
+.tools__bar {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+@media (min-width: 992px) {
+	.tools__bar {
+		flex-direction: row;
+		align-items: center;
+		gap: 3.125rem; /* 50 px */
+	}
+}
+
+.tools__intro {
+	display: flex;
+	flex: none;
+	align-items: center;
+	gap: 1.25rem; /* 20 px */
+	max-width: 380px;
+	color: var(--navy);
+}
+
+.tools__intro .icon {
+	flex: none;
+}
+
+.tools__title {
+	margin: 0;
+	font-size: 1rem; /* 16 px */
+	font-weight: 400;
+	line-height: normal;
+}
+
+.tools__title .u-strong {
+	font-weight: 700;
+}
+
+.tools__marquee {
+	position: relative;
+	display: flex;
+	flex: 1;
+	min-width: 0;
+	overflow: hidden;
+}
+
+@media (min-width: 992px) {
+	.tools__marquee {
+		margin-right: calc(50% - 50vw); /* bleed to the right edge of the window, like the design */
+	}
+}
+
+/* White fade on the left side of the row. */
+.tools__marquee::before {
+	content: '';
+	position: absolute;
+	inset: 0 auto 0 0;
+	z-index: 1;
+	width: 200px;
+	max-width: 40%;
+	background: linear-gradient(to right, var(--white), transparent);
+	pointer-events: none;
+}
+
+.tools__track {
+	display: flex;
+	flex: none;
+	gap: 1rem; /* 16 px */
+	min-width: 100%;
+	margin: 0;
+	padding: 0 0.5rem 0 0; /* half gap: seamless loop spacing */
+	list-style: none;
+	animation: tools-loop 40s linear infinite;
+}
+
+.tools__marquee:hover .tools__track,
+.tools__marquee:focus-within .tools__track {
+	animation-play-state: paused;
+}
+
+@keyframes tools-loop {
+	to {
+		transform: translateX(-100%);
+	}
+}
+
+.tools__card {
+	display: grid;
+	flex: none;
+	place-items: center;
+	width: 176px;
+	height: 90px;
+	background: var(--surface);
+	border-radius: 16px;
+}
+
+.tools__logo {
+	max-width: 100px;
+	max-height: 40px;
+	width: auto;
+	height: auto;
+	opacity: 0.7;
+}
+
+.tools__name {
+	color: var(--text-secondary);
+	font-family: var(--font-heading);
+	font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.tools__marquee {
+		overflow-x: auto;
+	}
+
+	.tools__track {
+		animation: none;
+	}
+
+	.tools__track[aria-hidden='true'] {
+		display: none;
+	}
 }
