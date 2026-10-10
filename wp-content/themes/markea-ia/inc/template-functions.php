@@ -333,3 +333,29 @@ function markea_motion_enabled(): bool {
 function markea_loader_enabled(): bool {
 	return is_front_page() && markea_motion_enabled() && (bool) markea_option( 'loader_on' );
 }
+
+/**
+ * Readable text color (white or navy) over a hex background, by relative luminance (WCAG).
+ */
+function markea_text_on( string $hex ): string {
+	$hex = ltrim( $hex, '#' );
+	if ( 3 === strlen( $hex ) ) {
+		$hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+	}
+	if ( 6 !== strlen( $hex ) || ! ctype_xdigit( $hex ) ) {
+		return '#ffffff';
+	}
+
+	$channels = array_map(
+		static function ( string $pair ): float {
+			$c = hexdec( $pair ) / 255;
+
+			return $c <= 0.03928 ? $c / 12.92 : ( ( $c + 0.055 ) / 1.055 ) ** 2.4;
+		},
+		str_split( $hex, 2 )
+	);
+	$luminance = 0.2126 * $channels[0] + 0.7152 * $channels[1] + 0.0722 * $channels[2];
+
+	// White text needs a luminance of at most ~0.18 to reach 4.5:1; above that, navy reads better.
+	return $luminance > 0.18 ? '#001b71' : '#ffffff';
+}

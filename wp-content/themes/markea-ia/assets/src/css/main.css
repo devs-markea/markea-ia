@@ -1279,6 +1279,11 @@ html.is-menu-open {
 	transition: background-color 0.3s ease;
 }
 
+/* A card without an image is the unit color itself, so its plate becomes a lighter tint to stay visible. */
+.units__stage[data-plain='1'] .units__plate--tilted {
+	background: color-mix(in srgb, var(--unit-plate) 55%, var(--white));
+}
+
 .units__card {
 	left: 49.62%;
 	top: 47.71%;
@@ -1286,7 +1291,8 @@ html.is-menu-open {
 	height: 73.21%;
 	margin: 0;
 	overflow: hidden;
-	background: var(--navy);
+	background: var(--card-bg, var(--navy)); /* The unit's color (ACF); the image, when there is one, covers it. */
+	color: var(--card-fg, var(--white));
 	box-shadow: 0 24px 50px color-mix(in srgb, var(--navy) 19%, transparent);
 	transform: translate(-50%, -50%) rotate(2deg);
 	animation: units-in 0.35s ease;
@@ -1312,7 +1318,7 @@ html.is-menu-open {
 	place-items: center;
 	height: 100%;
 	padding: 1.5rem;
-	color: var(--white);
+	color: inherit;
 	font-family: var(--font-heading);
 	font-size: 1.75rem;
 	font-weight: 700;

@@ -55,7 +55,8 @@ $markers = array( 'electric', 'purple', 'cyan', 'indigo' ); // Marker colors, in
 			</div>
 
 			<?php if ( $items ) : ?>
-				<div class="units__stage">
+				<?php $first_has_image = ! empty( $items[0]['logo'] ); ?>
+				<div class="units__stage" data-plain="<?php echo $first_has_image ? '0' : '1'; ?>">
 					<span class="units__plate units__plate--base" aria-hidden="true"></span>
 					<span class="units__plate units__plate--tilted" aria-hidden="true"></span>
 					<?php foreach ( $items as $i => $item ) : ?>
@@ -64,12 +65,16 @@ $markers = array( 'electric', 'purple', 'cyan', 'indigo' ); // Marker colors, in
 						$url   = (string) ( $item['url'] ?? '' );
 						$image = markea_image( $item['logo'] ?? 0, 'large', array( 'class' => 'units__image', 'sizes' => '(min-width: 992px) 420px, 80vw' ) );
 						$inner = $image ?: '<span class="units__fallback">' . esc_html( $name ) . '</span>';
+						$bg    = sanitize_hex_color( (string) ( $item['color'] ?? '' ) );
+						$style = $bg ? sprintf( '--card-bg:%s;--card-fg:%s', $bg, markea_text_on( $bg ) ) : '';
 						?>
 						<figure
 							class="units__card"
 							role="tabpanel"
 							id="unit-panel-<?php echo (int) $i; ?>"
 							aria-labelledby="unit-tab-<?php echo (int) $i; ?>"
+							data-image="<?php echo $image ? '1' : '0'; ?>"
+							<?php echo $style ? 'style="' . esc_attr( $style ) . '"' : ''; ?>
 							<?php echo 0 === $i ? '' : 'hidden'; ?>
 						>
 							<?php if ( $url ) : ?>

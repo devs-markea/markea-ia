@@ -66,6 +66,8 @@ export function initUnits() {
 			const color = tabs[ index ].dataset.color;
 			if ( stage ) {
 				color ? stage.style.setProperty( '--unit-plate', color ) : stage.style.removeProperty( '--unit-plate' );
+				// Cards without an image take the unit color themselves, so the plate behind turns into a tint of it.
+				stage.dataset.plain = panels[ index ].dataset.image === '1' ? '0' : '1';
 			}
 			if ( focus ) {
 				tabs[ index ].focus();
