@@ -4,7 +4,6 @@ import { CustomEase } from 'gsap/CustomEase';
 import Lenis from 'lenis';
 import { initLoader } from './loader.js';
 import { initHeroIntro, initReveals } from './reveal.js';
-import { initSnap } from './snap.js';
 import { initButtons } from './buttons.js';
 
 // One easing for everything: slow start, long soft landing (same curve as --ease-markea in CSS).
@@ -32,7 +31,6 @@ export function startMotion() {
 
 	initButtons();
 	initReveals( gsap, EASE );
-	initSnap( gsap, ScrollTrigger, lenis );
 
 	const hasLoader = root.classList.contains( 'has-loader' );
 	if ( hasLoader ) {
