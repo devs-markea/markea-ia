@@ -3349,6 +3349,17 @@ button.relevance__trigger {
    The hidden lists below must match the targets in assets/src/js/motion/reveal.js; GSAP reveals them.
    ========================================================================== */
 
+/* Slides (desktop with a mouse): each section fills the window under the header, content centered; the snap
+   points are set in motion/snap.js. Sections taller than the window keep their natural height. */
+@media (min-width: 992px) and (pointer: fine) {
+	html.has-motion #contenido > .section:not(.hero) {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		min-height: calc(100svh - var(--header-h));
+	}
+}
+
 /* Lenis (smooth scroll) */
 html.lenis,
 html.lenis body {
@@ -3445,30 +3456,30 @@ html.has-loader .loader {
 }
 
 /* Menu: the card rises in and its content follows one by one (--i is set in menu.js). */
-html.has-motion .site-menu {
+html[data-motion='ready'] .site-menu {
 	transition: opacity 0.5s var(--ease-markea), visibility 0s linear 0.5s;
 }
 
-html.has-motion .site-menu.is-open {
+html[data-motion='ready'] .site-menu.is-open {
 	transition: opacity 0.5s var(--ease-markea);
 }
 
-html.has-motion .site-menu__card {
+html[data-motion='ready'] .site-menu__card {
 	transform: translateY(3rem) scale(0.98);
 	transition: transform 0.9s var(--ease-markea);
 }
 
-html.has-motion .site-menu.is-open .site-menu__card {
+html[data-motion='ready'] .site-menu.is-open .site-menu__card {
 	transform: none;
 }
 
-html.has-motion .site-menu :is(.site-menu__intro > *, .site-menu__list li, .site-menu__footer > *) {
+html[data-motion='ready'] .site-menu :is(.site-menu__intro > *, .site-menu__list li, .site-menu__footer > *) {
 	opacity: 0;
 	transform: translateY(1.5rem);
 	transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-html.has-motion .site-menu.is-open :is(.site-menu__intro > *, .site-menu__list li, .site-menu__footer > *) {
+html[data-motion='ready'] .site-menu.is-open :is(.site-menu__intro > *, .site-menu__list li, .site-menu__footer > *) {
 	opacity: 1;
 	transform: none;
 	transition: opacity 0.7s var(--ease-markea), transform 1s var(--ease-markea);
@@ -3476,12 +3487,12 @@ html.has-motion .site-menu.is-open :is(.site-menu__intro > *, .site-menu__list l
 }
 
 /* Menu button: the two bars and the cross swap by rotating and fading. */
-html.has-motion .site-header__menu {
+html[data-motion='ready'] .site-header__menu {
 	position: relative;
 }
 
-html.has-motion .site-header__menu .icon,
-html.has-motion .site-header__menu[aria-expanded] .icon {
+html[data-motion='ready'] .site-header__menu .icon,
+html[data-motion='ready'] .site-header__menu[aria-expanded] .icon {
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -3489,22 +3500,22 @@ html.has-motion .site-header__menu[aria-expanded] .icon {
 	transition: opacity 0.4s var(--ease-markea), transform 0.7s var(--ease-markea);
 }
 
-html.has-motion .site-header__menu .icon--menu {
+html[data-motion='ready'] .site-header__menu .icon--menu {
 	opacity: 1;
 	transform: translate(-50%, -50%);
 }
 
-html.has-motion .site-header__menu .icon--close {
+html[data-motion='ready'] .site-header__menu .icon--close {
 	opacity: 0;
 	transform: translate(-50%, -50%) rotate(-90deg);
 }
 
-html.has-motion .site-header__menu[aria-expanded='true'] .icon--menu {
+html[data-motion='ready'] .site-header__menu[aria-expanded='true'] .icon--menu {
 	opacity: 0;
 	transform: translate(-50%, -50%) rotate(90deg);
 }
 
-html.has-motion .site-header__menu[aria-expanded='true'] .icon--close {
+html[data-motion='ready'] .site-header__menu[aria-expanded='true'] .icon--close {
 	opacity: 1;
 	transform: translate(-50%, -50%);
 }

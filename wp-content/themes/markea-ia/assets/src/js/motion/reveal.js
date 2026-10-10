@@ -20,9 +20,9 @@ function revealTargets( section ) {
 
 function tweenFor( gsap, ease, el, index, small ) {
 	const kind = FROM[ el.dataset.reveal ] ? el.dataset.reveal : 'up';
-	const distance = Number( el.dataset.revealY ) || 80;
+	const distance = Number( el.dataset.revealY ) || 40;
 	const from = FROM[ kind ]( small ? distance * 0.3 : distance );
-	const to = { ...TO, duration: small ? 0.9 : 1.4, ease, delay: Number( el.dataset.revealDelay ) || 0 };
+	const to = { ...TO, duration: small ? 0.8 : 1.1, ease, delay: Number( el.dataset.revealDelay ) || 0 };
 	// Only animate what the "from" state touches, so untouched properties keep their CSS values.
 	Object.keys( TO ).forEach( ( key ) => {
 		if ( ! ( key in from ) ) {
@@ -30,7 +30,7 @@ function tweenFor( gsap, ease, el, index, small ) {
 		}
 	} );
 
-	return { from, to, at: index * 0.08 };
+	return { from, to, at: index * 0.07 };
 }
 
 export function initReveals( gsap, ease ) {
@@ -41,7 +41,7 @@ export function initReveals( gsap, ease ) {
 
 		document.querySelectorAll( '#contenido > .section:not(.hero)' ).forEach( ( section ) => {
 			const timeline = gsap.timeline( {
-				scrollTrigger: { trigger: section, start: small ? 'top 85%' : 'top 75%', toggleActions: 'play none none reverse' },
+				scrollTrigger: { trigger: section, start: small ? 'top 85%' : 'top 60%', once: true },
 			} );
 
 			revealTargets( section ).forEach( ( el, index ) => {
@@ -52,28 +52,7 @@ export function initReveals( gsap, ease ) {
 
 		document.querySelectorAll( '[data-reveal]:not(#contenido > .section *)' ).forEach( ( el ) => {
 			const { from, to } = tweenFor( gsap, ease, el, 0, small );
-			gsap.fromTo( el, from, { ...to, scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none reverse' } } );
-		} );
-	} );
-}
-
-/** Light sections fade out with the scroll as they leave through the top (desktop). Dark sections and the last one stay solid. */
-export function initSectionLeave( gsap, ScrollTrigger ) {
-	const mm = gsap.matchMedia();
-
-	mm.add( '(min-width: 992px)', () => {
-		const sections = [ ...document.querySelectorAll( '#contenido > .section:not(.hero):not(.section--dark)' ) ];
-		sections.pop();
-
-		sections.forEach( ( section ) => {
-			ScrollTrigger.create( {
-				trigger: section,
-				start: 'bottom 40%',
-				end: 'bottom 5%',
-				scrub: true,
-				invalidateOnRefresh: true,
-				animation: gsap.to( section, { opacity: 0, ease: 'none' } ),
-			} );
+			gsap.fromTo( el, from, { ...to, scrollTrigger: { trigger: el, start: 'top 85%', once: true } } );
 		} );
 	} );
 }
