@@ -8,6 +8,7 @@ import { initLeadForm } from './form.js';
 import { initCarousels } from './carousel.js';
 import { initHeroVisual } from './hero-visual.js';
 import { initUnits } from './units.js';
+import { initAccordions } from './accordion.js';
 
 const ready = ( fn ) => {
 	if ( document.readyState !== 'loading' ) {
@@ -26,4 +27,5 @@ ready( () => {
 	initCarousels();
 	initHeroVisual();
 	initUnits();
+	initAccordions();
 } );

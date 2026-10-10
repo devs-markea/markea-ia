@@ -128,9 +128,9 @@ final class LandingContent {
 				'title'         => 'Mismos retos. Misma disciplina. Ahora para tu marca.',
 				'text'          => 'Si operas en hospitalidad, turismo o real estate, enfrentas los mismos retos que ya resolvimos: cliente de alto valor, ciclo de decisión largo, y la necesidad de una narrativa premium consistente en cada punto de contacto.',
 				'items'         => array(
-					array( 'title' => 'Ciclos de decisión de semanas o meses', 'text' => 'Hospitalidad, turismo y real estate deciden en meses, no en clics.' ),
-					array( 'title' => 'Clientes que investigan antes de contactar', 'text' => '' ),
-					array( 'title' => 'Marca y confianza como factor de cierre', 'text' => '' ),
+					array( 'icon' => 'calendar', 'title' => 'Ciclos de decisión de semanas o meses', 'text' => 'Hospitalidad, turismo y real estate deciden en meses, no en clics.' ),
+					array( 'icon' => 'search', 'title' => 'Clientes que investigan antes de contactar', 'text' => '' ),
+					array( 'icon' => 'shield-check', 'title' => 'Marca y confianza como factor de cierre', 'text' => '' ),
 				),
 			),
 			array(

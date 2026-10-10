@@ -28,6 +28,7 @@
  * 24. Section: Oferta diferenciada
  * 25. Section: Portafolio (proyectos)
  * 26. Section: Herramientas
+ * 27. Section: Relevancia sectorial
  *
  * Colors come from Site Settings > Colores (inline style overrides the base palette in section 2).
  */
@@ -771,12 +772,6 @@ html.is-menu-open {
 	margin-top: 2rem;
 }
 
-.checklist__text {
-	display: block;
-	color: var(--text-secondary);
-	font-size: 0.9rem;
-}
-
 .next__tagline {
 	margin-top: 2rem;
 	font-family: var(--font-heading);
@@ -791,30 +786,6 @@ html.is-menu-open {
 /* ==========================================================================
    13. Relevance, steps and video
    ========================================================================== */
-.checklist {
-	display: grid;
-	gap: 0.75rem;
-	margin: 1.5rem 0 0;
-	padding: 0;
-	list-style: none;
-}
-
-.checklist li {
-	position: relative;
-	padding-left: 1.75rem;
-}
-
-.checklist li::before {
-	content: '';
-	position: absolute;
-	left: 0;
-	top: 0.55em;
-	width: 0.75rem;
-	height: 0.75rem;
-	background: var(--primary);
-	border-radius: 50%;
-}
-
 .next__row {
 	align-items: center;
 }
@@ -2354,5 +2325,199 @@ html.is-menu-open {
 
 	.tools__track[aria-hidden='true'] {
 		display: none;
+	}
+}
+
+/* ==========================================================================
+   27. Section: Relevancia sectorial
+   Figma (255:361): 220 px top, 70 px bottom. Header like Portafolio (520 px title column with a 42 px Bold
+   title, 440 px intro). 56 px below, a 438 px card (radius 24, 4 px shadow) split in two: an accordion
+   (48 px padding; the open item is a navy block with a white icon disc, collapsed items show a navy disc)
+   and a photo tilted -8deg that bleeds off the card's bottom-right. Purple glow on the right side.
+   ========================================================================== */
+.relevance {
+	--glow-color: var(--purple);
+	position: relative;
+	overflow-x: clip;
+	padding-top: clamp(4rem, 15.28vw, 13.75rem);
+	padding-bottom: clamp(2rem, 4.86vw, 4.375rem);
+}
+
+.relevance::before {
+	content: '';
+	position: absolute;
+	left: calc(100% - 25px);
+	top: 676px;
+	z-index: -1;
+	width: 1152px;
+	height: 1152px;
+	background: radial-gradient(
+		closest-side,
+		color-mix(in srgb, var(--glow-color) 20%, transparent) 0%,
+		color-mix(in srgb, var(--glow-color) 12%, transparent) 35%,
+		color-mix(in srgb, var(--glow-color) 4%, transparent) 70%,
+		transparent 100%
+	);
+	transform: translate(-50%, -50%);
+	pointer-events: none;
+}
+
+.relevance__header {
+	display: grid;
+	gap: 1.5rem;
+}
+
+@media (min-width: 992px) {
+	.relevance__header {
+		grid-template-columns: minmax(0, 520px) minmax(0, 440px);
+		justify-content: space-between;
+	}
+}
+
+.relevance__heading {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 1.25rem; /* 20 px */
+}
+
+.relevance__heading > * {
+	margin: 0;
+}
+
+.relevance .section__title {
+	font-size: clamp(2rem, 1.1rem + 2.4vw, 2.625rem); /* 42 px */
+	letter-spacing: -0.01em;
+	line-height: 1.15;
+	text-wrap: wrap; /* natural wrap, like the design */
+}
+
+.relevance__intro {
+	margin: 0;
+	padding-top: 0.5rem;
+	color: var(--text-secondary);
+	line-height: 1.7;
+}
+
+.relevance__card {
+	position: relative;
+	display: grid;
+	margin-top: 3.5rem; /* 56 px */
+	overflow: hidden;
+	background: var(--white);
+	border-radius: 24px;
+	box-shadow: 0 0 4px color-mix(in srgb, var(--navy) 40%, transparent);
+}
+
+@media (min-width: 992px) {
+	.relevance__card {
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		min-height: 438px;
+	}
+}
+
+.relevance__list {
+	display: flex;
+	flex-direction: column;
+	padding: 1.5rem;
+}
+
+@media (min-width: 992px) {
+	.relevance__list {
+		padding: 3rem; /* 48 px */
+	}
+}
+
+.relevance__item {
+	border-radius: 24px;
+	color: var(--navy);
+}
+
+.relevance__item.is-open {
+	background: var(--navy);
+	color: var(--white);
+	box-shadow: 0 0 2px color-mix(in srgb, var(--navy) 40%, transparent);
+}
+
+.relevance__heading-item {
+	margin: 0;
+	font-size: 1.0625rem; /* 17 px */
+}
+
+.relevance__trigger {
+	display: flex;
+	align-items: center;
+	gap: 0.875rem; /* 14 px */
+	width: 100%;
+	padding: 1.5rem; /* 24 px */
+	background: transparent;
+	color: inherit;
+	border: 0;
+	font: inherit;
+	font-family: var(--font-heading);
+	font-weight: 700;
+	text-align: left;
+}
+
+button.relevance__trigger {
+	cursor: pointer;
+}
+
+.relevance__icon {
+	display: grid;
+	flex: none;
+	place-items: center;
+	width: 40px;
+	height: 40px;
+	background: var(--navy);
+	color: var(--white);
+	border-radius: 50%;
+}
+
+.relevance__item.is-open .relevance__icon {
+	background: var(--white);
+	color: var(--navy);
+}
+
+.relevance__panel {
+	padding: 0 1.5rem 1.5rem 4.75rem; /* aligned with the title: 24 + 40 + 14 */
+	font-size: 0.875rem; /* 14 px */
+	line-height: 1.6;
+}
+
+.relevance__panel p {
+	margin: 0;
+	max-width: 24rem;
+}
+
+/* Photo: tilted card that bleeds off the bottom-right corner. */
+.relevance__photo {
+	position: relative;
+	min-height: 320px;
+	margin: 0;
+	overflow: hidden;
+}
+
+.relevance__photo-img {
+	position: absolute;
+	left: 50%;
+	top: 8%;
+	width: 300px;
+	height: 449px;
+	max-width: none;
+	object-fit: cover;
+	border-radius: 24px 24px 0 0;
+	transform: translateX(-35%) rotate(-8deg);
+}
+
+@media (min-width: 992px) {
+	.relevance__photo {
+		min-height: 0;
+	}
+
+	.relevance__photo-img {
+		left: 21%; /* Figma: x 84 of 400 */
+		top: 21px;
+		transform: rotate(-8deg);
 	}
 }
