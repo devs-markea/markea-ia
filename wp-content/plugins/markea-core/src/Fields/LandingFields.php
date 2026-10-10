@@ -109,7 +109,8 @@ final class LandingFields {
 						'Unidades',
 						array(
 							F::sub( 'text', 'name', 'Nombre' ),
-							F::sub( 'image', 'logo', 'Logo', array( 'return_format' => 'id', 'preview_size' => 'thumbnail' ) ),
+							F::sub( 'image', 'logo', 'Imagen de la tarjeta', array( 'return_format' => 'id', 'preview_size' => 'medium', 'instructions' => 'Tarjeta que se muestra al elegir la unidad (aprox. 420 x 410 px). Si queda vacía se muestra el nombre.' ) ),
+							F::sub( 'color_picker', 'color', 'Color de la tarjeta de fondo', array( 'default_value' => '#D5AA53', 'enable_opacity' => 0, 'return_format' => 'string' ) ),
 							F::sub( 'url', 'url', 'Enlace (opcional)' ),
 						),
 						array( 'button_label' => 'Añadir unidad' )

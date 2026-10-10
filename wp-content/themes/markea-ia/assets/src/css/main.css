@@ -22,6 +22,7 @@
  * 18. Ambient glows (decorative radial ellipses from Figma)
  * 19. Section: El problema
  * 20. Section: Quienes somos
+ * 21. Section: Unidades de negocio
  *
  * Colors come from Site Settings > Colores (inline style overrides the base palette in section 2).
  */
@@ -761,7 +762,6 @@ html.is-menu-open {
 /* ==========================================================================
    11. About, units and tools
    ========================================================================== */
-.units__list,
 .tools__grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -772,25 +772,11 @@ html.is-menu-open {
 	list-style: none;
 }
 
-.units__item img,
 .tools__grid img {
 	width: auto;
 	max-height: 56px;
 	margin-inline: auto;
 	opacity: 0.85;
-}
-
-.units__list {
-	counter-reset: units;
-}
-
-.units__item a,
-.units__item {
-	display: flex;
-	align-items: center;
-	gap: 1.25rem;
-	font-family: var(--font-heading);
-	font-size: 1.375rem;
 }
 
 .case__subtitle {
@@ -1345,7 +1331,7 @@ html.is-menu-open {
 	padding: 2.625rem; /* 42 px */
 	background: var(--navy);
 	color: var(--white);
-	border: 1px solid color-mix(in srgb, var(--white) 8%, transparent);
+	/*border: 1px solid color-mix(in srgb, var(--white) 8%, transparent);*/
 	box-shadow: 0 24px 64px -16px color-mix(in srgb, var(--navy) 10%, transparent);
 }
 
@@ -1412,5 +1398,204 @@ html.is-menu-open {
 		width: 300px;
 		height: 400px;
 		margin: 0;
+	}
+}
+
+/* ==========================================================================
+   21. Section: Unidades de negocio
+   Figma (443:2839): centered header (badge + 40 px Bold title, 584 px wide), then a story: narrative column
+   (502 px) with a progress rail and numbered units, and a 610 x 560 stage with three stacked cards
+   (navy base, tilted colored plate, tilted unit card). The selected unit is fully opaque, the rest 62%.
+   Top padding 118 px, bottom 126 px, 80 px between header and story.
+   ========================================================================== */
+.units {
+	padding-top: clamp(3rem, 8.2vw, 7.375rem); /* 118 px */
+	padding-bottom: clamp(3rem, 8.75vw, 7.875rem); /* 126 px */
+}
+
+.units .eyebrow {
+	padding: 0.4375rem 0.8125rem; /* 7 x 13 px */
+	color: var(--text-secondary);
+	border-radius: 8px;
+}
+
+.units .section__title {
+	max-width: 36.5rem; /* 584 px */
+	letter-spacing: -0.015em;
+	line-height: 1.2;
+	text-wrap: balance;
+}
+
+.units__story {
+	display: grid;
+	gap: 3rem;
+	margin-top: 5rem; /* 80 px */
+}
+
+@media (min-width: 992px) {
+	.units__story {
+		grid-template-columns: minmax(0, 502fr) minmax(0, 610fr);
+		align-items: center;
+		gap: 5.5rem; /* 88 px */
+	}
+}
+
+.units__narrative {
+	display: flex;
+	flex-direction: column;
+	gap: 1.875rem; /* 30 px */
+}
+
+.units__lead {
+	margin: 0;
+	color: var(--text-secondary);
+	font-size: 1.375rem; /* 22 px */
+	line-height: 1.62;
+}
+
+.units__tabs {
+	display: flex;
+	flex-direction: column;
+	padding-left: 1.25rem; /* 18 px gap + 2 px rail */
+	border-left: 2px solid color-mix(in srgb, var(--electric) 12.5%, transparent); /* progress rail */
+}
+
+.units__tab {
+	display: flex;
+	align-items: center;
+	gap: 1.25rem; /* 20 px */
+	min-height: 76px;
+	padding: 0;
+	background: transparent;
+	color: var(--navy);
+	border: 0;
+	font-family: var(--font-heading);
+	font-size: 1.375rem; /* 22 px */
+	text-align: left;
+	opacity: 0.62;
+	cursor: pointer;
+	transition: opacity 0.2s ease;
+}
+
+.units__tab[aria-selected='true'],
+.units__tab:hover {
+	opacity: 1;
+}
+
+.units__marker {
+	display: grid;
+	flex: none;
+	place-items: center;
+	width: 2.5rem; /* 40 px */
+	height: 2.5rem;
+	background: var(--electric);
+	color: var(--white);
+	border-radius: 50%;
+	font-size: 0.6875rem;
+	font-weight: 700;
+}
+
+.units__tab--purple .units__marker {
+	background: var(--purple);
+}
+
+.units__tab--cyan .units__marker {
+	background: var(--cyan);
+	color: var(--navy);
+}
+
+.units__tab--indigo .units__marker {
+	background: var(--indigo);
+}
+
+/* Stage: 610 x 560 composition, every piece positioned in percentages so it scales. */
+.units__stage {
+	--unit-plate: #d5aa53; /* default plate color (Figma); each unit can override it */
+	position: relative;
+	width: 100%;
+	max-width: 610px;
+	margin-inline: auto;
+	aspect-ratio: 610 / 560;
+}
+
+.units__plate,
+.units__card {
+	position: absolute;
+	border-radius: 28px;
+}
+
+.units__plate--base {
+	left: 18.36%;
+	top: 18.21%;
+	width: 70.49%;
+	height: 69.64%;
+	background: var(--navy);
+	box-shadow: 0 24px 46px color-mix(in srgb, var(--navy) 24%, transparent);
+}
+
+.units__plate--tilted {
+	left: 47.95%;
+	top: 50.36%;
+	width: 68.85%;
+	height: 68.21%;
+	background: var(--unit-plate);
+	box-shadow: 0 18px 40px color-mix(in srgb, var(--navy) 16%, transparent);
+	transform: translate(-50%, -50%) rotate(-8deg);
+	transition: background-color 0.3s ease;
+}
+
+.units__card {
+	left: 49.62%;
+	top: 47.71%;
+	width: 68.85%;
+	height: 73.21%;
+	margin: 0;
+	overflow: hidden;
+	background: var(--navy);
+	box-shadow: 0 24px 50px color-mix(in srgb, var(--navy) 19%, transparent);
+	transform: translate(-50%, -50%) rotate(2deg);
+	animation: units-in 0.35s ease;
+}
+
+.units__card[hidden] {
+	display: none;
+}
+
+.units__card a {
+	display: block;
+	height: 100%;
+}
+
+.units__image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.units__fallback {
+	display: grid;
+	place-items: center;
+	height: 100%;
+	padding: 1.5rem;
+	color: var(--white);
+	font-family: var(--font-heading);
+	font-size: 1.75rem;
+	font-weight: 700;
+	text-align: center;
+}
+
+@keyframes units-in {
+	from {
+		opacity: 0;
+		transform: translate(-50%, -48%) rotate(4deg);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.units__card,
+	.units__tab,
+	.units__plate--tilted {
+		animation: none;
+		transition: none;
 	}
 }
