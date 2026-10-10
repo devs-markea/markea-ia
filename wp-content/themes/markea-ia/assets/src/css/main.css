@@ -3554,3 +3554,23 @@ html[data-motion='ready'] .site-header__menu[aria-expanded='true'] .icon--close 
 .btn--fx:focus-visible .btn__circle {
 	transform: translate(-50%, -50%) scale(1);
 }
+
+/* Project filter: cards shrink and fade out, then the new set eases back in (assets/src/js/filters.js). */
+html[data-motion='ready'] .projects__grid {
+	perspective: 1000px;
+}
+
+html[data-motion='ready'] .projects__grid > li {
+	transform-origin: bottom;
+	transition: opacity 0.8s var(--ease-markea), transform 0.8s var(--ease-markea);
+}
+
+html[data-motion='ready'] .projects__grid > li.is-leaving {
+	opacity: 0;
+	transform: scale(0.9) translateY(5%);
+	transition-duration: 0.6s;
+}
+
+html[data-motion='ready'] .projects__grid > li.is-instant {
+	transition: none;
+}
