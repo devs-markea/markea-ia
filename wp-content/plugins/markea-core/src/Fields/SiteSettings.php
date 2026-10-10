@@ -81,7 +81,6 @@ final class SiteSettings {
 			F::tab( 'set_brand', 'Marca' ),
 			F::image( 'brand_logo', 'Logo' ),
 			F::image( 'brand_favicon', 'Favicon', array( 'instructions' => 'Cuadrado, mínimo 512 px. También se puede usar el icono del sitio de WordPress.' ) ),
-			F::gallery( 'brand_partner_badges', 'Badges de partners', array( 'instructions' => 'Badges de partners que se muestran en el footer.' ) ),
 			F::wysiwyg( 'brand_legal_text', 'Texto legal del footer' ),
 
 			F::tab( 'set_colors', 'Colores' ),
@@ -106,8 +105,10 @@ final class SiteSettings {
 
 			F::tab( 'set_footer', 'Footer' ),
 			F::text( 'footer_cta_title', 'Pregunta principal', array( 'instructions' => 'Ej. "¿Tienes un proyecto fascinante en mente?".' ) ),
+			F::text( 'footer_cta_emphasis', 'Parte en negrita de la pregunta', array( 'instructions' => 'Fragmento exacto de la pregunta. Ej. "en mente".' ) ),
 			F::text( 'footer_tagline', 'Lema' ),
 			F::textarea( 'footer_text', 'Descripción', array( 'rows' => 3, 'new_lines' => '' ) ),
+			F::textarea( 'footer_badges', 'Insignias de partners', array( 'rows' => 3, 'new_lines' => '', 'instructions' => 'Una por línea (se muestran como pastillas).' ) ),
 			F::textarea( 'footer_services', 'Servicios', array( 'rows' => 6, 'new_lines' => '', 'instructions' => 'Un servicio por línea.' ) ),
 			F::text( 'footer_copyright', 'Derechos reservados' ),
 

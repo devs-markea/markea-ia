@@ -186,6 +186,8 @@ final class LandingContent {
 			'menu_title'        => 'Transforma tu Visión en una Experiencia que Perdura',
 			'menu_copyright'    => '© 2026 Markea IA. Todos los derechos reservados.',
 			'footer_cta_title'  => '¿Tienes un proyecto fascinante en mente?',
+			'footer_cta_emphasis' => 'en mente',
+			'footer_badges'     => "Google Partner\nHubSpot\nMeta Partner",
 			'footer_tagline'    => 'Impulsados por resultados',
 			'footer_text'       => 'Construimos sistemas de IA que transforman operaciones comerciales',
 			'footer_services'   => "Sistemas IA\nGrowth Ops\nAutomatización\nRevenue Ops\nConsultoría",
