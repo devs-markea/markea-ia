@@ -183,6 +183,7 @@ final class Seeder {
 		// Copy from the Figma design. Existing rows are merged: empty fields are filled, fields the team wrote are kept.
 		$current = get_field( F::key( 'sections' ), $id, false );
 		$merged  = $this->merge_sections( is_array( $current ) ? $current : array(), LandingContent::sections() );
+		$merged  = $this->unit_cards( $merged, (int) $id );
 		update_field( F::key( 'sections' ), $merged, $id );
 		$this->log[] = 'sections: ' . implode( ', ', array_column( $merged, 'acf_fc_layout' ) );
 
@@ -266,11 +267,11 @@ final class Seeder {
 	}
 
 	/**
-	 * Copy a bundled image into the media library and set it as the featured image.
+	 * Copy a bundled image into the media library and return the attachment id (0 when it could not be added).
 	 */
-	private function attach_image( int $post_id, string $file, string $alt ): void {
+	private function sideload( int $post_id, string $file, string $alt ): int {
 		if ( ! is_readable( $file ) ) {
-			return;
+			return 0;
 		}
 
 		require_once ABSPATH . 'wp-admin/includes/file.php';
@@ -285,12 +286,56 @@ final class Seeder {
 			@unlink( $tmp ); // phpcs:ignore WordPress.PHP.NoSilencedErrors, WordPress.WP.AlternativeFunctions
 			$this->log[] = 'image failed: ' . $alt;
 
-			return;
+			return 0;
 		}
 
 		update_post_meta( $attachment_id, '_wp_attachment_image_alt', $alt );
-		set_post_thumbnail( $post_id, (int) $attachment_id );
 		$this->log[] = 'image: ' . $alt;
+
+		return (int) $attachment_id;
+	}
+
+	/**
+	 * Copy a bundled image into the media library and set it as the featured image.
+	 */
+	private function attach_image( int $post_id, string $file, string $alt ): void {
+		$attachment_id = $this->sideload( $post_id, $file, $alt );
+		if ( $attachment_id ) {
+			set_post_thumbnail( $post_id, $attachment_id );
+		}
+	}
+
+	/**
+	 * Card image of the first business unit (the KEA Realtors card from the design), only when that unit has none.
+	 * The other units have no card in the design: their images are uploaded in wp-admin.
+	 *
+	 * @param array<int,array<string,mixed>> $rows Flexible Content rows (merged).
+	 * @return array<int,array<string,mixed>>
+	 */
+	private function unit_cards( array $rows, int $page_id ): array {
+		foreach ( $rows as $r => $row ) {
+			if ( 'units' !== ( $row['acf_fc_layout'] ?? '' ) || empty( $row['items'][0] ) || ! is_array( $row['items'][0] ) ) {
+				continue;
+			}
+
+			$item = $row['items'][0];
+			$key  = 'logo';
+			foreach ( array_keys( $item ) as $candidate ) {
+				if ( 'logo' === $candidate || str_ends_with( (string) $candidate, '_logo' ) ) {
+					$key = (string) $candidate;
+				}
+			}
+			if ( ! empty( $item[ $key ] ) ) {
+				continue;
+			}
+
+			$attachment_id = $this->sideload( $page_id, MARKEA_CORE_DIR . 'assets/seed/unit-kea-realtors.png', 'KEA Realtors' );
+			if ( $attachment_id ) {
+				$rows[ $r ]['items'][0][ $key ] = $attachment_id;
+			}
+		}
+
+		return $rows;
 	}
 
 	private function find_seeded( string $key, string $type = 'page' ): int {
