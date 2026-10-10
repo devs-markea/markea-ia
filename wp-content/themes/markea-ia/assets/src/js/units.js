@@ -1,6 +1,6 @@
 /**
  * Business units: tabs (WAI-ARIA tabs pattern) that swap the card shown in the stack.
- * Click, Arrow keys, Home and End select a unit; the plate behind the card takes the unit's color.
+ * Click, Arrow keys, Home and End select a unit; each unit is a set (colored plate + card) that is dealt as one piece.
  * With motion on, the cards behave like a deck: the top card is dealt off to one side while fading, and the next
  * one rises from underneath (classes is-leaving / is-entering, see "Unidades" in main.css). Otherwise it is a plain swap.
  */
@@ -9,7 +9,6 @@ export function initUnits() {
 	document.querySelectorAll( '[data-units]' ).forEach( ( root ) => {
 		const tabs = [ ...root.querySelectorAll( '[role="tab"]' ) ];
 		const panels = [ ...root.querySelectorAll( '[role="tabpanel"]' ) ];
-		const stage = root.querySelector( '.units__stage' );
 		if ( ! tabs.length || tabs.length !== panels.length ) {
 			return;
 		}
@@ -41,7 +40,7 @@ export function initUnits() {
 			const incoming = panels[ index ];
 
 			// The old card leaves toward the side it came from in the tab order; the next one rises from underneath.
-			stage?.style.setProperty( '--deal-dir', index > current ? '-1' : '1' );
+			root.style.setProperty( '--deal-dir', index > current ? '-1' : '1' );
 			panels.forEach( ( panel, i ) => {
 				panel.hidden = panel !== out && i !== index;
 			} );
@@ -63,12 +62,6 @@ export function initUnits() {
 			showPanel( index );
 			current = index;
 
-			const color = tabs[ index ].dataset.color;
-			if ( stage ) {
-				color ? stage.style.setProperty( '--unit-plate', color ) : stage.style.removeProperty( '--unit-plate' );
-				// Cards without an image take the unit color themselves, so the plate behind turns into a tint of it.
-				stage.dataset.plain = panels[ index ].dataset.image === '1' ? '0' : '1';
-			}
 			if ( focus ) {
 				tabs[ index ].focus();
 			}
