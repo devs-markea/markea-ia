@@ -1252,64 +1252,62 @@ html.is-menu-open {
 	aspect-ratio: 610 / 560;
 }
 
-.units__plate,
+/* One card per unit, always on stage and stacked like a deck. The pose depends on its place in the deck:
+   depth 0 = top card (selected), 1 = tilted card peeking out, 2 = back card, 3+ = hidden behind. Poses are
+   centered (left/top are the center) so they can ease into each other. */
 .units__card {
 	position: absolute;
+	margin: 0;
+	overflow: hidden;
 	border-radius: 28px;
-}
-
-/* Static navy plate at the back; it never moves. */
-.units__plate--base {
-	left: 18.36%;
-	top: 18.21%;
-	width: 70.49%;
-	height: 69.64%;
-	background: var(--navy);
-	box-shadow: 0 24px 46px color-mix(in srgb, var(--navy) 24%, transparent);
-}
-
-/* A unit is a set: its colored plate and its card travel together (the set fills the stage, so percentages hold). */
-.units__set {
-	position: absolute;
-	inset: 0;
-	animation: units-in 0.35s ease;
-}
-
-.units__set[hidden] {
-	display: none;
-}
-
-.units__plate--tilted {
-	left: 47.95%;
-	top: 50.36%;
-	width: 68.85%;
-	height: 68.21%;
-	background: var(--unit-color, #d5aa53); /* Figma default; each unit sets its own. */
-	box-shadow: 0 18px 40px color-mix(in srgb, var(--navy) 16%, transparent);
-	transform: translate(-50%, -50%) rotate(-8deg);
-}
-
-/* A card without an image is the unit color itself, so its plate becomes a lighter tint to stay visible. */
-.units__set[data-image='0'] .units__plate--tilted {
-	background: color-mix(in srgb, var(--unit-color, #d5aa53) 55%, var(--white));
-}
-
-.units__card {
+	background: var(--card-bg, var(--navy)); /* The unit's color (ACF); the image, when there is one, covers it. */
+	color: var(--card-fg, var(--white));
+	box-shadow: 0 20px 44px color-mix(in srgb, var(--navy) 19%, transparent);
+	/* top card */
 	left: 49.62%;
 	top: 47.71%;
 	width: 68.85%;
 	height: 73.21%;
-	margin: 0;
-	overflow: hidden;
-	background: var(--card-bg, var(--navy)); /* The unit's color (ACF); the image, when there is one, covers it. */
-	color: var(--card-fg, var(--white));
-	box-shadow: 0 24px 50px color-mix(in srgb, var(--navy) 19%, transparent);
+	z-index: 3;
 	transform: translate(-50%, -50%) rotate(2deg);
+}
+
+.units__card[data-depth='1'] {
+	left: 47.95%;
+	top: 50.36%;
+	width: 68.85%;
+	height: 68.21%;
+	z-index: 2;
+	transform: translate(-50%, -50%) rotate(-8deg);
+}
+
+.units__card[data-depth='2'] {
+	left: 53.6%;
+	top: 53.03%;
+	width: 70.49%;
+	height: 69.64%;
+	z-index: 1;
+	transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.units__card:not([data-depth='0']):not([data-depth='1']):not([data-depth='2']) {
+	left: 53.6%;
+	top: 53.03%;
+	width: 70.49%;
+	height: 69.64%;
+	z-index: 0;
+	opacity: 0;
+	transform: translate(-50%, -50%) rotate(0deg);
 }
 
 .units__card a {
 	display: block;
 	height: 100%;
+}
+
+/* Cards underneath show only their color (like the plates in the design); the content shows when they reach the top. */
+.units__card:not([data-depth='0']) > * {
+	opacity: 0;
 }
 
 .units__image {
@@ -1330,36 +1328,52 @@ html.is-menu-open {
 	text-align: center;
 }
 
-@keyframes units-in {
-	from {
-		opacity: 0;
-		transform: translateY(2%);
+/* Motion: cards ease between their poses; the card leaving the top is dealt off to the side, drops under the
+   deck at the midpoint, and slides into the back pose, while the others move up one place. */
+html[data-motion='ready'] .units__card {
+	transition: left 0.8s var(--ease-markea), top 0.8s var(--ease-markea), width 0.8s var(--ease-markea),
+		height 0.8s var(--ease-markea), transform 0.8s var(--ease-markea), opacity 0.8s var(--ease-markea);
+}
+
+html[data-motion='ready'] .units__card > * {
+	transition: opacity 0.5s var(--ease-markea) 0.3s;
+}
+
+html[data-motion='ready'] .units__card.is-dealt {
+	animation: units-deal 0.9s var(--ease-markea);
+}
+
+@keyframes units-deal {
+	0% {
+		z-index: 4;
+		left: 49.62%;
+		top: 47.71%;
+		width: 68.85%;
+		height: 73.21%;
+		transform: translate(-50%, -50%) rotate(2deg);
+	}
+
+	45% {
+		z-index: 4;
+		left: calc(49.62% + var(--deal-dir, -1) * 54%);
+		top: 44%;
+		width: 68.85%;
+		height: 73.21%;
+		transform: translate(-50%, -50%) rotate(calc(var(--deal-dir, -1) * 14deg));
+	}
+
+	55% {
+		z-index: 0;
+		left: calc(49.62% + var(--deal-dir, -1) * 54%);
+		top: 44%;
+		width: 68.85%;
+		height: 73.21%;
+		transform: translate(-50%, -50%) rotate(calc(var(--deal-dir, -1) * 14deg));
 	}
 }
 
-/* Deck: the top set (plate and card) is dealt off while fading; the next one rises from underneath, already
-   in its own colors, so the colored background changes in the same order as the cards. */
-html[data-motion='ready'] .units__set {
-	z-index: 2;
-	animation: none;
-	transition: transform 0.8s var(--ease-markea), opacity 0.8s var(--ease-markea);
-}
-
-/* The next set waits fully opaque underneath (a bit smaller), so only the top one fades and the colors never blend. */
-html[data-motion='ready'] .units__set.is-entering {
-	z-index: 1;
-	transform: translateY(5%) rotate(-3deg) scale(0.92);
-	transition: none;
-}
-
-html[data-motion='ready'] .units__set.is-leaving {
-	z-index: 3;
-	opacity: 0;
-	transform: translate(calc(var(--deal-dir, -1) * 42%), -4%) rotate(calc(var(--deal-dir, -1) * 14deg));
-}
-
 @media (prefers-reduced-motion: reduce) {
-	.units__set,
+	.units__card,
 	.units__tab {
 		animation: none;
 		transition: none;

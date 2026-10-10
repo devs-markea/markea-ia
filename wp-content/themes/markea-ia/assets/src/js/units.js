@@ -1,56 +1,38 @@
 /**
- * Business units: tabs (WAI-ARIA tabs pattern) that swap the card shown in the stack.
- * Click, Arrow keys, Home and End select a unit; each unit is a set (colored plate + card) that is dealt as one piece.
- * With motion on, the cards behave like a deck: the top card is dealt off to one side while fading, and the next
- * one rises from underneath (classes is-leaving / is-entering, see "Unidades" in main.css). Otherwise it is a plain swap.
+ * Business units: tabs (WAI-ARIA tabs pattern) over a stack of cards, one card per unit.
+ * Click, Arrow keys, Home and End select a unit. The stack is a deck: the selected card is on top (depth 0) and the
+ * rest follow in tab order (depth 1, 2...). Poses per depth live in CSS ("Unidades" in main.css). With motion on,
+ * the card that was on top is dealt off to one side and slips under the deck while the others move up one place.
  */
-const DEAL_MS = 800; // keep in sync with the card transition in main.css
+const DEAL_MS = 900; // keep in sync with the deal animation in main.css
+
 export function initUnits() {
 	document.querySelectorAll( '[data-units]' ).forEach( ( root ) => {
 		const tabs = [ ...root.querySelectorAll( '[role="tab"]' ) ];
-		const panels = [ ...root.querySelectorAll( '[role="tabpanel"]' ) ];
-		if ( ! tabs.length || tabs.length !== panels.length ) {
+		const cards = [ ...root.querySelectorAll( '.units__card' ) ];
+		if ( ! tabs.length || tabs.length !== cards.length ) {
 			return;
 		}
 
 		let current = 0;
-		let leaving = null;
 		let timer = 0;
 
-		const finishDeal = () => {
-			window.clearTimeout( timer );
-			if ( leaving ) {
-				leaving.hidden = true;
-				leaving.classList.remove( 'is-leaving' );
-				leaving = null;
-			}
+		const stack = ( index ) => {
+			cards.forEach( ( card, i ) => {
+				const depth = ( i - index + cards.length ) % cards.length;
+				card.dataset.depth = String( depth );
+				card.toggleAttribute( 'inert', depth !== 0 );
+				depth === 0 ? card.removeAttribute( 'aria-hidden' ) : card.setAttribute( 'aria-hidden', 'true' );
+			} );
 		};
 
-		const showPanel = ( index ) => {
-			finishDeal();
-
-			if ( index === current || document.documentElement.getAttribute( 'data-motion' ) !== 'ready' ) {
-				panels.forEach( ( panel, i ) => {
-					panel.hidden = i !== index;
-				} );
-				return;
-			}
-
-			const out = panels[ current ];
-			const incoming = panels[ index ];
-
-			// The old card leaves toward the side it came from in the tab order; the next one rises from underneath.
-			root.style.setProperty( '--deal-dir', index > current ? '-1' : '1' );
-			panels.forEach( ( panel, i ) => {
-				panel.hidden = panel !== out && i !== index;
-			} );
-			incoming.classList.add( 'is-entering' );
-			void incoming.offsetWidth; // Commit the "under the deck" pose before releasing it.
-			incoming.classList.remove( 'is-entering' );
-			out.classList.add( 'is-leaving' );
-
-			leaving = out;
-			timer = window.setTimeout( finishDeal, DEAL_MS );
+		const deal = ( out, forward ) => {
+			window.clearTimeout( timer );
+			cards.forEach( ( card ) => card.classList.remove( 'is-dealt' ) );
+			void root.offsetWidth; // Restart the animation if it was still running.
+			root.style.setProperty( '--deal-dir', forward ? '-1' : '1' );
+			out.classList.add( 'is-dealt' );
+			timer = window.setTimeout( () => out.classList.remove( 'is-dealt' ), DEAL_MS );
 		};
 
 		const select = ( index, { focus = false } = {} ) => {
@@ -59,7 +41,13 @@ export function initUnits() {
 				tab.setAttribute( 'aria-selected', String( active ) );
 				tab.tabIndex = active ? 0 : -1;
 			} );
-			showPanel( index );
+
+			const animate = index !== current && document.documentElement.getAttribute( 'data-motion' ) === 'ready';
+			const out = cards[ current ];
+			stack( index );
+			if ( animate ) {
+				deal( out, index > current );
+			}
 			current = index;
 
 			if ( focus ) {

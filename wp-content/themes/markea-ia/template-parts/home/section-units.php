@@ -1,7 +1,7 @@
 <?php
 /**
  * Section 4: Unidades de negocio. Centered header; story with selectable units (tabs) and a stack of
- * tilted cards that shows the selected unit.
+ * tilted cards, one per unit, with the selected unit's card on top.
  *
  * @package Markea_IA
  */
@@ -55,8 +55,8 @@ $markers = array( 'electric', 'purple', 'cyan', 'indigo' ); // Marker colors, in
 			</div>
 
 			<?php if ( $items ) : ?>
-				<div class="units__stage">
-					<span class="units__plate units__plate--base" aria-hidden="true"></span>
+				<?php // All unit cards are always on stage, stacked: data-depth 0 is the top (selected) card, 1 the next, and so on. ?>
+				<div class="units__stage" data-count="<?php echo (int) count( $items ); ?>">
 					<?php foreach ( $items as $i => $item ) : ?>
 						<?php
 						$name  = (string) ( $item['name'] ?? '' );
@@ -64,27 +64,23 @@ $markers = array( 'electric', 'purple', 'cyan', 'indigo' ); // Marker colors, in
 						$image = markea_image( $item['logo'] ?? 0, 'large', array( 'class' => 'units__image', 'sizes' => '(min-width: 992px) 420px, 80vw' ) );
 						$inner = $image ?: '<span class="units__fallback">' . esc_html( $name ) . '</span>';
 						$bg    = sanitize_hex_color( (string) ( $item['color'] ?? '' ) );
-						$style = $bg ? sprintf( '--unit-color:%1$s;--card-bg:%1$s;--card-fg:%2$s', $bg, markea_text_on( $bg ) ) : '';
+						$style = $bg ? sprintf( '--card-bg:%1$s;--card-fg:%2$s', $bg, markea_text_on( $bg ) ) : '';
 						?>
-						<?php // Each unit is one set (colored plate + card) so both are dealt together. ?>
-						<div
-							class="units__set"
+						<figure
+							class="units__card"
 							role="tabpanel"
 							id="unit-panel-<?php echo (int) $i; ?>"
 							aria-labelledby="unit-tab-<?php echo (int) $i; ?>"
-							data-image="<?php echo $image ? '1' : '0'; ?>"
+							data-depth="<?php echo (int) $i; ?>"
 							<?php echo $style ? 'style="' . esc_attr( $style ) . '"' : ''; ?>
-							<?php echo 0 === $i ? '' : 'hidden'; ?>
+							<?php echo 0 === $i ? '' : 'aria-hidden="true" inert'; ?>
 						>
-							<span class="units__plate units__plate--tilted" aria-hidden="true"></span>
-							<figure class="units__card">
-								<?php if ( $url ) : ?>
-									<a href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo esc_attr( $name ); ?>"><?php echo $inner; // phpcs:ignore WordPress.Security.EscapeOutput ?></a>
-								<?php else : ?>
-									<?php echo $inner; // phpcs:ignore WordPress.Security.EscapeOutput ?>
-								<?php endif; ?>
-							</figure>
-						</div>
+							<?php if ( $url ) : ?>
+								<a href="<?php echo esc_url( $url ); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo esc_attr( $name ); ?>"><?php echo $inner; // phpcs:ignore WordPress.Security.EscapeOutput ?></a>
+							<?php else : ?>
+								<?php echo $inner; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+							<?php endif; ?>
+						</figure>
 					<?php endforeach; ?>
 				</div>
 			<?php endif; ?>
