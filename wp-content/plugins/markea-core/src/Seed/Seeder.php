@@ -80,9 +80,16 @@ final class Seeder {
 		);
 
 		foreach ( $projects as $i => [ $title, $cats ] ) {
-			$id = $this->post( PostTypes::PROJECT, 'proyecto-' . sanitize_title( $title ), $title, $i + 1 );
+			$key = 'proyecto-' . sanitize_title( $title );
+			$id  = $this->post( PostTypes::PROJECT, $key, $title, $i + 1 );
 			if ( $id ) {
 				wp_set_object_terms( $id, $cats, PostTypes::CATEGORY );
+			}
+
+			// Featured image from the design (plugin assets/seed), only when the project has none yet.
+			$id = $id ?: $this->find_seeded( $key, PostTypes::PROJECT );
+			if ( $id && ! has_post_thumbnail( $id ) ) {
+				$this->attach_image( $id, MARKEA_CORE_DIR . 'assets/seed/' . sanitize_title( $title ) . '.jpg', $title );
 			}
 		}
 	}
@@ -249,6 +256,34 @@ final class Seeder {
 		}
 
 		return $out;
+	}
+
+	/**
+	 * Copy a bundled image into the media library and set it as the featured image.
+	 */
+	private function attach_image( int $post_id, string $file, string $alt ): void {
+		if ( ! is_readable( $file ) ) {
+			return;
+		}
+
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		require_once ABSPATH . 'wp-admin/includes/media.php';
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+
+		$tmp = wp_tempnam( $file );
+		copy( $file, $tmp );
+
+		$attachment_id = media_handle_sideload( array( 'name' => basename( $file ), 'tmp_name' => $tmp ), $post_id, $alt );
+		if ( is_wp_error( $attachment_id ) ) {
+			@unlink( $tmp ); // phpcs:ignore WordPress.PHP.NoSilencedErrors, WordPress.WP.AlternativeFunctions
+			$this->log[] = 'image failed: ' . $alt;
+
+			return;
+		}
+
+		update_post_meta( $attachment_id, '_wp_attachment_image_alt', $alt );
+		set_post_thumbnail( $post_id, (int) $attachment_id );
+		$this->log[] = 'image: ' . $alt;
 	}
 
 	private function find_seeded( string $key, string $type = 'page' ): int {

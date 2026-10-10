@@ -160,12 +160,12 @@ function markea_get_projects(): WP_Query {
 }
 
 /**
- * Project categories that have at least one project.
+ * Project categories in creation order (all of them, like the design, even if one has no projects yet).
  *
  * @return WP_Term[]
  */
 function markea_get_project_categories(): array {
-	$terms = get_terms( array( 'taxonomy' => 'categoria-proyecto', 'hide_empty' => true ) );
+	$terms = get_terms( array( 'taxonomy' => 'categoria-proyecto', 'hide_empty' => false, 'orderby' => 'term_id' ) );
 
 	return is_wp_error( $terms ) ? array() : $terms;
 }

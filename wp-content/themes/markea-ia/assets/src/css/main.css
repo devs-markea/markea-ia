@@ -26,6 +26,7 @@
  * 22. Section: Caso de operacion propia
  * 23. Section: Marketing Operating System
  * 24. Section: Oferta diferenciada
+ * 25. Section: Portafolio (proyectos)
  *
  * Colors come from Site Settings > Colores (inline style overrides the base palette in section 2).
  */
@@ -800,42 +801,8 @@ html.is-menu-open {
 
 /* ==========================================================================
    12. Projects and filters
+   See section 25 (Portafolio).
    ========================================================================== */
-.filters {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.5rem;
-	margin-top: 1.5rem;
-}
-
-.filters__btn {
-	padding: 0.5rem 1rem;
-	background: transparent;
-	color: var(--text-secondary);
-	border: 1px solid var(--stroke);
-	border-radius: 999px;
-	font: inherit;
-	font-family: var(--font-heading);
-	cursor: pointer;
-}
-
-.filters__btn.is-active {
-	background: var(--primary);
-	border-color: var(--primary);
-	color: var(--white);
-}
-
-.project__media {
-	margin: -1.5rem -1.5rem 1rem;
-	overflow: hidden;
-	border-radius: var(--radius) var(--radius) 0 0;
-}
-
-.project__media img {
-	width: 100%;
-	aspect-ratio: 3 / 2;
-	object-fit: cover;
-}
 
 /* ==========================================================================
    13. Relevance, steps and video
@@ -2101,4 +2068,169 @@ html.is-menu-open {
 	font-size: 0.6875rem; /* 11 px */
 	font-weight: 500;
 	line-height: normal;
+}
+
+/* ==========================================================================
+   25. Section: Portafolio (proyectos)
+   Figma (304:42): 110 px top and bottom padding. Header: badge + 42 px title ("Nuestros" Regular above
+   "Proyectos" Bold) on the left (520 px), 16 px intro on the right (440 px). 24 px below, uppercase
+   category pills (SemiBold 13, 26 px radius: active = electric fill, others = navy outline). Then a
+   two-column grid, 48 px between rows and 24 px between columns: a 420 px image card (radius 24,
+   electric-40% outline shadow) with the category (11 px) and title (24 px SemiBold) below.
+   Electric glow on the left edge, 1075 px below the section top.
+   ========================================================================== */
+.projects {
+	--glow-color: var(--electric);
+	position: relative;
+	overflow-x: clip;
+	padding-block: clamp(3rem, 7.64vw, 6.875rem);
+}
+
+.projects::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 1075px;
+	z-index: -1;
+	width: 1152px;
+	height: 1152px;
+	background: radial-gradient(
+		closest-side,
+		color-mix(in srgb, var(--glow-color) 20%, transparent) 0%,
+		color-mix(in srgb, var(--glow-color) 12%, transparent) 35%,
+		color-mix(in srgb, var(--glow-color) 4%, transparent) 70%,
+		transparent 100%
+	);
+	transform: translate(-50%, -50%);
+	pointer-events: none;
+}
+
+.projects__header {
+	display: grid;
+	gap: 1.5rem;
+}
+
+@media (min-width: 992px) {
+	.projects__header {
+		grid-template-columns: minmax(0, 520px) minmax(0, 440px);
+		justify-content: space-between;
+		min-height: 189px;
+	}
+}
+
+.projects__heading {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 1.25rem; /* 20 px */
+}
+
+.projects__heading > * {
+	margin: 0;
+}
+
+.projects .section__title {
+	font-size: clamp(2rem, 1.1rem + 2.4vw, 2.625rem); /* 42 px */
+	letter-spacing: -0.01em;
+	line-height: 1.15;
+}
+
+.projects .u-strong {
+	display: block; /* "Proyectos" on its own line */
+}
+
+.projects__intro {
+	margin: 0;
+	padding-top: 0.5rem;
+	color: var(--text-secondary);
+	line-height: 1.7;
+}
+
+.filters {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem; /* 12 px */
+	margin-top: 1.5rem; /* 24 px */
+}
+
+.filters__btn {
+	padding: 0.625rem 1.375rem; /* 10 x 22 px */
+	background: transparent;
+	color: var(--navy);
+	border: 1px solid var(--navy);
+	border-radius: 26px;
+	font-family: var(--font-heading);
+	font-size: 0.8125rem; /* 13 px */
+	font-weight: 600;
+	line-height: normal;
+	text-transform: uppercase;
+	cursor: pointer;
+	transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.filters__btn:hover {
+	background: var(--surface-badge);
+}
+
+.filters__btn.is-active {
+	background: var(--electric);
+	border-color: var(--electric);
+	color: var(--white);
+}
+
+.projects__grid {
+	--bs-gutter-x: 1.5rem; /* 24 px between columns */
+	--bs-gutter-y: 3rem; /* 48 px between rows */
+	margin-top: calc(1.5rem - var(--bs-gutter-y));
+	margin-bottom: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.projects__card {
+	display: flex;
+	flex-direction: column;
+}
+
+.projects__media {
+	height: 420px;
+	overflow: hidden;
+	background: var(--surface);
+	border-radius: 24px;
+	box-shadow: 0 0 4px color-mix(in srgb, var(--electric) 40%, transparent);
+}
+
+.projects__image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.projects__meta {
+	display: flex;
+	flex-direction: column;
+	gap: 0.375rem; /* 6 px */
+	padding: 1.5rem; /* 24 px */
+}
+
+.projects__meta > * {
+	margin: 0;
+}
+
+.projects__category {
+	font-family: var(--font-heading);
+	font-size: 0.6875rem; /* 11 px */
+	line-height: normal;
+	text-transform: uppercase;
+}
+
+.projects__title {
+	font-size: 1.5rem; /* 24 px */
+	font-weight: 600;
+	line-height: normal;
+}
+
+.projects__title a {
+	color: inherit;
+	text-decoration: none;
 }
