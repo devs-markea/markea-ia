@@ -57,11 +57,26 @@ export function initReveals( gsap, ease ) {
 	} );
 }
 
-export function initHeroIntro( gsap, ease ) {
+export function initHeroIntro( gsap ) {
+	const root = document.documentElement;
 	const items = document.querySelectorAll( '.hero__content > *, .hero__visual' );
+	const done = () => {
+		root.setAttribute( 'data-hero-intro', 'done' );
+		document.dispatchEvent( new CustomEvent( 'markea:hero-intro' ) );
+	};
 	if ( ! items.length ) {
+		done();
 		return;
 	}
 
-	gsap.fromTo( items, { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 1.6, ease, stagger: 0.08 } );
+	// Wait for the web fonts so the text does not reflow while it slides, and use a shorter-tailed curve
+	// than the global one: the long crawl of "markea" reads as a late settle on large text.
+	const fonts = document.fonts ? Promise.race( [ document.fonts.ready, new Promise( ( r ) => window.setTimeout( r, 800 ) ) ] ) : Promise.resolve();
+	fonts.then( () => {
+		gsap.fromTo(
+			items,
+			{ autoAlpha: 0, y: 40 },
+			{ autoAlpha: 1, y: 0, duration: 1.2, ease: 'expo.out', stagger: 0.09, onComplete: done }
+		);
+	} );
 }

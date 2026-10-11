@@ -6,6 +6,7 @@ import { initLoader } from './loader.js';
 import { initHeroIntro, initReveals } from './reveal.js';
 import { initButtons } from './buttons.js';
 import { initFooterLogo } from './footer-logo.js';
+import { initExtras, initHeroVisual } from './extras.js';
 
 // One easing for everything: slow start, long soft landing (same curve as --ease-markea in CSS).
 export const EASE = 'markea';
@@ -36,6 +37,7 @@ export function startMotion() {
 	initButtons();
 	initReveals( gsap, EASE );
 	initFooterLogo( gsap, ScrollTrigger );
+	initExtras( gsap, ScrollTrigger, EASE );
 
 	const hasLoader = root.classList.contains( 'has-loader' );
 	if ( hasLoader ) {
@@ -47,6 +49,7 @@ export function startMotion() {
 			lenis.start();
 		}
 		initHeroIntro( gsap, EASE );
+		initHeroVisual( gsap, ScrollTrigger, EASE );
 		ScrollTrigger.refresh();
 	} );
 

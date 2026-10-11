@@ -1,8 +1,10 @@
 <?php
 /**
- * Section 6: Marketing Operating System. Header (title + intro) and four pillar cards: the first is featured
- * (chart visual, index, title and text); the others show a number, a visual and an accent title.
- * Visuals are decorative SVGs in assets/images/mos, assigned by position.
+ * Section 6: Marketing Operating System. Header (title + intro) and four pillar cards that work as an accordion
+ * on desktop: one card is active (tall, gradient stage with its illustration, badge, index, title and text), the
+ * others are compact (number, illustration, title). The first card is active by default; clicking another one hands
+ * the active state over (assets/src/js/motion/extras.js). Below 992 px every card shows its open face.
+ * Illustrations are decorative SVGs in assets/images/mos, inlined so their parts can animate, assigned by position.
  *
  * @package Markea_IA
  */
@@ -18,8 +20,7 @@ if ( '' === $title && ! $cards ) {
 }
 
 $visuals = array( 'dashboard', 'stack', 'checklist', 'roadmap' );
-$accents = array( 1 => 'indigo', 2 => 'purple', 3 => 'electric' );
-$images  = MARKEA_IA_URI . '/assets/images/mos/';
+$accents = array( 'electric', 'indigo', 'purple', 'electric' );
 ?>
 <section id="mos" class="section mos<?php echo esc_attr( markea_tone( $row ) ); ?>">
 	<div class="container">
@@ -33,37 +34,43 @@ $images  = MARKEA_IA_URI . '/assets/images/mos/';
 		</header>
 
 		<?php if ( $cards ) : ?>
-			<ol class="mos__pillars" role="list">
+			<ol class="mos__pillars" role="list" data-active="0">
 				<?php foreach ( $cards as $i => $card ) : ?>
 					<?php
 					$number = str_pad( (string) ( $i + 1 ), 2, '0', STR_PAD_LEFT );
 					$visual = $visuals[ $i ] ?? '';
+					$title  = (string) ( $card['title'] ?? '' );
 					?>
-					<?php if ( 0 === $i ) : ?>
-						<li class="mos__card mos__card--featured">
+					<li class="mos__card mos__card--<?php echo esc_attr( $accents[ $i ] ?? 'electric' ); ?><?php echo 0 === $i ? ' is-active' : ''; ?>">
+						<div class="mos__face mos__face--open">
 							<?php if ( $visual ) : ?>
-								<img class="mos__visual" src="<?php echo esc_url( $images . $visual . '.svg' ); ?>" width="420" height="300" alt="" loading="lazy" decoding="async">
+								<div class="mos__stage<?php echo 0 === $i ? ' mos__stage--chart' : ''; ?>">
+									<span class="mos__badge" aria-hidden="true">
+										<span class="mos__dot"></span>
+										<span class="mos__badge-line"></span>
+									</span>
+									<?php echo markea_inline_svg( 'mos/' . $visual, 'mos__art' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+								</div>
 							<?php endif; ?>
 							<div class="mos__body">
 								<p class="mos__index"><?php echo esc_html( $number ); ?>.</p>
-								<h3 class="mos__title"><?php echo esc_html( $card['title'] ?? '' ); ?></h3>
+								<h3 class="mos__title"><?php echo esc_html( $title ); ?></h3>
 								<?php if ( ! empty( $card['text'] ) ) : ?>
 									<p class="mos__text"><?php echo esc_html( $card['text'] ); ?></p>
 								<?php endif; ?>
 							</div>
-						</li>
-					<?php else : ?>
-						<li class="mos__card mos__card--<?php echo esc_attr( $accents[ $i ] ?? 'electric' ); ?>">
-							<p class="mos__number" aria-hidden="true"><?php echo esc_html( $number ); ?>.</p>
+						</div>
+						<div class="mos__face mos__face--closed" aria-hidden="true">
+							<p class="mos__number"><?php echo esc_html( $number ); ?>.</p>
 							<?php if ( $visual ) : ?>
-								<img class="mos__art" src="<?php echo esc_url( $images . $visual . '.svg' ); ?>" width="194" height="132" alt="" loading="lazy" decoding="async">
+								<?php echo markea_inline_svg( 'mos/' . $visual, 'mos__art' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 							<?php endif; ?>
 							<div class="mos__footer">
-								<span class="mos__rule" aria-hidden="true"></span>
-								<h3 class="mos__card-title"><?php echo esc_html( $card['title'] ?? '' ); ?></h3>
+								<span class="mos__rule"></span>
+								<p class="mos__card-title"><?php echo esc_html( $title ); ?></p>
 							</div>
-						</li>
-					<?php endif; ?>
+						</div>
+					</li>
 				<?php endforeach; ?>
 			</ol>
 		<?php endif; ?>

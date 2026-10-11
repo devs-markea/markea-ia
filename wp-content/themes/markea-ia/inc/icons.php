@@ -38,3 +38,28 @@ function markea_icon( string $name, int $size = 20 ): string {
 		1
 	);
 }
+
+/**
+ * Decorative illustration from assets/images/<folder>/<name>.svg, inlined so CSS can animate its parts.
+ * Files are theme assets, not user input.
+ *
+ * @param string $path  Path under assets/images without extension (e.g. mos/stack).
+ * @param string $class CSS class for the <svg>.
+ */
+function markea_inline_svg( string $path, string $class ): string {
+	if ( 1 !== preg_match( '#^[a-z0-9/-]+$#', $path ) ) {
+		return '';
+	}
+
+	$file = MARKEA_IA_DIR . '/assets/images/' . $path . '.svg';
+	if ( ! is_readable( $file ) ) {
+		return '';
+	}
+
+	return (string) preg_replace(
+		'/^<svg /',
+		sprintf( '<svg class="%s" aria-hidden="true" focusable="false" ', esc_attr( $class ) ),
+		trim( (string) file_get_contents( $file ) ),
+		1
+	);
+}

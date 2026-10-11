@@ -84,9 +84,9 @@ final class LandingContent {
 				'text'          => 'Esto es lo que construimos para operar nuestras propias marcas — la prueba de que sabemos diseñar sistemas, no solo usarlos.',
 				'items'         => array(
 					array( 'title' => 'Dashboard interactivo', 'text' => 'Dashboard interactivos para el control total y métricas del sistema operando.' ),
-					array( 'title' => 'Playbooks por unidad', 'text' => '' ),
-					array( 'title' => 'Checklists operativos', 'text' => '' ),
-					array( 'title' => 'Plan de desarrollo', 'text' => '' ),
+					array( 'title' => 'Playbooks por unidad', 'text' => 'Cada unidad de negocio opera con su propio manual: procesos, mensajes y responsables definidos para que el sistema se repita sin depender de nadie.' ),
+					array( 'title' => 'Checklists operativos', 'text' => 'Rutinas diarias y semanales que convierten el criterio del equipo en pasos concretos, para que nada dependa de la memoria.' ),
+					array( 'title' => 'Plan de desarrollo', 'text' => 'Una ruta por etapas para construir, probar y escalar cada herramienta, con prioridades claras y metas medibles.' ),
 				),
 			),
 			array(
@@ -129,8 +129,8 @@ final class LandingContent {
 				'text'          => 'Si operas en hospitalidad, turismo o real estate, enfrentas los mismos retos que ya resolvimos: cliente de alto valor, ciclo de decisión largo, y la necesidad de una narrativa premium consistente en cada punto de contacto.',
 				'items'         => array(
 					array( 'icon' => 'calendar', 'title' => 'Ciclos de decisión de semanas o meses', 'text' => 'Hospitalidad, turismo y real estate deciden en meses, no en clics.' ),
-					array( 'icon' => 'search', 'title' => 'Clientes que investigan antes de contactar', 'text' => '' ),
-					array( 'icon' => 'shield-check', 'title' => 'Marca y confianza como factor de cierre', 'text' => '' ),
+					array( 'icon' => 'search', 'title' => 'Clientes que investigan antes de contactar', 'text' => 'Comparan, leen y validan por su cuenta: tu marca tiene que convencer antes de la primera conversación.' ),
+					array( 'icon' => 'shield-check', 'title' => 'Marca y confianza como factor de cierre', 'text' => 'En compras de alto valor la confianza pesa más que el precio, y cada punto de contacto debe sostenerla.' ),
 				),
 			),
 			array(

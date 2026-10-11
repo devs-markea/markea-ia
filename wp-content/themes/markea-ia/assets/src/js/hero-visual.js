@@ -20,7 +20,26 @@ export function initHeroVisual() {
 	}
 
 	const start = () => ( viewer ? loadSpline( root, viewer ) : loadFrame( root, frame ) );
-	const schedule = () => ( 'requestIdleCallback' in window ? window.requestIdleCallback( start, { timeout: 2000 } ) : window.setTimeout( start, 300 ) );
+	const idle = () => ( 'requestIdleCallback' in window ? window.requestIdleCallback( start, { timeout: 2000 } ) : window.setTimeout( start, 300 ) );
+
+	// With motion on, wait for the hero intro to finish: the heavy scene would otherwise drop frames at the end of it.
+	const schedule = () => {
+		const root = document.documentElement;
+		if ( ! root.classList.contains( 'has-motion' ) || root.hasAttribute( 'data-hero-intro' ) ) {
+			idle();
+			return;
+		}
+
+		let done = false;
+		const go = () => {
+			if ( ! done ) {
+				done = true;
+				idle();
+			}
+		};
+		document.addEventListener( 'markea:hero-intro', go, { once: true } );
+		window.setTimeout( go, 5000 );
+	};
 
 	if ( document.readyState === 'complete' ) {
 		schedule();
