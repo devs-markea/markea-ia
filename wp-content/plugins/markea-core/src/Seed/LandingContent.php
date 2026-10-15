@@ -223,7 +223,7 @@ final class LandingContent {
 			array( 'Inicio', '/#inicio' ),
 			array( 'Casos', '/#proyectos' ),
 			array( 'Servicios', '/#como-trabajamos' ),
-			array( 'Nosotros', '/#quienes-somos' ),
+			array( 'Contacto', '/#contacto' ),
 		);
 	}
 }
