@@ -106,7 +106,7 @@ $heading   = (string) ( markea_section( 'hero' )['cta_label'] ?? '' ) ?: __( 'Ha
 				</div>
 			<?php endif; ?>
 
-			<button class="btn btn--primary contact__submit" type="submit"><span><?php esc_html_e( 'ENVIAR', 'markea-ia' ); ?></span><?php echo markea_icon( 'arrow-up-right' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
+			<button class="btn btn--primary contact__submit" type="submit"><span><?php esc_html_e( 'ENVIAR', 'markea-ia' ); ?></span><?php echo markea_button_arrow(); // phpcs:ignore WordPress.Security.EscapeOutput ?></button>
 			<p class="contact__status" role="status" aria-live="polite" data-form-status></p>
 		</form>
 	</div>

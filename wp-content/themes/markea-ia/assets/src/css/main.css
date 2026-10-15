@@ -330,23 +330,47 @@ a {
 	color: var(--white);
 }
 
-/* Text-only variant used in the header ("Hablemos" underlined, Montserrat Light). */
-.btn--link {
-	padding-inline: 1.5rem;
-	background: transparent;
-	color: var(--text);
-	font-weight: 300;
-	text-decoration: underline;
-	text-underline-position: from-font;
-}
-
-.btn--link:hover {
-	color: var(--text-accent);
-}
-
 .btn[disabled] {
 	opacity: 0.6;
 	cursor: progress;
+}
+
+/* Arrow: two stacked copies; on hover the first exits to the top-right and the second enters from the bottom-left
+   (same idea as the CTAs on mdx.so). Pointer devices and keyboard focus; touch keeps the static arrow. */
+.btn__arrow {
+	display: inline-grid;
+	flex: none;
+	overflow: hidden;
+}
+
+.btn__arrow > .icon {
+	grid-area: 1 / 1;
+}
+
+.btn__arrow > .icon + .icon {
+	transform: translate(-130%, 130%);
+}
+
+@media (hover: hover) {
+	.btn__arrow > .icon {
+		transition: transform 0.6s var(--ease-markea);
+	}
+
+	.btn:hover .btn__arrow > .icon:first-child,
+	.btn:focus-visible .btn__arrow > .icon:first-child {
+		transform: translate(130%, -130%);
+	}
+
+	.btn:hover .btn__arrow > .icon + .icon,
+	.btn:focus-visible .btn__arrow > .icon + .icon {
+		transform: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.btn__arrow > .icon {
+		transition: none;
+	}
 }
 
 /* ==========================================================================
@@ -391,12 +415,6 @@ a {
 	gap: 0.75rem;
 }
 
-.site-header__divider {
-	width: 1px;
-	height: 17px;
-	background: var(--stroke);
-}
-
 .site-header__menu {
 	display: grid;
 	place-items: center;
@@ -422,14 +440,6 @@ a {
 
 	.site-header__actions {
 		gap: 0.25rem;
-	}
-
-	.site-header__actions .btn--link {
-		padding-inline: 0.5rem;
-	}
-
-	.site-header__divider {
-		display: none;
 	}
 
 	.site-header__menu {

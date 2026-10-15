@@ -27,8 +27,6 @@ defined( 'ABSPATH' ) || exit;
 		</a>
 
 		<div class="site-header__actions">
-			<?php echo markea_cta( 'header', 'btn btn--link' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-			<span class="site-header__divider" aria-hidden="true"></span>
 			<button
 				class="site-header__menu"
 				type="button"

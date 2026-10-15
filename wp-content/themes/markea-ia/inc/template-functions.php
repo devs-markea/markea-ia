@@ -124,6 +124,16 @@ function markea_section( string $layout ): array {
 }
 
 /**
+ * Button arrow: two copies of the same icon. On hover the first leaves through the top-right corner and the second
+ * comes in from the bottom-left (see "Buttons" in main.css).
+ */
+function markea_button_arrow( string $icon = 'arrow-up-right', int $size = 20 ): string {
+	$svg = markea_icon( $icon, $size );
+
+	return '<span class="btn__arrow" aria-hidden="true">' . $svg . $svg . '</span>';
+}
+
+/**
  * Primary CTA link (label and URL live in the hero layout). Tracked as a "Hablemos" click.
  */
 function markea_cta( string $location, string $class = 'btn btn--primary' ): string {
@@ -141,7 +151,7 @@ function markea_cta( string $location, string $class = 'btn btn--primary' ): str
 		esc_url( $url ),
 		esc_html( $label ),
 		esc_attr( $location ),
-		markea_icon( 'arrow-up-right' ) // phpcs:ignore WordPress.Security.EscapeOutput -- static SVG.
+		markea_button_arrow() // phpcs:ignore WordPress.Security.EscapeOutput -- static SVG.
 	);
 }
 
