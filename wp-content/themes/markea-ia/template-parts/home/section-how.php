@@ -29,21 +29,23 @@ if ( '' === $title && ! $items ) {
 		</header>
 
 		<?php if ( $items ) : ?>
-			<ul class="how__grid" role="list">
-				<?php foreach ( $items as $item ) : ?>
-					<li class="how__card">
-						<?php if ( ! empty( $item['icon'] ) ) : ?>
-							<span class="how__icon"><?php echo markea_icon( (string) $item['icon'], 28 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
-						<?php endif; ?>
-						<div class="how__body">
-							<h3 class="how__title"><?php echo esc_html( $item['title'] ?? '' ); ?></h3>
-							<?php if ( ! empty( $item['text'] ) ) : ?>
-								<p class="how__text"><?php echo esc_html( $item['text'] ); ?></p>
+			<div class="m-swiper" <?php echo markea_carousel_attrs(); // phpcs:ignore WordPress.Security.EscapeOutput ?>>
+				<ul class="how__grid" role="list">
+					<?php foreach ( $items as $item ) : ?>
+						<li class="how__card">
+							<?php if ( ! empty( $item['icon'] ) ) : ?>
+								<span class="how__icon"><?php echo markea_icon( (string) $item['icon'], 28 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
 							<?php endif; ?>
-						</div>
-					</li>
-				<?php endforeach; ?>
-			</ul>
+							<div class="how__body">
+								<h3 class="how__title"><?php echo esc_html( $item['title'] ?? '' ); ?></h3>
+								<?php if ( ! empty( $item['text'] ) ) : ?>
+									<p class="how__text"><?php echo esc_html( $item['text'] ); ?></p>
+								<?php endif; ?>
+							</div>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
 		<?php endif; ?>
 	</div>
 </section>

@@ -207,12 +207,17 @@ function markea_social_links( array $order = array( 'LinkedIn', 'Instagram', 'Fa
 }
 
 /**
- * Attributes that turn an element into a Splide carousel (mounted by assets/src/js/carousel.js).
+ * Attributes that turn an element into a Swiper carousel (mounted by assets/src/js/carousel.js).
  *
- * @param array<string,mixed> $options Splide options, e.g. array( 'perPage' => 3 ).
+ * @param string              $media   Media query where it is a carousel; outside it the list stays a normal grid.
+ * @param array<string,mixed> $options Swiper options, e.g. array( 'slidesPerView' => 1.5 ).
  */
-function markea_carousel_attrs( array $options = array() ): string {
-	return 'data-splide data-splide-config="' . esc_attr( (string) wp_json_encode( $options ) ) . '"';
+function markea_carousel_attrs( string $media = '(max-width: 767.98px)', array $options = array() ): string {
+	return sprintf(
+		'data-swiper data-swiper-mq="%s" data-swiper-config="%s"',
+		esc_attr( $media ),
+		esc_attr( (string) wp_json_encode( (object) $options ) )
+	);
 }
 
 /**

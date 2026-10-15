@@ -26,23 +26,25 @@ if ( '' === $title && ! $cards ) {
 		</header>
 
 		<?php if ( $cards ) : ?>
-			<ul class="row problem__cards" role="list">
-				<?php foreach ( $cards as $card ) : ?>
-					<li class="col-12 col-md-6 col-lg-4">
-						<article class="card card--elevated">
-							<?php if ( ! empty( $card['icon'] ) ) : ?>
-								<span class="card__icon"><?php echo markea_icon( (string) $card['icon'], 20 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
-							<?php endif; ?>
-							<?php if ( ! empty( $card['title'] ) ) : ?>
-								<h3 class="card__title"><?php echo esc_html( $card['title'] ); ?></h3>
-							<?php endif; ?>
-							<?php if ( ! empty( $card['text'] ) ) : ?>
-								<p class="card__text"><?php echo esc_html( $card['text'] ); ?></p>
-							<?php endif; ?>
-						</article>
-					</li>
-				<?php endforeach; ?>
-			</ul>
+			<div class="m-swiper" <?php echo markea_carousel_attrs(); // phpcs:ignore WordPress.Security.EscapeOutput ?>>
+				<ul class="row problem__cards" role="list">
+					<?php foreach ( $cards as $card ) : ?>
+						<li class="col-12 col-md-6 col-lg-4">
+							<article class="card card--elevated">
+								<?php if ( ! empty( $card['icon'] ) ) : ?>
+									<span class="card__icon"><?php echo markea_icon( (string) $card['icon'], 20 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+								<?php endif; ?>
+								<?php if ( ! empty( $card['title'] ) ) : ?>
+									<h3 class="card__title"><?php echo esc_html( $card['title'] ); ?></h3>
+								<?php endif; ?>
+								<?php if ( ! empty( $card['text'] ) ) : ?>
+									<p class="card__text"><?php echo esc_html( $card['text'] ); ?></p>
+								<?php endif; ?>
+							</article>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
 		<?php endif; ?>
 
 		<p class="section__cta section__cta--center"><?php echo markea_cta( 'problem' ); // phpcs:ignore WordPress.Security.EscapeOutput ?></p>
