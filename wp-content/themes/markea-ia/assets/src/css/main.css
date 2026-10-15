@@ -102,6 +102,12 @@
 	--ease-markea: cubic-bezier(0.6, 0.08, 0.02, 0.99); /* same curve as the GSAP ease in motion/engine.js */
 	--header-h: 5.25rem; /* 84 px (Figma): 20 + 44 + 20; the hero fills the rest of the window */
 	--radius: 16px;
+
+	/* Cards: one radius and three shadows (flat ring, raised, hover) shared by every card in the page. */
+	--radius-card: 24px;
+	--shadow-flat: 0 0 2px color-mix(in srgb, var(--navy) 40%, transparent);
+	--shadow-raised: 0 24px 60px -16px color-mix(in srgb, var(--navy) 16%, transparent);
+	--shadow-hover: 0 26px 48px -18px color-mix(in srgb, var(--navy) 28%, transparent), 0 0 2px color-mix(in srgb, var(--navy) 40%, transparent);
 	--section-y: var(--wp--preset--spacing--l, clamp(3rem, 8vw, 6rem));
 }
 
@@ -473,8 +479,8 @@ html.is-menu-open {
 	margin-inline: auto;
 	padding: 1.5rem;
 	background: var(--white);
-	border-radius: 24px;
-	box-shadow: 0 0 2px color-mix(in srgb, var(--navy) 40%, transparent);
+	border-radius: var(--radius-card);
+	box-shadow: var(--shadow-flat);
 }
 
 .site-menu__grid {
@@ -918,8 +924,8 @@ html.is-menu-open {
 	padding: 2rem;
 	background: var(--white);
 	border: 0;
-	border-radius: 24px;
-	box-shadow: 0 0 2px color-mix(in srgb, var(--navy) 40%, transparent);
+	border-radius: var(--radius-card);
+	box-shadow: var(--shadow-flat);
 }
 
 .card--elevated .card__icon {
@@ -999,14 +1005,14 @@ html.is-menu-open {
 	height: 100%;
 	min-height: 548px;
 	overflow: hidden;
-	border-radius: 32px;
+	border-radius: var(--radius-card);
 }
 
 .about__narrative {
 	gap: 7.5rem; /* 120 px between logo and text */
 	padding: 2.75rem; /* 44 px */
 	background: var(--white);
-	box-shadow: 0 0 4px color-mix(in srgb, var(--navy) 40%, transparent);
+	box-shadow: var(--shadow-flat);
 }
 
 .about__logo {
@@ -1045,7 +1051,7 @@ html.is-menu-open {
 	background: var(--navy);
 	color: var(--white);
 	/*border: 1px solid color-mix(in srgb, var(--white) 8%, transparent);*/
-	box-shadow: 0 24px 64px -16px color-mix(in srgb, var(--navy) 10%, transparent);
+	box-shadow: var(--shadow-raised);
 }
 
 .about__model-text {
@@ -1238,10 +1244,10 @@ html.is-menu-open {
 	position: absolute;
 	margin: 0;
 	overflow: hidden;
-	border-radius: 28px;
+	border-radius: var(--radius-card);
 	background: var(--card-bg, var(--navy)); /* The unit's color (ACF); the image, when there is one, covers it. */
 	color: var(--card-fg, var(--white));
-	box-shadow: 0 20px 44px color-mix(in srgb, var(--navy) 19%, transparent);
+	box-shadow: var(--shadow-raised);
 	/* top card */
 	left: 49.62%;
 	top: 47.71%;
@@ -1608,12 +1614,12 @@ html[data-motion='ready'] .units__card.is-dealt {
 	overflow: hidden;
 	background: var(--white);
 	border: 1px solid color-mix(in srgb, var(--navy) 14%, var(--white)); /* Figma #DDE5F5 */
-	border-radius: 22px;
-	box-shadow: 0 12px 32px -8px color-mix(in srgb, var(--navy) 5%, transparent);
+	border-radius: var(--radius-card);
+	box-shadow: var(--shadow-flat);
 }
 
 .mos__card.is-active {
-	box-shadow: 0 24px 60px -10px color-mix(in srgb, var(--navy) 14%, transparent);
+	box-shadow: var(--shadow-raised);
 }
 
 .mos__face--closed {
@@ -2106,8 +2112,8 @@ html[data-motion='ready'] .units__card.is-dealt {
 	overflow: hidden;
 	padding: 2rem;
 	background: var(--white);
-	border-radius: 24px;
-	box-shadow: 0 0 4px color-mix(in srgb, var(--navy) 40%, transparent);
+	border-radius: var(--radius-card);
+	box-shadow: var(--shadow-flat);
 }
 
 .offer__card--purple {
@@ -2317,8 +2323,8 @@ html[data-motion='ready'] .units__card.is-dealt {
 	height: 420px;
 	overflow: hidden;
 	background: var(--surface);
-	border-radius: 24px;
-	box-shadow: 0 0 4px color-mix(in srgb, var(--electric) 40%, transparent);
+	border-radius: var(--radius-card);
+	box-shadow: var(--shadow-flat);
 }
 
 .projects__image {
@@ -2571,8 +2577,8 @@ html[data-motion='ready'] .units__card.is-dealt {
 	margin-top: 3.5rem; /* 56 px */
 	overflow: hidden;
 	background: var(--white);
-	border-radius: 24px;
-	box-shadow: 0 0 4px color-mix(in srgb, var(--navy) 40%, transparent);
+	border-radius: var(--radius-card);
+	box-shadow: var(--shadow-flat);
 }
 
 @media (min-width: 992px) {
@@ -2595,7 +2601,7 @@ html[data-motion='ready'] .units__card.is-dealt {
 }
 
 .relevance__item {
-	border-radius: 24px;
+	border-radius: var(--radius-card);
 	color: var(--navy);
 	transition: background-color 0.5s var(--ease-markea), color 0.5s var(--ease-markea), box-shadow 0.5s var(--ease-markea);
 }
@@ -2603,7 +2609,7 @@ html[data-motion='ready'] .units__card.is-dealt {
 .relevance__item.is-open {
 	background: var(--navy);
 	color: var(--white);
-	box-shadow: 0 0 2px color-mix(in srgb, var(--navy) 40%, transparent);
+	box-shadow: var(--shadow-flat);
 }
 
 .relevance__heading-item {
@@ -2784,8 +2790,8 @@ button.relevance__trigger {
 	gap: 3.5rem; /* 56 px */
 	padding: 2rem;
 	background: var(--white);
-	border-radius: 16px;
-	box-shadow: 0 0 2px color-mix(in srgb, var(--navy) 40%, transparent);
+	border-radius: var(--radius-card);
+	box-shadow: var(--shadow-flat);
 }
 
 .how__icon {
@@ -3249,8 +3255,8 @@ button.relevance__trigger {
 	margin-inline: auto;
 	padding: clamp(1.5rem, 6.94vw, 6.25rem); /* 100 px at 1440 */
 	background: var(--white);
-	border-radius: 24px;
-	box-shadow: 0 0 2px color-mix(in srgb, var(--navy) 40%, transparent);
+	border-radius: var(--radius-card);
+	box-shadow: var(--shadow-flat);
 }
 
 @media (min-width: 992px) {
@@ -3867,7 +3873,7 @@ html[data-motion='ready'] .offer__card:nth-child(3)::before {
 
 	html[data-motion='ready'] :is(.card--elevated, .how__card, .offer__card, .next__step):hover {
 		translate: 0 -8px;
-		box-shadow: 0 26px 48px -18px color-mix(in srgb, var(--navy) 28%, transparent), 0 0 2px color-mix(in srgb, var(--navy) 40%, transparent);
+		box-shadow: var(--shadow-hover);
 	}
 
 	html[data-motion='ready'] .next__step:hover {
