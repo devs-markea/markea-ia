@@ -4185,10 +4185,18 @@ html[data-motion='ready'] .projects__grid.is-resizing {
 @media (max-width: 767.98px) {
 	/* Swiper carousels (assets/src/js/carousel.js): the list is a plain grid until Swiper takes over. The root bleeds
 	   to the screen edges; Swiper re-adds the page gutter as slide offset. */
+	/* Swiper clips overflow, so the root carries room for the card shadow (about 56 px below, 24 px above); the
+	   negative margins give that space back to the layout. The dots sit inside the bottom room. */
 	.m-swiper.is-swiper {
-		margin: 2rem calc(-1 * var(--page-margin)) 0;
-		padding-block: 0.5rem 0.25rem;
+		margin: calc(2rem - 1.5rem) calc(-1 * var(--page-margin)) -1.5rem;
+		padding-block: 1.5rem 4.5rem;
 		overflow: hidden;
+	}
+
+	.m-swiper.is-swiper .swiper-pagination {
+		position: absolute;
+		inset: auto 0 1.5rem;
+		margin: 0;
 	}
 
 	.m-swiper.is-swiper .row {
@@ -4221,6 +4229,15 @@ html[data-motion='ready'] .projects__grid.is-resizing {
 	.how__card {
 		height: 100%;
 		gap: 2rem;
+	}
+
+	/* The dots sit on the navy band. */
+	.strategists__team .swiper-pagination-bullet {
+		background: color-mix(in srgb, var(--white) 35%, transparent);
+	}
+
+	.strategists__team .swiper-pagination-bullet-active {
+		background: var(--white);
 	}
 
 	/* The navy band runs 48 px (not 142) past the swipe row. */
