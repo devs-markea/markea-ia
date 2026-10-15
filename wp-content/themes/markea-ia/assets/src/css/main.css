@@ -37,6 +37,7 @@
  * 33. Motion (smooth scroll, reveals, loader, menu and button effects)
  * 34. Mobile refinements (touch targets, input zoom, minimum text size)
  * 35. Mobile structure (swipe carousels, sticky CTA)
+ * 36. Mobile type scale and menu panel
  *
  * Colors come from Site Settings > Colores (inline style overrides the base palette in section 2).
  */
@@ -4289,5 +4290,134 @@ html[data-motion='ready'] .projects__grid.is-resizing {
 @media (prefers-reduced-motion: reduce) {
 	.sticky-cta {
 		transition: none;
+	}
+}
+
+/* ==========================================================================
+   36. Mobile type scale and menu panel
+   Below 992 px only (desktop keeps the Figma measures).
+   Type scale for running text, so paragraphs match from section to section:
+   - Lead (intro under a section title): 16 px / 1.7.
+   - Card text: 15 px / 1.55.
+   Menu panel: structure from mdx.so. A full-height panel (no floating card): centered eyebrow and title, compact
+   navigation, then the CTA, a rule and the social icons anchored to the bottom.
+   ========================================================================== */
+@media (max-width: 991.98px) {
+	.units__lead,
+	.mos__intro,
+	.offer__intro,
+	.projects__intro,
+	.tools__intro,
+	.relevance__intro,
+	.how__subtitle,
+	.next__text,
+	.strategists__text,
+	.about__text,
+	.case__text,
+	.contact__text {
+		font-size: 1rem; /* 16 px */
+		line-height: 1.7;
+	}
+
+	.card .card__text,
+	.mos__text,
+	.offer__text,
+	.how__text,
+	.next__step-text,
+	.relevance__panel p,
+	.about__model-text {
+		font-size: 0.9375rem; /* 15 px */
+		line-height: 1.55;
+	}
+
+	/* Menu panel. */
+	.site-menu {
+		padding: 0;
+		background:
+			radial-gradient(60% 40% at 85% 85%, color-mix(in srgb, var(--purple) 14%, transparent), transparent),
+			radial-gradient(70% 40% at 10% 15%, color-mix(in srgb, var(--cyan) 16%, transparent), transparent),
+			color-mix(in srgb, var(--white) 94%, transparent);
+	}
+
+	.site-menu__card {
+		min-height: 100%;
+		max-width: none;
+		padding: 1.5rem var(--page-margin) calc(1.5rem + env(safe-area-inset-bottom, 0px));
+		background: transparent;
+		border-radius: 0;
+		box-shadow: none;
+		gap: 1.5rem;
+	}
+
+	.site-menu__grid {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		gap: 0;
+	}
+
+	.site-menu__intro {
+		display: contents; /* its children become items of the grid, so the CTA can go below the navigation */
+	}
+
+	.site-menu__eyebrow {
+		order: 1;
+		justify-content: center;
+		margin: 0 0 0.75rem;
+	}
+
+	.site-menu__title {
+		order: 2;
+		margin: 0 0 2rem;
+		font-size: 1.75rem; /* 28 px */
+		text-align: center;
+	}
+
+	.site-menu__rule {
+		display: none;
+	}
+
+	.site-menu__nav {
+		order: 3;
+	}
+
+	.site-menu__label {
+		max-width: none;
+		margin-bottom: 0.75rem;
+	}
+
+	.site-menu__list {
+		gap: 0;
+	}
+
+	.site-menu__list a {
+		min-height: 2.75rem; /* 44 px */
+		font-size: 1.5rem; /* 24 px */
+	}
+
+	.site-menu__email {
+		order: 4;
+		align-self: center;
+		margin-top: auto;
+		padding-top: 2rem;
+	}
+
+	.site-menu__cta {
+		order: 5;
+		align-self: center;
+		margin: 1.25rem 0 0;
+	}
+
+	.site-menu__footer {
+		flex-direction: column-reverse; /* social icons first, copyright below */
+		justify-content: center;
+		gap: 0.75rem;
+		padding-top: 1.25rem;
+		text-align: center;
+	}
+
+	.site-menu__social {
+		justify-content: center;
+		gap: 0.75rem;
 	}
 }
