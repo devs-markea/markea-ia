@@ -127,7 +127,7 @@
 	--stroke: color-mix(in srgb, var(--white) 25%, transparent);
 	--divider: color-mix(in srgb, var(--white) 40%, transparent);
 	--primary: var(--electric);
-	--primary-hover: color-mix(in srgb, var(--electric) 85%, transparent);
+	--primary-hover: color-mix(in srgb, var(--electric) 82%, var(--white)); /* lighter, so it never sinks into the dark background */
 
 	background: var(--bg);
 	color: var(--text);
@@ -4050,7 +4050,7 @@ html[data-motion='ready'] .site-header__menu[aria-expanded='true'] .icon--close 
 	transform: translate(-50%, -50%);
 }
 
-/* Primary buttons: circle that grows from the pointer (motion/buttons.js). */
+/* Filter pills: circle that grows from the pointer (motion/buttons.js). */
 .btn--fx {
 	position: relative;
 	overflow: hidden;
