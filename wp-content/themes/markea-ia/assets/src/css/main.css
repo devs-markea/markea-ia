@@ -41,6 +41,7 @@
  * 37. Mobile footer
  * 38. Mobile heading scale
  * 39. Mobile corrections
+ * 40. Mobile: 3D hero touch, softer glows
  *
  * Colors come from Site Settings > Colores (inline style overrides the base palette in section 2).
  */
@@ -2438,24 +2439,16 @@ html[data-motion='ready'] .units__card.is-dealt {
 	flex: 1;
 	min-width: 0;
 	overflow: hidden;
+	/* Fade on the left side of the row. A mask (not a white overlay) so it works over any background, such as the
+	   section glows. */
+	-webkit-mask-image: linear-gradient(to right, transparent 0, #000 min(200px, 40%));
+	mask-image: linear-gradient(to right, transparent 0, #000 min(200px, 40%));
 }
 
 @media (min-width: 992px) {
 	.tools__marquee {
 		margin-right: calc(50% - 50vw); /* bleed to the right edge of the window, like the design */
 	}
-}
-
-/* White fade on the left side of the row. */
-.tools__marquee::before {
-	content: '';
-	position: absolute;
-	inset: 0 auto 0 0;
-	z-index: 1;
-	width: 200px;
-	max-width: 40%;
-	background: linear-gradient(to right, var(--white), transparent);
-	pointer-events: none;
 }
 
 .tools__track {
@@ -4692,5 +4685,36 @@ html[data-motion='ready'] .projects__grid.is-resizing {
 
 	.how__body {
 		gap: 0.75rem;
+	}
+}
+
+/* ==========================================================================
+   40. Mobile: 3D hero touch, softer glows
+   ========================================================================== */
+/* Touch screens: the 3D scene keeps playing but ignores touches, so a swipe over it scrolls the page instead of
+   being captured by the viewer. Desktop (mouse) keeps the interactive scene. */
+@media (pointer: coarse) {
+	.hero__visual spline-viewer,
+	.hero__visual iframe {
+		pointer-events: none;
+	}
+
+	.hero__visual {
+		touch-action: pan-y;
+	}
+}
+
+/* Ambient glows are sized for a 1440 px frame (1100 to 1350 px wide); on a phone they cover the whole page. Smaller
+   and lighter below 992 px. */
+@media (max-width: 991.98px) {
+	.problem::before,
+	.about::before,
+	.mos::before,
+	.projects::before,
+	.relevance::before,
+	.strategists::before {
+		width: min(var(--glow-size), 130vw);
+		height: min(var(--glow-size), 130vw);
+		opacity: 0.55;
 	}
 }
