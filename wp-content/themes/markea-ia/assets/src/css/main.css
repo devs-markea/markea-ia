@@ -1615,7 +1615,7 @@ html[data-motion='ready'] .units__card.is-dealt {
 	background: var(--white);
 	border: 1px solid color-mix(in srgb, var(--navy) 14%, var(--white)); /* Figma #DDE5F5 */
 	border-radius: var(--radius-card);
-	box-shadow: var(--shadow-flat);
+	box-shadow: none; /* the 1 px border is the outline; a ring on top reads as a double border */
 }
 
 .mos__card.is-active {
