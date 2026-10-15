@@ -261,6 +261,24 @@ function markea_tone( array $row ): string {
 }
 
 /**
+ * Extra anchor of a section row (field "Ancla del menú"), so custom menu items such as #servicios can scroll to it.
+ * It is an empty marker at the top of the section: the section keeps its own stable id (inicio, contacto...), which
+ * scripts and buttons rely on. Names that clash with one of those ids are ignored.
+ *
+ * @param array<string,mixed> $row Flexible Content row.
+ */
+function markea_section_anchor( array $row ): string {
+	$anchor = sanitize_title( (string) ( $row['anchor'] ?? '' ) );
+	$taken  = array( 'contenido', 'inicio', 'problema', 'quienes-somos', 'unidades', 'caso', 'mos', 'oferta', 'proyectos', 'herramientas', 'relevancia', 'como-trabajamos', 'proximos-pasos', 'estrategas', 'contacto' );
+
+	if ( '' === $anchor || in_array( $anchor, $taken, true ) ) {
+		return '';
+	}
+
+	return '<span id="' . esc_attr( $anchor ) . '" class="section__anchor" aria-hidden="true"></span>';
+}
+
+/**
  * Eyebrow label of a section row.
  *
  * @param array<string,mixed> $row Flexible Content row.

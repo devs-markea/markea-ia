@@ -28,6 +28,7 @@ $duration = (string) ( $row['video_duration'] ?? '' );
 $timeline = array( 'search-18', 'bar-chart', 'file-text' ); // Icons of the three timeline discs, by position.
 ?>
 <section id="proximos-pasos" class="section next section--dark">
+	<?php echo markea_section_anchor( $row ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in the helper. ?>
 	<div class="container">
 		<div class="next__layout">
 			<div class="next__main">

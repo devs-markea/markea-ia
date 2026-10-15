@@ -20,6 +20,7 @@ $hide_badge  = ! isset( $row['embed_hide_badge'] ) || '' === $row['embed_hide_ba
 $is_spline   = str_ends_with( strtolower( (string) wp_parse_url( $embed_url, PHP_URL_PATH ) ), '.splinecode' );
 ?>
 <section id="inicio" class="section hero<?php echo esc_attr( markea_tone( $row ) ); ?>">
+	<?php echo markea_section_anchor( $row ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in the helper. ?>
 	<div class="container">
 		<div class="row hero__row">
 			<div class="col-12 col-lg-7">

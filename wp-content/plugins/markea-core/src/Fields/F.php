@@ -142,6 +142,18 @@ final class F {
 			array( 'choices' => array( 'light' => 'Claro', 'dark' => 'Oscuro' ), 'default_value' => 'light', 'ui' => 0 )
 		);
 
+		// Optional extra anchor so menu items and buttons can link to the section (#servicios, #contacto...).
+		$subs[] = self::sub(
+			'text',
+			'anchor',
+			'Ancla del menú',
+			array(
+				'instructions' => 'Opcional. Nombre para enlazar esta sección desde el menú o un botón. Solo minúsculas, números y guiones. Ej. "servicios" se enlaza como #servicios. No repitas el mismo nombre en dos secciones.',
+				'placeholder'  => 'servicios',
+				'maxlength'    => 40,
+			)
+		);
+
 		return array(
 			'key'        => 'layout_markea_' . $name,
 			'name'       => $name,

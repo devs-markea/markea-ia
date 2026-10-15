@@ -22,6 +22,7 @@ if ( ! $photo ) {
 }
 ?>
 <section id="relevancia" class="section relevance<?php echo esc_attr( markea_tone( $row ) ); ?>">
+	<?php echo markea_section_anchor( $row ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in the helper. ?>
 	<div class="container">
 		<header class="relevance__header">
 			<div class="relevance__heading">

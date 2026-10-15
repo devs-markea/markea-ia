@@ -4718,3 +4718,18 @@ html[data-motion='ready'] .projects__grid.is-resizing {
 		opacity: 0.55;
 	}
 }
+
+/* Section anchor marker (field "Ancla del menú"): zero size, pinned to the section's top edge (not inside its top
+   padding) so a menu link lands exactly where the section starts. */
+.section:has(> .section__anchor) {
+	position: relative;
+}
+
+.section__anchor {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 0;
+	height: 0;
+	pointer-events: none;
+}

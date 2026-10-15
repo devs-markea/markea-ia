@@ -17,6 +17,7 @@ if ( ! $projects->have_posts() ) {
 $categories = markea_get_project_categories();
 ?>
 <section id="proyectos" class="section projects<?php echo esc_attr( markea_tone( $row ) ); ?>" data-projects>
+	<?php echo markea_section_anchor( $row ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in the helper. ?>
 	<div class="container">
 		<header class="projects__header">
 			<div class="projects__heading">

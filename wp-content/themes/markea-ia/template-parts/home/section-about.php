@@ -22,6 +22,7 @@ if ( ! $photo ) {
 }
 ?>
 <section id="quienes-somos" class="section about<?php echo esc_attr( markea_tone( $row ) ); ?>">
+	<?php echo markea_section_anchor( $row ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in the helper. ?>
 	<div class="container">
 		<header class="section__header">
 			<?php echo markea_eyebrow( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?>

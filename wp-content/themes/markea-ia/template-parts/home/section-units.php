@@ -19,6 +19,7 @@ if ( '' === $title && ! $items ) {
 $markers = array( 'electric', 'purple', 'cyan', 'indigo' ); // Marker colors, in order (Figma: electric, purple, cyan).
 ?>
 <section id="unidades" class="section units<?php echo esc_attr( markea_tone( $row ) ); ?>">
+	<?php echo markea_section_anchor( $row ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in the helper. ?>
 	<div class="container">
 		<header class="section__header section__header--center">
 			<?php echo markea_eyebrow( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?>

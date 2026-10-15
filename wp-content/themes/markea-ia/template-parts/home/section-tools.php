@@ -28,6 +28,7 @@ $cards = static function ( array $items ): string {
 };
 ?>
 <section id="herramientas" class="section tools<?php echo esc_attr( markea_tone( $row ) ); ?>">
+	<?php echo markea_section_anchor( $row ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in the helper. ?>
 	<div class="container tools__bar">
 		<div class="tools__intro">
 			<?php echo markea_icon( 'asterisk', 48 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>

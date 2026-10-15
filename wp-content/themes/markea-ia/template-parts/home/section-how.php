@@ -16,6 +16,7 @@ if ( '' === $title && ! $items ) {
 }
 ?>
 <section id="como-trabajamos" class="section how<?php echo esc_attr( markea_tone( $row ) ); ?>">
+	<?php echo markea_section_anchor( $row ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in the helper. ?>
 	<div class="container">
 		<header class="how__header">
 			<?php echo markea_eyebrow( $row ); // phpcs:ignore WordPress.Security.EscapeOutput ?>

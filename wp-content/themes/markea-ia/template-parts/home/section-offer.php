@@ -19,6 +19,7 @@ if ( '' === $title && ! $items ) {
 $tones = array( 'electric', 'purple', 'indigo' ); // Icon, icon background and glow color per card position.
 ?>
 <section id="oferta" class="section offer<?php echo esc_attr( markea_tone( $row ) ); ?>">
+	<?php echo markea_section_anchor( $row ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in the helper. ?>
 	<div class="container">
 		<header class="offer__header">
 			<?php if ( $title ) : ?>

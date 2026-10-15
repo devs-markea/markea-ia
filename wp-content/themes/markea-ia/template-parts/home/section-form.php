@@ -29,6 +29,7 @@ $icons     = array(
 $heading   = (string) ( markea_section( 'hero' )['cta_label'] ?? '' ) ?: __( 'Hablemos', 'markea-ia' );
 ?>
 <section id="contacto" class="section contact<?php echo esc_attr( markea_tone( $row ) ); ?>">
+	<?php echo markea_section_anchor( $row ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in the helper. ?>
 	<div class="contact__card">
 		<div class="contact__intro">
 			<?php if ( ! empty( $row['eyebrow'] ) ) : ?>

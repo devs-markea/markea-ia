@@ -28,6 +28,7 @@ if ( ! $overlay && empty( $row['image'] ) ) {
 $bullets = ( $row['items'] ?? array() );
 ?>
 <section id="caso" class="section case section--dark">
+	<?php echo markea_section_anchor( $row ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in the helper. ?>
 	<span class="case__orb" aria-hidden="true"></span>
 	<div class="container">
 		<div class="case__grid">
