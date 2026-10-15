@@ -1114,9 +1114,17 @@ html.is-menu-open {
 		position: absolute;
 		left: 45.5%; /* Figma: x 276 of 606 */
 		top: 46.4%; /* y 254 of 548 */
-		width: 300px;
-		height: 400px;
+		width: min(49.5%, 300px); /* Figma: 300 of 606; it shrinks with the card so it never runs out of it */
+		height: auto;
+		aspect-ratio: 3 / 4;
 		margin: 0;
+	}
+}
+
+/* Narrow desktop: the card is shorter than the design, so the photo starts lower to stay under the last step. */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+	.about__photo {
+		top: 56%;
 	}
 }
 
@@ -2699,21 +2707,24 @@ button.relevance__trigger {
 /* Photo: tilted card that bleeds off the bottom-right corner. */
 .relevance__photo {
 	position: relative;
-	min-height: 320px;
+	min-height: 22.5rem; /* 360 px */
 	margin: 0;
 	overflow: hidden;
 }
 
+/* Small screens: centered, never wider than the card (a -8deg tilt widens the box by about 0.14 x its height), with
+   room above for the raised corner and bleeding off the bottom. */
 .relevance__photo-img {
 	position: absolute;
 	left: 50%;
-	top: 8%;
-	width: 300px;
-	height: 449px;
+	top: 2.5rem; /* 40 px: the tilt raises the top-right corner by about 18 px */
+	width: min(72%, 260px);
+	height: auto;
+	aspect-ratio: 300 / 449;
 	max-width: none;
 	object-fit: cover;
 	border-radius: 24px 24px 0 0;
-	transform: translateX(-35%) rotate(-8deg);
+	transform: translateX(-50%) rotate(-8deg);
 }
 
 @media (min-width: 992px) {
@@ -2723,7 +2734,8 @@ button.relevance__trigger {
 
 	.relevance__photo-img {
 		left: 21%; /* Figma: x 84 of 400 */
-		top: 21px;
+		top: 2.75rem; /* Figma y 21, plus the room the raised corner needs inside the card */
+		width: 300px;
 		transform: rotate(-8deg);
 	}
 }
