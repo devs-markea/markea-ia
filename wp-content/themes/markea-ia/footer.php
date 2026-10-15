@@ -132,8 +132,9 @@ $markea_icons      = array(
 			<?php if ( $markea_copyright ) : ?>
 				<p><?php echo esc_html( $markea_copyright ); ?></p>
 			<?php endif; ?>
+			<a class="site-footer__to-top" href="#inicio"><?php esc_html_e( 'Volver arriba', 'markea-ia' ); ?><span class="site-footer__to-top-icon" aria-hidden="true"><?php echo markea_icon( 'arrow-up-right', 14 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span></a>
 			<?php if ( $markea_legal ) : ?>
-				<div><?php echo wp_kses_post( $markea_legal ); ?></div>
+				<div class="site-footer__legal-links"><?php echo wp_kses_post( $markea_legal ); ?></div>
 			<?php endif; ?>
 		</div>
 	<?php endif; ?>

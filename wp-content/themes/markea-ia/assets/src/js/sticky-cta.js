@@ -1,5 +1,5 @@
 /**
- * Mobile sticky CTA: shown once the hero is out of view, hidden again over the contact form and footer
+ * Mobile sticky CTA: shown once the hero is out of view, hidden again over the contact form and the footer
  * (where the primary action is already on screen).
  */
 export function initStickyCta() {
@@ -9,9 +9,9 @@ export function initStickyCta() {
 		return;
 	}
 
-	const state = { hero: true, end: false };
+	const state = { hero: true, end: false, footer: false };
 	const update = () => {
-		const show = ! state.hero && ! state.end;
+		const show = ! state.hero && ! state.end && ! state.footer;
 		bar.hidden = false;
 		bar.classList.toggle( 'is-visible', show );
 		bar.toggleAttribute( 'inert', ! show );
@@ -29,5 +29,6 @@ export function initStickyCta() {
 
 	watch( hero, 'hero' );
 	watch( document.getElementById( 'contacto' ), 'end' );
+	watch( document.querySelector( '.site-footer' ), 'footer' );
 	update();
 }

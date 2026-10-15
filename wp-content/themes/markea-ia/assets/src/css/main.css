@@ -38,6 +38,7 @@
  * 34. Mobile refinements (touch targets, input zoom, minimum text size)
  * 35. Mobile structure (swipe carousels, sticky CTA)
  * 36. Mobile type scale and menu panel
+ * 37. Mobile footer
  *
  * Colors come from Site Settings > Colores (inline style overrides the base palette in section 2).
  */
@@ -4419,5 +4420,118 @@ html[data-motion='ready'] .projects__grid.is-resizing {
 	.site-menu__social {
 		justify-content: center;
 		gap: 0.75rem;
+	}
+}
+
+/* ==========================================================================
+   37. Mobile footer
+   Structure from mdx.so: big question and email, pitch block, link columns in two columns, full-width wordmark and a
+   bottom row with the copyright and a round "back to top". Below 992 px; desktop keeps the Figma layout.
+   ========================================================================== */
+.site-footer__to-top {
+	display: none;
+}
+
+@media (max-width: 991.98px) {
+	.site-footer__top {
+		gap: 2.5rem;
+		padding-top: 4rem;
+		padding-bottom: 2.5rem;
+	}
+
+	.site-footer__question {
+		font-size: 2rem; /* 32 px */
+	}
+
+	.site-footer__email {
+		font-size: 1.25rem; /* 20 px */
+	}
+
+	.site-footer__tagline {
+		font-size: 1.5rem; /* 24 px */
+	}
+
+	.site-footer__columns {
+		grid-template-columns: repeat(2, minmax(0, 1fr)); /* two columns at any phone width */
+		gap: 2.5rem 1.5rem;
+		padding-block: 2.5rem;
+	}
+
+	.site-footer__col--news {
+		grid-column: 1 / -1;
+		max-width: none;
+	}
+
+	.site-footer__label {
+		font-size: 0.75rem; /* 12 px */
+		letter-spacing: 0.04em;
+	}
+
+	.site-footer__list {
+		gap: 0.625rem;
+	}
+
+	.site-footer__news-input {
+		height: 3.5rem;
+		font-size: 1rem;
+	}
+
+	.site-footer__brand {
+		padding-block: 1.5rem;
+	}
+
+	.site-footer__legal {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding-block: 1.25rem 1.5rem;
+		text-align: left;
+		font-size: 0.75rem; /* 12 px */
+	}
+
+	.site-footer__legal > p {
+		flex: 1 1 0;
+		min-width: 0;
+		color: color-mix(in srgb, var(--white) 60%, transparent);
+	}
+
+	.site-footer__legal-links {
+		flex: 1 0 100%;
+		order: 3;
+	}
+
+	.site-footer__to-top {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.75rem;
+		min-height: 2.75rem; /* 44 px */
+		color: var(--white);
+		font-family: var(--font-heading);
+		font-size: 0.8125rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		text-decoration: none;
+	}
+
+	.site-footer__to-top-icon {
+		display: grid;
+		place-items: center;
+		width: 2.25rem;
+		height: 2.25rem;
+		border: 1px solid color-mix(in srgb, var(--white) 50%, transparent);
+		border-radius: 50%;
+		transition: background-color 0.4s var(--ease-markea), color 0.4s var(--ease-markea);
+	}
+
+	.site-footer__to-top-icon .icon {
+		transform: rotate(-45deg); /* the arrow icon points up-right: turn it up */
+	}
+
+	.site-footer__to-top:hover .site-footer__to-top-icon {
+		background: var(--white);
+		color: var(--navy);
 	}
 }
