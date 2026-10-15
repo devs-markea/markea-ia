@@ -63,7 +63,7 @@ if ( ! $photo ) {
 							</h3>
 							<?php if ( $has_text ) : ?>
 								<div class="relevance__panel" id="relevance-panel-<?php echo (int) $i; ?>" role="region" aria-labelledby="relevance-trigger-<?php echo (int) $i; ?>" <?php echo $open ? '' : 'hidden'; ?>>
-									<p><?php echo esc_html( $point['text'] ); ?></p>
+									<div class="relevance__panel-inner"><p><?php echo esc_html( $point['text'] ); ?></p></div>
 								</div>
 							<?php endif; ?>
 						</div>

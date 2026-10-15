@@ -40,6 +40,7 @@
  * 36. Mobile type scale and menu panel
  * 37. Mobile footer
  * 38. Mobile heading scale
+ * 39. Mobile corrections
  *
  * Colors come from Site Settings > Colores (inline style overrides the base palette in section 2).
  */
@@ -2596,6 +2597,7 @@ html[data-motion='ready'] .units__card.is-dealt {
 .relevance__item {
 	border-radius: 24px;
 	color: var(--navy);
+	transition: background-color 0.5s var(--ease-markea), color 0.5s var(--ease-markea), box-shadow 0.5s var(--ease-markea);
 }
 
 .relevance__item.is-open {
@@ -2639,20 +2641,53 @@ button.relevance__trigger {
 	border-radius: 50%;
 }
 
+.relevance__icon {
+	transition: background-color 0.5s var(--ease-markea), color 0.5s var(--ease-markea);
+}
+
 .relevance__item.is-open .relevance__icon {
 	background: var(--white);
 	color: var(--navy);
 }
 
+/* Open/close: the panel is a one-row grid whose row goes 0fr -> 1fr; the inner box clips the text. */
 .relevance__panel {
-	padding: 0 1.5rem 1.5rem 4.75rem; /* aligned with the title: 24 + 40 + 14 */
+	display: grid;
+	grid-template-rows: 0fr;
 	font-size: 0.875rem; /* 14 px */
 	line-height: 1.6;
+	transition: grid-template-rows 0.5s var(--ease-markea);
+}
+
+.relevance__item.is-open .relevance__panel {
+	grid-template-rows: 1fr;
+}
+
+.relevance__panel-inner {
+	min-height: 0;
+	overflow: hidden;
+	opacity: 0;
+	transition: opacity 0.4s var(--ease-markea);
+}
+
+.relevance__item.is-open .relevance__panel-inner {
+	opacity: 1;
+	transition-delay: 0.1s;
 }
 
 .relevance__panel p {
-	margin: 0;
 	max-width: 24rem;
+	margin: 0;
+	padding: 0 1.5rem 1.5rem 4.75rem; /* aligned with the title: 24 + 40 + 14 */
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.relevance__item,
+	.relevance__icon,
+	.relevance__panel,
+	.relevance__panel-inner {
+		transition: none;
+	}
 }
 
 /* Photo: tilted card that bleeds off the bottom-right corner. */
@@ -3315,13 +3350,13 @@ button.relevance__trigger {
 
 .contact__grid {
 	display: grid;
-	grid-template-columns: repeat(2, minmax(0, 1fr)); /* two columns from phone width (structure from mdx.so) */
-	gap: 1.5rem 1rem; /* compact rows like the design */
+	gap: 1.5rem; /* one field per row on phones */
 }
 
 @media (min-width: 576px) {
 	.contact__grid {
-		gap: 1rem 1.5rem; /* 24 px between columns */
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1rem 1.5rem; /* compact rows like the design, 24 px between columns */
 	}
 }
 
@@ -4576,5 +4611,58 @@ html[data-motion='ready'] .projects__grid.is-resizing {
 	.relevance__heading-item {
 		font-size: 1.125rem; /* 18 px: accordion trigger, one step under h3 */
 		line-height: 1.4;
+	}
+}
+
+/* ==========================================================================
+   39. Mobile corrections
+   Below 992 px.
+   ========================================================================== */
+@media (max-width: 991.98px) {
+	/* Quienes somos: less air between the logo and the text; the tilted photo bleeds off the bottom, centered. */
+	.about__narrative {
+		gap: 2.5rem;
+		min-height: 0;
+		padding: 2rem;
+	}
+
+	.about__model {
+		min-height: 0;
+		padding: 2rem 2rem 0;
+	}
+
+	.about__photo {
+		width: min(78%, 280px);
+		margin: 1.5rem auto 0;
+		border-radius: 24px 24px 0 0;
+		transform: rotate(-6deg) translateY(2rem);
+		transform-origin: 50% 100%;
+	}
+
+	/* Caso: the cyan orb sits above the heading instead of under it. */
+	.case {
+		padding-top: 7rem;
+	}
+
+	.case__orb {
+		width: 13.75rem; /* 220 px */
+		max-width: none;
+		transform: translate(55%, -55%);
+	}
+
+	/* Proyectos: shorter media. */
+	.projects__media {
+		height: auto;
+		aspect-ratio: 16 / 11;
+	}
+
+	/* Como trabajamos: Swiper sets .swiper-slide to display:block, which would drop the card's flex gap. */
+	.m-swiper.is-swiper .how__card {
+		display: flex;
+		gap: 1.5rem;
+	}
+
+	.how__body {
+		gap: 0.75rem;
 	}
 }
