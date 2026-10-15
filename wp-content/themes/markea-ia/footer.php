@@ -138,6 +138,11 @@ $markea_icons      = array(
 		</div>
 	<?php endif; ?>
 </footer>
+<?php if ( is_front_page() ) : ?>
+	<div class="sticky-cta" aria-hidden="true" hidden>
+		<?php echo markea_cta( 'sticky' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+	</div>
+<?php endif; ?>
 <?php wp_footer(); ?>
 </body>
 </html>

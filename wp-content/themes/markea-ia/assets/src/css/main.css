@@ -36,6 +36,7 @@
  * 32. Footer
  * 33. Motion (smooth scroll, reveals, loader, menu and button effects)
  * 34. Mobile refinements (touch targets, input zoom, minimum text size)
+ * 35. Mobile structure (swipe carousels, sticky CTA)
  *
  * Colors come from Site Settings > Colores (inline style overrides the base palette in section 2).
  */
@@ -4200,5 +4201,110 @@ html[data-motion='ready'] .projects__grid.is-resizing {
 	.site-footer__news-btn {
 		min-height: 2.75rem;
 		padding-block: 0.625rem;
+	}
+}
+
+/* ==========================================================================
+   35. Mobile structure
+   Structure borrowed from long-scroll product sites: card stacks become swipe rows (CSS scroll-snap, no JS) and a
+   primary CTA stays within thumb reach. Design stays Markea's.
+   ========================================================================== */
+@media (max-width: 767.98px) {
+	/* Swipe rows: bleed to the screen edges, keep the page gutter as the first/last inset. */
+	.problem__cards,
+	.how__grid,
+	.strategists__list {
+		display: flex;
+		flex-wrap: nowrap;
+		gap: 1rem;
+		margin-inline: calc(-1 * var(--page-margin));
+		padding: 0.5rem var(--page-margin) 1rem;
+		overflow-x: auto;
+		overscroll-behavior-x: contain;
+		scroll-snap-type: x mandatory;
+		scroll-padding-inline: var(--page-margin);
+		scrollbar-width: none;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	.problem__cards::-webkit-scrollbar,
+	.how__grid::-webkit-scrollbar,
+	.strategists__list::-webkit-scrollbar {
+		display: none;
+	}
+
+	.problem__cards > li,
+	.how__grid > li,
+	.strategists__list > li {
+		flex: 0 0 82%;
+		width: 82%;
+		max-width: 22rem;
+		margin: 0;
+		padding: 0;
+		scroll-snap-align: start;
+	}
+
+	.problem__cards {
+		margin-top: 2rem;
+	}
+
+	.how__grid {
+		margin-top: 2rem;
+	}
+
+	.how__card {
+		height: 100%;
+		gap: 2rem;
+	}
+
+	/* The navy band runs 48 px (not 142) past the swipe row. */
+	.strategists__team {
+		margin-bottom: 48px;
+	}
+
+	.strategists__team::before {
+		height: calc(50% + 48px);
+	}
+
+	/* Strategists: the plate is a hover effect; on touch every card shows it. */
+	.strategists__list .strategists__plate {
+		bottom: 0;
+	}
+}
+
+/* Sticky CTA (mobile only). */
+.sticky-cta {
+	display: none;
+}
+
+@media (max-width: 991.98px) {
+	.sticky-cta {
+		position: fixed;
+		inset: auto 0 0;
+		z-index: 40;
+		display: block;
+		padding: 0.75rem var(--page-margin) calc(0.75rem + env(safe-area-inset-bottom, 0px));
+		background: color-mix(in srgb, var(--white) 88%, transparent);
+		backdrop-filter: blur(12px);
+		border-top: 1px solid color-mix(in srgb, var(--navy) 12%, transparent);
+		transform: translateY(110%);
+		transition: transform 0.5s var(--ease-markea);
+	}
+
+	.sticky-cta.is-visible {
+		transform: none;
+	}
+
+	.sticky-cta .btn {
+		display: flex;
+		justify-content: center;
+		width: 100%;
+		min-height: 2.75rem;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.sticky-cta {
+		transition: none;
 	}
 }
