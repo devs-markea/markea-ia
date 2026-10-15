@@ -35,6 +35,7 @@
  * 31. Section: Formulario
  * 32. Footer
  * 33. Motion (smooth scroll, reveals, loader, menu and button effects)
+ * 34. Mobile refinements (touch targets, input zoom, minimum text size)
  *
  * Colors come from Site Settings > Colores (inline style overrides the base palette in section 2).
  */
@@ -4118,4 +4119,86 @@ html[data-motion='ready'] .projects__grid.is-resizing {
 	color: var(--text-muted, var(--navy));
 	font-size: 1rem;
 	text-align: center;
+}
+
+/* ==========================================================================
+   34. Mobile refinements
+   Below 992 px only: the desktop measures from the Figma stay untouched.
+   - Inputs at 16 px so iOS Safari does not zoom the page on focus.
+   - Touch targets of at least 44 px (WCAG 2.5.5) without changing the visual size: the extra area is padding or a
+     transparent ::after hit zone.
+   - Text never below 12 px.
+   ========================================================================== */
+@media (max-width: 991.98px) {
+	.field input:not([name='website']),
+	.field textarea,
+	.site-footer input[type='email'] {
+		font-size: 1rem; /* 16 px */
+	}
+
+	.field input:not([name='website']) {
+		height: 2.75rem; /* 44 px */
+	}
+
+	.field label,
+	.chips legend,
+	.eyebrow,
+	.site-menu__label,
+	.about__marker,
+	.units__marker,
+	.case__pill,
+	.projects__category,
+	.site-footer__label,
+	.offer__tags li {
+		font-size: 0.75rem; /* 12 px */
+	}
+
+	.site-menu__nav a {
+		display: inline-block;
+		min-height: 2.75rem; /* 44 px */
+		padding-block: 0.25rem;
+	}
+
+	.filters__btn {
+		min-height: 2.75rem; /* 44 px */
+	}
+
+	.chips__item label {
+		padding-block: 0.625rem; /* 10 px: 44 px tall pill */
+	}
+
+	.contact__social {
+		gap: 0.5rem;
+	}
+
+	.contact__social a {
+		position: relative;
+	}
+
+	.contact__social a::after {
+		content: '';
+		position: absolute;
+		inset: -0.25rem; /* 36 px icon -> 44 px hit area */
+	}
+
+	.contact__email,
+	.site-footer__email,
+	.site-footer__social,
+	.site-header__brand {
+		position: relative;
+	}
+
+	.contact__email::after,
+	.site-footer__email::after,
+	.site-footer__social::after,
+	.site-header__brand::after {
+		content: '';
+		position: absolute;
+		inset: -0.625rem -0.25rem; /* grows the hit area vertically to 44 px */
+	}
+
+	.site-footer__news-btn {
+		min-height: 2.75rem;
+		padding-block: 0.625rem;
+	}
 }
