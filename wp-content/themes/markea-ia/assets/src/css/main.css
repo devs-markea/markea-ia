@@ -39,6 +39,7 @@
  * 35. Mobile structure (swipe carousels, sticky CTA)
  * 36. Mobile type scale and menu panel
  * 37. Mobile footer
+ * 38. Mobile heading scale
  *
  * Colors come from Site Settings > Colores (inline style overrides the base palette in section 2).
  */
@@ -4533,5 +4534,47 @@ html[data-motion='ready'] .projects__grid.is-resizing {
 	.site-footer__to-top:hover .site-footer__to-top-icon {
 		background: var(--white);
 		color: var(--navy);
+	}
+}
+
+/* ==========================================================================
+   38. Mobile heading scale
+   Below 992 px every heading uses one of two sizes, so titles read the same from section to section (weights and
+   highlights stay as designed):
+   - h2: section titles, the form title, the menu title and the footer question. 30 px at phone width.
+   - h3: card, step and item titles. 22 px at phone width.
+   The hero title (36 px) and small labels (eyebrows, strategist names) are outside this scale.
+   ========================================================================== */
+@media (max-width: 991.98px) {
+	:root {
+		--fs-h2: clamp(1.875rem, 1.6rem + 1.2vw, 2.75rem);
+		--fs-h3: clamp(1.375rem, 1.2rem + 0.6vw, 1.75rem);
+	}
+
+	.section .section__title, /* beats the per-section overrides such as .mos__header .section__title */
+	.section__title:has(.u-strong),
+	.case__subtitle,
+	.contact__heading,
+	.site-menu__title,
+	.site-footer__question {
+		font-size: var(--fs-h2);
+		line-height: 1.15;
+	}
+
+	.card .card__title,
+	.mos__title,
+	.offer__title,
+	.how__title,
+	.next__step-title,
+	.projects__title,
+	.about__step-title,
+	.site-footer__tagline {
+		font-size: var(--fs-h3);
+		line-height: 1.2;
+	}
+
+	.relevance__heading-item {
+		font-size: 1.125rem; /* 18 px: accordion trigger, one step under h3 */
+		line-height: 1.4;
 	}
 }
