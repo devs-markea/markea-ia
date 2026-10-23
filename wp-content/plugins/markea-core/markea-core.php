@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Markea Core
  * Description: Datos de la landing Markea IA: post types, campos ACF, Site Settings, tracking, leads y seeder.
- * Version: 0.1.0
+ * Version: 0.3.0
  * Requires at least: 6.5
  * Requires PHP: 8.2
  * Author: Markea Agency
@@ -15,7 +15,7 @@ declare( strict_types=1 );
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'MARKEA_CORE_VERSION', '0.1.0' );
+define( 'MARKEA_CORE_VERSION', '0.3.0' );
 define( 'MARKEA_CORE_FILE', __FILE__ );
 define( 'MARKEA_CORE_DIR', plugin_dir_path( __FILE__ ) );
 
