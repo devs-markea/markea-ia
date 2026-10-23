@@ -3,6 +3,7 @@ declare( strict_types=1 );
 
 namespace Markea\Core;
 
+use Markea\Core\Abilities\Abilities;
 use Markea\Core\Cli\SeedCommand;
 use Markea\Core\Fields\ContentFields;
 use Markea\Core\Fields\LandingFields;
@@ -20,8 +21,10 @@ final class Plugin {
 	public static function boot(): void {
 		( new PostTypes() )->register();
 		( new Tracking() )->register();
+		( new Maintenance() )->register();
 		( new LeadEndpoint() )->register();
 		( new LeadAdmin() )->register();
+		( new Abilities() )->register();
 
 		// ACF-dependent modules.
 		add_action( 'acf/init', array( self::class, 'register_fields' ) );

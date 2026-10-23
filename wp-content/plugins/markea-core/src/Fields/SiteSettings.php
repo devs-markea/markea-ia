@@ -68,6 +68,11 @@ final class SiteSettings {
 			$admin( F::text( 'meta_pixel_id', 'ID de Meta Pixel', array( 'instructions' => 'Activar solo cuando el aviso de cookies esté definido.' ) ) ),
 			$admin( F::toggle( 'tracking_prod_only', 'Cargar solo en producción', array( 'default_value' => 1, 'message' => 'Evita contaminar la analítica desde local y staging.' ) ) ),
 
+			$admin( F::tab( 'set_maintenance', 'Mantenimiento' ) ),
+			$admin( F::toggle( 'maintenance_on', 'Activar modo mantenimiento', array( 'message' => 'Los visitantes ven una pantalla de aviso (código 503, sin indexar). Quienes tienen sesión iniciada con permiso para editar páginas siguen viendo el sitio normal.' ) ) ),
+			$admin( F::text( 'maintenance_title', 'Título', array( 'default_value' => 'Estamos mejorando el sitio' ) ) ),
+			$admin( F::textarea( 'maintenance_message', 'Mensaje', array( 'rows' => 3, 'new_lines' => '', 'default_value' => 'Volvemos muy pronto con una nueva versión. Gracias por tu paciencia.', 'instructions' => 'Si hay correo en la pestaña Contacto, se muestra debajo del mensaje.' ) ) ),
+
 			F::tab( 'set_contact', 'Contacto' ),
 			F::email( 'contact_email', 'Correo' ),
 			F::text( 'contact_phone', 'Teléfono' ),
